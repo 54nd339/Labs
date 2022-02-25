@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        *{ box-sizing: border-box; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            justify-content: center;
+            background: url(../dp.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding:15px 15px 15px 15px;
+            margin: 2.5% 35%;
+            border:3px solid rgb(255, 174, 0);
+        }
+        #title {
+            text-align: center;
+            background-image: linear-gradient(90deg,#b700ff,#f5f7fa,#ff0000);
+            color: #0011ff;
+            padding:12px 20px;
+            cursor: pointer;
+            width:100%;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            margin: 5px 0;
+            opacity: 0.85;
+            display: inline-block;
+            font-size: 17px;
+            line-height: 20px;
+        }
+        input:hover { opacity: 1; }
+        input[type=submit], input[type=reset] {
+            width: 49.5%;
+            background-color: #04AA6D;
+            color: white;
+            cursor: pointer;
+        }
+        input[type=submit]:hover, input[type=reset]:hover {
+            background-color: #45a049;
+        }
+        input[type=checkbox], input[type=radio] {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Registration</h1>
+    <form>
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <input type="text" name="Email" placeholder="Email">
+            <input type="text" name="Phone" placeholder="Phone"><br>
+            <table>
+                <tr>
+                    <td rowspan="3">Enter Gender</td> <td rowspan="3">:</td>
+                    <td><input type="radio" name="Gender" value="male"> Male </td>
+                </tr>
+                <tr><td><input type="radio" name="Gender" value="Female"> Female </td></tr>
+                <tr><td><input type="radio" name="Gender" value="Non-Binary"> Prefer Not to Say </td></tr>
+                </table>
+            <input type="date" placeholder="Enter D.O.B"><br>
+            <table>
+                <tr> 
+                    <td rowspan="2">Languages Known</td> <td rowspan="2">:</td>
+                    <td><input type="checkbox" name="Odia" value="Odia"> Odia </td>
+                    <td><input type="checkbox" name="Hindi" value="Hindi"> Hindi </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="English" value="Endlish"> English </td>
+                    <td><input type="checkbox" name="Bangla" value="Bangla"> Bangla </td>
+                </tr>
+            </table>
+            <textarea name="subject" placeholder="Write Your Address.." style="width:100%; height: 190px;"></textarea>
+            <input type="submit" value="Submit">
+            <input type="reset">
+    </form>
+</body>
+</html>
