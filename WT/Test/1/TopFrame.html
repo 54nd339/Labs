@@ -7,33 +7,49 @@
     <title>Link</title>
     <style>
         body {
-            background-image: linear-gradient(90deg,#b700ff,#0cee0c,#ff0000);
+            background: url(dp.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: larger;
+            font-size: xx-large;
             justify-content: center;
-            border:3px solid rgb(255, 174, 0);
-        }
-        table, tr, td, th {
-            empty-cells: show;
-            border: solid #000;
         }
         td{
             width: 400px;
         }
+        input{
+            width: 100%;
+            border: none;
+            opacity: 0.85;
+            display: inline-block;
+            font-size: xx-large;
+            background-color: #04AA6D;
+            color: white;
+            cursor: pointer;
+        }
+        input:hover {
+            background-color: #45a049;
+        }
     </style>
+    <script>
+        function loadFrame() {
+            var frame = document.getElementById('push_frame');
+            frame.src = frame.dataset.src;
+        }
+    </script>
 </head>
 <body>
     <table>
         <tr>
-            <td><b>Logo</b></td>
+            <td align = "center"><img src = "logo.jpg" alt = "my photo" height = "54px" width = "96px" border = "3px solid #555" class = "image"></td>
             <td colspan="4" align="center"><b>Sandeep's Test</b></td>
         </tr>
         <tr>
-            <td><a href="Top/Home.html" target="view"><b>HOME</b></a></li></td>
-            <td><a href="Top/Login.html" target="view"><b>Login</b></a></li></td>
-            <td><a href="Top/Registration.html" target="view"><b>Registration</b></a></li></td>
-            <td><a href="Top/HelpCenter.html" target="view"><b>Help Center</b></a></li></td>
-            <td><a href="Top/Cart.html" target="view"><b>Cart</b></a></li></td>
+            <td align="center"><input type="button" onclick="top.frames['view'].location.href = 'Top/Home.html';" value="HOME"></td>
+            <td align="center"><input type="button" onclick="top.frames['view'].location.href = 'Top/Login.html';" value="LOGIN"></td>
+            <td align="center"><input type="button" onclick="top.frames['view'].location.href = 'Top/Registration.html';" value="REGISTER"></td>
+            <td align="center"><input type="button" onclick="top.frames['view'].location.href = 'Top/HelpCenter.html';" value="HELP CENTER"></td>
+            <td align="center"><input type="button" onclick="top.frames['view'].location.href = 'Top/Cart.html';" value="CART"></td>
         </tr>
     </table>
 </body>

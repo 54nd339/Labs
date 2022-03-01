@@ -7,22 +7,30 @@
     <title>Link</title>
     <style>
         body {
-            background-image: linear-gradient(#b700ff,#0cee0c,#ff0000);
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: large;
             justify-content: center;
             border:3px solid rgb(255, 174, 0);
+        }
+        input{
+            width: 100%;
+            border: none;
+            opacity: 0.85;
+            display: inline-block;
+            font-size: x-large;
+            background-color: #04AA6D;
+            color: white;
+            cursor: pointer;
+        }
+        input:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <ul>
-        <li><a href="Left/Mobile.html" target="view">Mobile</a></li>
-        <li><a href="Left/Electronics.html" target="view">Electronics</a></li>
-        <li><a href="Left/Computers.html" target="view">Computers</a></li>
-        <li><a href="Left/Home_Appliances.html" target="view">Home Appliances</a></li>
-        <li><a href="Left/Books.html" target="view">Books</a></li>
-        <li><a href="Left/Fashion.html" target="view">Fashion</a></li>
-    </ul>
+    <input type="button" onclick="top.frames['view'].location.href = 'Left/Mobile.html';" value="MOBILE"><br>
+    <input type="button" onclick="top.frames['view'].location.href = 'Left/Electronics.html';" value="ELECTRONICS"><br>
+    <input type="button" onclick="top.frames['view'].location.href = 'Left/Computers.html';" value="COMPUTERS"><br>
+    <input type="button" onclick="top.frames['view'].location.href = 'Left/Home_Appliances.html';" value="HOME APPLIANCES"><br>
+    <input type="button" onclick="top.frames['view'].location.href = 'Left/Books.html';" value="BOOKS"><br>
+    <input type="button" onclick="top.frames['view'].location.href = 'Left/Fashion.html';" value="FASHION"><br>
 </body>
 </html>
