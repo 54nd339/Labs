@@ -9,8 +9,7 @@ int cas(){
         return (ch+32);
 }
 int main(){
-    int a;
-    a=cas();
+    int a = cas();
     printf("%c\n",a);
     return 0;
 }

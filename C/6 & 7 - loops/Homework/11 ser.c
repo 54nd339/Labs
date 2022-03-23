@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <math.h>
-int main()
-{
-    int n,a=1,b,i,c=1;
-    printf("Enter the no. of terms:");
-    scanf("%d",&n);
+int main() {
+    printf("Enter the no. of terms : ");
+    int n; scanf("%d",&n);
     printf("Series:\n");
-    for(i=1;i<=n;i++)
-    {
+    for(int i=1, a=1, c=1; i<=n; i++) {
         printf("%d\n",a);
-        b=a;a=b+pow(2,c);
-        c++;
+        a += pow(2,c++);
     }
     return 0;
 }

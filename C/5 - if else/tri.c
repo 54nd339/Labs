@@ -8,11 +8,11 @@ int main(){
     scanf("%f%f",&x2,&y2);
     printf("Enter the coordinate of third point : ");
     scanf("%f%f",&x3,&y3);
-    m1=(x1,y1,x2,y2);
-    m2=(x2,y2,x3,y3);
-    m3=(x3,y3,x1,y1);
+    m1 = (x1,y1,x2,y2);
+    m2 = (x2,y2,x3,y3);
+    m3 = (x3,y3,x1,y1);
     //printf("%f %f %f\n",m1,m2,m3);
-    if ((m1==m2)||(m2==m3)||(m3==m1))
+    if ((m1==m2) || (m2==m3) || (m3==m1))
         printf("Triangle not possible\n");
     else
         printf("Triangle is possible\n");

@@ -1,10 +1,9 @@
 #include <stdio.h>
 int main(){
-    int num,sum,i;
     printf("Perfect no.\n");
-    for(num=2;num<=500;num++){
-        sum=0;
-        for(i=2;i<=num;i++){
+    for(int num=2; num<=500; num++){
+        int sum=0;
+        for(int i=2;i<=num;i++){
             sum+=(!(num%i))*(num/i);
         }
         if (sum==num)

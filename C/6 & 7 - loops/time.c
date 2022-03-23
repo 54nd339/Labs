@@ -6,9 +6,9 @@
 int main(){
     int l=10,i;
     printf("length \t Time period \n");
-    for(i=1;i<=5;i++){
+    for(i=1; i<=5; i++){
         printf("%d \t %f \n",l, t(l));
-        l+=10;
+        l += 10;
     }
     return 0;
 }

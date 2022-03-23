@@ -4,16 +4,16 @@
 #include <stdio.h>
 #include <math.h>
 int main(){
-    int l=10;
+    int l = 10;
     printf("length \t Time period \n");
     printf("%d \t %f \n",l, t(l));
-    l+=10;
+    l += 10;
     printf("%d \t %f \n",l, t(l));
-    l+=10;
+    l += 10;
     printf("%d \t %f \n",l, t(l));
-    l+=10;
+    l += 10;
     printf("%d \t %f \n",l, t(l));
-    l+=10;
+    l += 10;
     printf("%d \t %f \n",l, t(l));
     return 0;
 }

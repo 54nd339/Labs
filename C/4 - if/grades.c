@@ -1,10 +1,9 @@
 #include <stdio.h>
 int main(){
     int m1,m2,m3,m4,m5;
-    float per;
     printf("Enter 5 marks\n");
     scanf("%d%d%d%d%d",&m1,&m2,&m3,&m4,&m5);
-    per=((float)(m1+m2+m3+m4+m5)/500)*100;
+    float per = ((float)(m1+m2+m3+m4+m5)/500)*100;
     if(per>90){
         printf("Percentage: %f, Grade:O\n",per);
         return 0;

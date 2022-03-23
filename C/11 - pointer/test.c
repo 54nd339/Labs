@@ -1,22 +1,21 @@
 #include<stdio.h>
 int main(){
-    int i,j,n,count=0;
-    printf("Enter no. of names: ");
-    scanf("%d",&n);
+    printf("Enter no. of names : ");
+    int n; scanf("%d",&n);
     char ch, name[n][100],(*p)[100];
-    p=name;
+    p = name; int count = 0;
     
-    for(i=0;i<n;i++){   
-        printf("Enter name %d: ",(i+1));
-        scanf("%s",(p+i)); //Accept names
+    for(int i=0; i<n; i++){   
+        printf("Enter name %d : ",(i+1));
+        scanf("%s",(p+i));
     }
     getchar();
-    printf("Enter the charecter to be counted: ");
-    scanf("%c",&ch);     //Accept character
+    printf("Enter the charecter to be counted : ");
+    scanf("%c",&ch);
     
-    for(i=0;i<n;i++)
-        for(j=0;p[i][j];j++)
-            if(p[i][j]==ch){ //Display position
+    for(int i=0; i<n; i++)
+        for(int j=0; p[i][j]; j++)
+            if(p[i][j] == ch){
                 printf("Found at pos %d in %s \n",(j+1),(p+i));
                 count++;
             }

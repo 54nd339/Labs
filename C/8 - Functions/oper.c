@@ -1,9 +1,9 @@
 #include <stdio.h>
 int main(){
     char op; int m,n;
-    printf("Enter an operator +,-,*,/,%%");
+    printf("Enter an operator +,-,*,/,%% : ");
     scanf("%c",&op);
-    printf("Enter 2 operands:");
+    printf("Enter 2 operands : ");
     scanf("%d %d",&m,&n);
     switch(op){
         case '+':

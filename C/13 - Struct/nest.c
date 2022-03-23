@@ -1,6 +1,6 @@
 #include <stdio.h>
 struct address{
-    char phone[15];
+    char phone[10];
     char city[20];
     int pin;
 };
@@ -9,11 +9,10 @@ struct employee{
     struct address adr;
 };
 int main(){
-    int n,i,s=0;
     printf("Enter no. of Employees : ");
-    scanf("%d",&n);
+    int n; scanf("%d",&n);
     struct employee e[n];
-    for(i=0;i<n;i++){
+    for(int i=0; i<n; i++){
         printf("\nEmployee %d :\n",i+1);
         printf("Enter name : ");
         scanf("%s",e[i].name);
@@ -26,7 +25,7 @@ int main(){
     }
     printf("\nEntered Data :\n");
     printf("Name\tPhone\t\tCity\tPin\n");
-    for(i=0;i<n;i++)
+    for(int i=0; i<n; i++)
         printf("%s\t%s\t%s\t%d\n",e[i].name,e[i].adr.phone,e[i].adr.city,e[i].adr.pin);
     return 0;
 }

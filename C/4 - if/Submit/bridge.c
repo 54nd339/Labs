@@ -7,7 +7,7 @@ int main(){
         printf("The wheatstone bridge is balanced\n");
         return 0;
     }
-    s=(q*r)/p;
+    s = (q*r)/p;
     printf("The wheatstone bridge can be balanced with s = %f\n",s);
     return 0;
 }

@@ -1,24 +1,23 @@
 #include<stdio.h>
 int main(){
-    int n,i,max,min,count,j;
     printf("Enter no. of elements : ");
-    scanf("%d",&n);
+    int n; scanf("%d",&n);
     int ar[n];
-    for(i=0;i<n;i++){
+    for(int i=0; i<n; i++){
         printf("Enter element %d : ",i+1);
         scanf("%d",&ar[i]);
     }
-    max=ar[0],min=ar[0];
-    for(i=0;i<n;i++){
-        if(max<ar[i])
-        max=ar[i];
-        if(min>ar[i])
-        min=ar[i];
+    int max = ar[0], min = ar[0];
+    for(int i=1; i<n; i++){
+        if(max < ar[i])
+            max = ar[i];
+        if(min > ar[i])
+            min = ar[i];
     }
-    for(j=min;j<=max;j++){
-        count=0;
-        for(i=0;i<n;i++){
-            if(ar[i]==j){
+    for(int j=min; j<=max; j++){
+        int count = 0;
+        for(int i=0; i<n; i++){
+            if(ar[i] == j){
                 if(count++ && count>1)
                 printf("%dth instance of %d is found at %dth position\n",count,j,i+1);
             }

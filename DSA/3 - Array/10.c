@@ -10,14 +10,14 @@ int main(){
         
     printf("Enter Matrix Elements : \n");
     for (i=0; i<m; ++i)
-        for (j = 0; j < n; ++j)
+        for (j=0; j<n; ++j)
             scanf("%d", &ar[i][j]);
 
     for (i=0; i<m; ++i)
         for (j=0; j<n/2; ++j){
-            temp=ar[i][j];
-            ar[i][j]=ar[i][n-1-j];
-            ar[i][n-1-j]=temp;
+            temp = ar[i][j];
+            ar[i][j] = ar[i][n-1-j];
+            ar[i][n-1-j] = temp;
         }
     
     printf("Output :\n");

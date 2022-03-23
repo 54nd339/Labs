@@ -6,9 +6,8 @@ int fact(int n){
         return (n*fact(n-1));
 }
 int main(){
-    int n;
-    printf("Enter a no.");
-    scanf("%d",&n);
+    printf("Enter a no. : ");
+    int n; scanf("%d",&n);
     printf("Factorial : %d",fact(n));
     return 0;
 }

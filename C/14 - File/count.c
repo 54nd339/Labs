@@ -2,8 +2,8 @@
 int main(){
     FILE *fp;
     char ch;
-    int noc=0,nob=0,not=0,non=0;
-    fp=fopen("sum.c","r");
+    int noc = 0, nob = 0, not = 0, non = 0;
+    fp = fopen("sum.c","r");
     while((ch=fgetc(fp))!=EOF){
         noc++;
         if(ch==' ') nob++;

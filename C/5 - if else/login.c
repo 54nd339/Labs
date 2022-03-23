@@ -1,12 +1,11 @@
 #include <stdio.h>
 int main(){
-    char u; int p;
     printf("Enter username : ");
-    scanf("%c",&u);
-    if (u=='S'){
+    char u; scanf("%c",&u);
+    if (u == 'S'){
         printf("Enter password : ");
-        scanf("%d",&p);
-        if (p==20051025)
+        int p; scanf("%d",&p);
+        if (p == 20051025)
             printf("Login Successful\n");
         else
             printf("Incorrect Password\n");

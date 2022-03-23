@@ -4,10 +4,9 @@
 #include <stdio.h>
 int main(){
     int b1,b2;
-    float area;
     printf("Enter the bases of the trapezium : \n");
     scanf("%d%d",&b1,&b2);
-    area=(float)x*(sum(b1,b2))*h;
+    float area = (float)x*(sum(b1,b2))*h;
     printf("Area of the trapezium is %f %d %f %f\n",x,sum(b1,b2),h,area);
     return 0;
 }
