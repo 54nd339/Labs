@@ -5,7 +5,7 @@ typedef struct {
 int main() {
     printf("Enter No. of processes : ");
     int n; scanf("%d",&n);
-    Process p[n];int wt[n], tat[n];
+    Process p[n]; int wt[n], tat[n];
     
     printf("\nEnter process IDS :\n");
     for(int i=0; i<n; i++){
@@ -19,7 +19,7 @@ int main() {
     
     printf("\nEnter 0 if AT = 0 else anything : ");
     int ch; scanf("%d",&ch);
-    if(ch!=0) {
+    if(ch != 0) {
         printf("Enter Arrival time of all p :\n");
         for(int i=0; i<n; i++)
             scanf("%d",&p[i].at);
@@ -38,7 +38,7 @@ int main() {
         }
     }
     wt[0] = 0;
-    int idle = [0].at, start = p[0].at;
+    int idle = p[0].at, start = p[0].at;
     for (int i = 1; i < n ; i++) {
         start += p[i-1].bt;
         wt[i] = start - p[i].at;

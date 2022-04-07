@@ -17,13 +17,13 @@ class All_rounder : protected Batsman, protected Bowler{
     float b_avg, wpm;
     public:
     All_rounder(){
-        cin>>Batsman::pname>>Batsman::pid>>Batsman::n_match;
-        cin>>n_score>>n_wicket;
+        cin >> Batsman::pname >> Batsman::pid >> Batsman::n_match;
+        cin >> n_score >> n_wicket;
         b_avg = (float)n_score/Batsman::n_match;
         wpm = (float)n_wicket/Batsman::n_match;
     }
     void print(){
-        cout<< b_avg << " "<< wpm << endl;
+        cout << b_avg << " "<< wpm << endl;
     }
 };
 int main(){

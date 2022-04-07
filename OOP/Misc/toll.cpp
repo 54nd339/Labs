@@ -16,14 +16,14 @@ class TollBooth{
         cars++;
     }
     void show(){
-        cout<<"Total Cars Passed : "<<cars<<endl;
-        cout<<"Total amount collected : "<<amount<<endl;
+        cout << "Total Cars Passed : " << cars << endl;
+        cout << "Total amount collected : " << amount << endl;
     }
 };
 int main(){
     TollBooth t;
-    for(int i=1;i<=5;i++){
-        for(int j=1;j<=i;j++)
+    for(int i=1; i<=5; i++){
+        for(int j=1; j<=i; j++)
             t.PayingCar();
         t.nopayCar();
     }

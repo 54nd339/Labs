@@ -4,7 +4,7 @@ class test{
     static int x; int y;
     public:
     test() {
-        x=0; y=0;
+        x = y = 0;
     }
     static void display(){
         cout << x << "\t" << endl;

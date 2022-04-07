@@ -1,4 +1,3 @@
-//20051025 Sandeep
 #include <iostream>
 using namespace std;
 bool check(string s){

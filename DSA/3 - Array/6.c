@@ -6,36 +6,34 @@ void swap(int *x, int *y){
     *y = temp;
 }
 int main(){
-    int m,n,i,j,k;
     printf("Enter the order of the matrix (M x N): ");
-    scanf("%d%d",&m,&n);
+    int m, n; scanf("%d%d",&m,&n);
     int **ar = (int **)malloc(m*sizeof(int *));
-    for(i=0; i<m; i++)
+    for(int i=0; i<m; i++)
         *(ar+i) = (int *)malloc(n*sizeof(int));
 
     printf("Enter Matrix Elements : \n");
-    for(i=0; i<m; i++)
-        for(j=0; j<n; j++)
+    for(int i=0; i<m; i++)
+        for(int j=0; j<n; j++)
             scanf("%d", &ar[i][j]);
 
     //aranging rows in ascending order\n");
-    for(i=0; i<m; i++)
-        for(j=0; j<n; j++)
-            for(k=j+1; k<n; k++)
+    for(int i=0; i<m; i++)
+        for(int j=0; j<n; j++)
+            for(int k=j+1; k<n; k++)
                 if(ar[i][j] > ar[i][k])
                     swap(&ar[i][j],&ar[i][k]);
                     
-    
     //aranging the columns in descending order \n");
-    for(j=0; j<n; j++)
-        for(i=0; i<m; i++)
-            for(k=i+1; k<m; k++)
+    for(int j=0; j<n; j++)
+        for(int i=0; i<m; i++)
+            for(int k=i+1; k<m; k++)
                 if(ar[i][j] < ar[k][j])
                     swap(&ar[i][j],&ar[k][j]);
      
     printf("Output :\n");
-    for(i=0; i<m; i++){
-        for(j=0; j<n; j++)
+    for(int i=0; i<m; i++){
+        for(int j=0; j<n; j++)
             printf("%d ", ar[i][j]);
         printf("\n");
     }

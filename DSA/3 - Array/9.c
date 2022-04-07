@@ -8,7 +8,7 @@ int main(){
     for(int i=0; i<n; i++)
         scanf("%d",ar+i);
 
-    int i=0, j=n-1;
+    int i = 0, j = n-1;
     while(j >= i) {
         if(ar[i] != 0){
             if(ar[j] == 0){

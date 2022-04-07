@@ -22,8 +22,8 @@ int lcm(a A, b B){
 }
 int main(){
     a A(2); b B(3);
-    cout<< "lcm :" << lcm(A, B) <<endl;
-    A=12;
-    cout<< "lcm :" << lcm(A, B) <<endl;
+    cout << "lcm :" << lcm(A, B) <<endl;
+    A = 12;
+    cout << "lcm :" << lcm(A, B) <<endl;
     return 0;
 }

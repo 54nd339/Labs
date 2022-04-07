@@ -6,7 +6,7 @@ int main(){
     ofstream ofs;
     ofs.open("file1.txt", ios::out);
     getline(cin, s);
-    ofs<<s;
+    ofs << s;
     int len = ofs.tellp();
     ofs.close();
 

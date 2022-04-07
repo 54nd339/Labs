@@ -11,7 +11,7 @@ int main(){
     while(len--){
         in.seekg(len, ios::beg);
         in.get(ch);
-        if(ch==' ') break;
+        if(ch == ' ') break;
         out = ch + out;
     }
     cout << out;

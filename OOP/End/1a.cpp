@@ -16,8 +16,7 @@ class B{
 int compare(A fir, B sec){
     return (fir.x > sec.x ? fir.x : sec.x);
 }
-int main()
-{
+int main() {
     A m(5); B n(6);
     cout << compare(m,n);
     return 0;

@@ -1,82 +1,81 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct node{
+typedef struct node{
     int data;
     struct node *prev, *next;
-}*head,*tail;
-int in,count;
+}Node;
+typedef struct list{
+    int count;
+    Node *head, *tail;
+}List;
 
-int isNull(){
-    if(!head){
+void display(List *l){
+    if(!(l->head)){
         printf("Empty List\n");
-        return 1;
+        return;
     }
-    return 0;
-}
-void display(){
-    if(isNull()) return;
-
-    struct node *temp=head;
+    
+    Node *temp = l->head;
     printf("List (from start) : ");
     while(temp){
         printf("%d ",temp->data);
-        temp=temp->next;
-    }
-    printf("\n");
-    temp=tail;
+        temp = temp->next;
+    }printf("\n");
+
+    temp = l->tail;
     printf("List (from end) : ");
     while(temp){
         printf("%d ",temp->data);
-        temp=temp->prev;
-    }
-    printf("\n");
+        temp = temp->prev;
+    }printf("\n");
 }
 
-void create(){
-    head=tail=NULL; count=0;
+void create(List **l){
     printf("Input (-1 to exit) : ");
     while(1){
-        scanf("%d",&in);
+        int in; scanf("%d",&in);
         if(in==-1) break;
-        struct node* new=malloc(sizeof(struct node));
-        new->data=in; count++;
-        new->prev=NULL; new->next=NULL;
-        if(!head){
-            head=new; tail=new;
-        }
+        Node *new = malloc(sizeof(Node));
+        new->data = in; (*l)->count++;
+        new->prev = new->next = NULL;
+        if(!(*l)->head)
+            (*l)->head = new;
         else{
-            tail->next=new;
-            new->prev=tail;
-            tail=new;
+            (*l)->tail->next = new;
+            new->prev = (*l)->tail;
         }
+        (*l)->tail = new;
     }
 }
 
-void reverse(){
-    if(isNull()) return;
-    int n=count,i,tmp;
-    struct node *tmph=head, *tmpt=tail;
-    for(i=0;i<n/2;i++){
-        tmp=tmph->data;
-        tmph->data=tmpt->data;
-        tmpt->data=tmp;
-        tmph=tmph->next;
-        tmpt=tmpt->prev;
+void reverse(List *l){
+    if(l->count == 0) return;
+    int n = l->count, temp;
+    Node *tmph = l->head, *tmpt = l->tail;
+    for(int i=0; i<n/2; i++){
+        temp = tmph->data;
+        tmph->data = tmpt->data;
+        tmpt->data = temp;
+        tmph = tmph->next;
+        tmpt = tmpt->prev;
     }
 }
 
 void main(){
+    List *l = malloc(sizeof(List));
+    l->head = l->tail = NULL;
+    l->count = 0;
     printf("\n1. Create a LL");
     printf("\n2. Display the LL");
     printf("\n3. Reverse the LL");
     printf("\n0. Exit\n");
     while (1){
         printf("\nEnter choice : ");
-        scanf("%d",&in);
-        if(in==1) create();
-        else if(in==2) display();
-        else if(in==3) reverse();
-        else if(in==0) break;
+        int in; scanf("%d",&in);
+        if(in == 1) create(&l);
+        else if(in == 2) display(l);
+        else if(in == 3) reverse(l);
+        else if(in == 0) break;
         else printf("Wrong choice\n");
     }
 }

@@ -25,7 +25,7 @@ void Sort(Process arr[], int n, int f) {
 }
 int ind(Process p[], int n, int ele){
     for(int i=0; i<n;i++)
-        if(ele==p[i].id)
+        if(ele == p[i].id)
             return i;
 }
 
@@ -53,18 +53,18 @@ int main() {
             scanf("%d",&p[i].at);
         Sort(p, n, 2);
 
-		int sum=p[0].at+p[0].bt;
+		int sum = p[0].at + p[0].bt;
 		for(int i=1, j; i<n; i++){
-			int count=0;
+			int count = 0;
 			for(j=i; j<n; j++){
-				if(p[j].at>sum){
+				if(p[j].at > sum){
                     last:
 					Sort(wait, count, 1);
                     int in = ind(p, n, wait[0].id);
                     swap(&p[i],&p[in]);
 					break;
 				}
-                wait[count++]=p[j];
+                wait[count++] = p[j];
                 if(j==n-1) goto last;
 			}
             if(j==n) break;

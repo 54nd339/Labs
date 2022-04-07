@@ -1,4 +1,3 @@
-//20051025 Sandeep
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -10,7 +9,6 @@ int main(){
     getline(cin, s); ofs << s;
     int len = ofs.tellp();
     ofs.close();
-
     ifstream in; char ch;
     in.open("file.txt", ios::in);
     in.seekg(0, ios::end);

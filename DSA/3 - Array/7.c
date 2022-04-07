@@ -5,7 +5,7 @@ int main(){
     int n; scanf("%d",&n);
     int *ar = (int *)malloc(n*sizeof(int));
     printf("Enter array elements : ");
-    for(int i=0;i<n;i++)
+    for(int i=0; i<n; i++)
         scanf("%d",ar+i);
     printf("Enter k : ");
     int k; scanf("%d",&k);

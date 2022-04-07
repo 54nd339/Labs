@@ -6,122 +6,121 @@ struct node{
 }*head;
     
 void display(){
-    if(head==NULL){
-        printf("Empty List\n");return;
+    if(head == NULL){
+        printf("Empty List\n"); return;
     }
-    struct node *temp=head;
+    struct node *temp = head;
     printf("List : ");
     while(temp){
         printf("%d ",temp->data);
-        temp=temp->link;
+        temp = temp->link;
     }
 }
 void create(){
-    struct node *temp,*new; int in;
+    struct node *temp;
     printf("Input (-1 to exit) : ");
     while(1){
-        scanf("%d",&in);
-        if(in==-1) break;
-        new=(struct node *)malloc(sizeof(struct node));    
+        int in; scanf("%d",&in);
+        if(in == -1) break;
+        struct node *new = malloc(sizeof(struct node));    
         new->data = in; new->link = NULL;
-        if(head == NULL) {
-            head = new; temp = new;
-        }
-        else{
-            temp->link = new; temp = new;
-        }
+        if(head == NULL)
+            head = new;
+        else
+            temp->link = new;
+        temp = new;
     }
     display();
 }
 void isnull(){
-    printf(head==NULL?"null":"not empty");
+    printf(head == NULL ? "null" : "not empty");
 }
+
 void insbeg(){
 	struct node* new = malloc(sizeof(struct node));
 	printf("Enter data : ");
 	scanf("%d",&new->data);
-	new->link = head;
-	head = new;
+    new->link = head; head = new;
     display();
 }
 void insend(){
 	struct node *temp, *new = malloc(sizeof(struct node));
 	printf("Enter data : ");
 	scanf("%d", &new->data);
-    new->link=NULL; temp=head;
-	while(temp->link) temp=temp->link;
-	temp->link=new;
+    new->link = NULL; temp = head;
+	while(temp->link) temp = temp->link;
+	temp->link = new;
     display();
 }
+
 void delbeg(){
-	struct node* temp;
-	if (head==NULL)
+	if (head == NULL)
 		printf("\nList is empty\n");
 	else {
-		temp=head;
-		head=head->link;
+		struct node *temp = head;
+		head = head->link;
 		free(temp);
 	}
     display();
 }
 void delend(){
-	struct node *temp, *prev;
 	if (head == NULL)
 		printf("\nList is Empty\n");
 	else {
-		temp=head;
+        struct node *prev, *temp = head;
 		while (temp->link) {
-			prev=temp;
-			temp=temp->link;
+			prev = temp;
+			temp = temp->link;
 		}
 		free(temp);
 		prev->link = NULL;
 	}
     display();
 }
+
 void count(){
-    int c=0;
+    int c = 0;
     struct node *temp=head;
     while(temp){
-        c++;
-        temp=temp->link;
+        temp = temp->link; c++;
     }
     printf("Count : %d",c);
 }
 void oddeve(){
-    int co=0,ce=0;
-    struct node *temp=head;
+    int co = 0, ce = 0;
+    struct node *temp = head;
     while(temp){
-        int n=temp->data;
-        (n%2)? co++ : ce++;
-        temp=temp->link;
+        int n = temp->data;
+        (n%2) ? co++ : ce++;
+        temp = temp->link;
     }
     printf("No. of odd elements : %d", co);
     printf("\nNo. of even elements : %d", ce);
 }
-int isPrime(int n,int i){
+
+int isPrime(int n, int i){
     if(n==2 || i*i>n) return 1;
     if(n>1 && n%i) return 0;
-    return isPrime(n,i+1);
+    return isPrime(n, i+1);
 }
 void prime(){
-    int c=0;
-    struct node *temp=head;
+    int c = 0;
+    struct node *temp = head;
     while(temp){
         if(isPrime(temp->data,2))
             c++;
-        temp=temp->link;
+        temp = temp->link;
     }
     printf("No. of prime elements : %d", c);
 }
 int isPalin(struct node **left, struct node *right){
-    if (right==NULL) return 1;
-    int result=isPalin(left, right->link) && ((*left)->data==right->data);
-    (*left)=(*left)->link; 
+    if (right == NULL) return 1;
+    int result = isPalin(left, right->link) && ((*left)->data==right->data);
+    (*left) = (*left)->link; 
     return result;
 }
+
 int main(){
-    int n=0,ch;
     printf("\n1. Create link list");
     printf("\n2. Traverse the list");
     printf("\n3. Check if list is empty");
@@ -136,7 +135,7 @@ int main(){
     printf("\n0. Exit");
     while(1){
         printf("\n\nEnter your choice : ");
-        scanf("%d",&ch);
+        int ch; scanf("%d",&ch);
         if(ch==1) create();
         else if(ch==2) display();
         else if(ch==3) isnull();
@@ -147,9 +146,10 @@ int main(){
         else if(ch==8) count();
         else if(ch==9) oddeve();
         else if(ch==10) prime();
-        else if(ch==11) printf(isPalin(&head,head)?"Palindrome":"Not Palindrome");
+        else if(ch==11)
+            printf(isPalin(&head,head) ? "Palindrome" : "Not Palindrome");
         else if(ch==0) break;
         else printf("Wrong Input\n");
     }
     return 0;
-}//Sandeep 20051025
+}

@@ -5,37 +5,37 @@ class Book{
     string title, author;
     float price;
     Book(){
-        cout<<"Enter Title, author, price : ";
-        cin>>title>>author>>price;
+        cout << "Enter Title, author, price : ";
+        cin >> title >> author >> price;
     }
     void display(){
-        cout<<"Title : "<<title<<endl;
-        cout<<"Author : "<<author<<endl;
-        cout<<"price : "<<price<<endl;
+        cout << "Title : " << title << endl;
+        cout << "Author : " << author << endl;
+        cout << "price : " << price << endl;
     }
 };
 class Print_Book: protected Book{
     int n_pages;
     public :
     Print_Book(){
-        cout<<"Enter No. of pages : ";
-        cin>>n_pages;
+        cout << "Enter No. of pages : ";
+        cin >> n_pages;
     }
     void display(){
         Book::display();
-        cout<<"No. of Pages : "<<n_pages<<endl;
+        cout << "No. of Pages : " << n_pages << endl;
     }
 };
 class E_Book: protected Book{
     int sizes;
     public :
     E_Book(){
-        cout<<"Enter Size : ";
-        cin>>sizes;
+        cout << "Enter Size : ";
+        cin >> sizes;
     }
     void display(){
         Book::display();
-        cout<<"Size : "<<sizes<<endl;
+        cout << "Size : " << sizes << endl;
     }
 };
 int main(){

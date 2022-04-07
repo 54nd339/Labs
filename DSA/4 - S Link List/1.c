@@ -1,14 +1,13 @@
 #include <stdio.h>
 struct employee{
     char gender, name[20], desig[20], dept[20];
-    float basic,hr,da,gross;
+    float basic, hr, da, gross;
 };
 int main(){
-    int n,i;
     printf("Enter no. of employees : ");
-    scanf("%d",&n);
+    int n; scanf("%d",&n);
     struct employee e[n];
-    for(i=0;i<n;i++){
+    for(int i=0; i<n; i++){
         printf("\nEnter details of employee %d :\n",i+1);
         printf("Name : ");
         scanf("%s",e[i].name); 
@@ -25,7 +24,7 @@ int main(){
         e[i].gross=e[i].basic+e[i].hr+e[i].da;
     }
     printf("\nEmployee Name.\tGross Pay\n");
-    for(i=0;i<n;i++)
+    for(int i=0; i<n; i++)
         printf("%s\t\t%.2f\n",e[i].name,e[i].gross);
     return 0;
-}//Sandeep 20051025
+}

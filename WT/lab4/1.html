@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In @ WTBOOK</title>
+    <style>
+        *{ box-sizing: border-box; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            justify-content: center;
+            background: url(dp.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding:15px 15px 15px 15px;
+            margin: 4% 29%;
+            border:3px solid rgb(255, 174, 0);
+        }
+        #title {
+            text-align: center;
+            background-image: linear-gradient(90deg,#b700ff,#f5f7fa,#ff0000);
+            color: #0011ff;
+            padding:12px 20px;
+            cursor: pointer;
+            width:100%;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            margin: 5px 0;
+            opacity: 0.85;
+            display: inline-block;
+            font-size: 17px;
+            line-height: 20px;
+        }
+        input:hover { opacity: 1; }
+        input[type=checkbox], input[type=radio] {
+            width: auto;
+        }
+        input[type=submit], input[type=reset], input[type=button] {
+            background-color: #04AA6D;
+            color: white;
+            cursor: pointer;
+        }
+        input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
+            background-color: #45a049;
+        }
+        .col {
+            float: left;
+            width: 50%;
+            margin: auto;
+            padding: 0 50px;
+            margin-top: 6px;
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .vl {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            border: 2px solid #ddd;
+            height: 55%;
+        }
+        .vl-innertext {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            padding: 8px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">SIGN IN HERE</h1>
+    <p style="text-align: center;"><strong>FILL & SPREAD LOVE!</strong></p>
+    <form>
+        <div class="row">
+            <h2 style="text-align:center">Login or signUp</h2>
+            <div class="vl">
+                <span class="vl-innertext">or</span>
+            </div>
+            <div class="col" align="center">
+                <div class="row">
+                    <input type="text" name="username" placeholder="Username">
+                    <input type="password" name="password" placeholder="Password">
+                    <input type="submit" value="Login">
+                </div>
+                <br><hr width="100%">
+                <h3 style="text-align:center">Any Feedback</h3>
+                <div class="row">
+                    <textarea name="subject" placeholder="Write something.." style="width:100%; height: 185px;"></textarea>
+                    <select name="country"">    
+                        <option value="none">Select Country</option>    
+                        <option value="australia">Australia</option>    
+                        <option value="canada">Canada</option>    
+                        <option value="usa">USA</option>    
+                        <option value="russia">Russia</option>    
+                        <option value="japan">Japan</option>    
+                        <option value="india">India</option>    
+                        <option value="china">China</option>    
+                    </select>
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+            <div class="col" align="center">
+                <input type="text" placeholder="Enter UserName"  name="name"><br>
+                <input type="email" placeholder="Enter Email" name="email"><br>
+                <input type="tel" placeholder="Enter Phone Number" name="phone"><br>
+                <input type="date" placeholder="Enter D.O.B"><br>
+                <table>
+                    <tr>
+                        <td rowspan="3">Enter Gender</td> <td rowspan="3">:</td>
+                        <td colspan="2"><input type="radio" name="Gender" value="male"> Male </td>
+                    </tr>
+                    <tr><td  colspan="2"><input type="radio" name="Gender" value="Female"> Female </td></tr>
+                    <tr><td  colspan="2"><input type="radio" name="Gender" value="Non-Binary"> Prefer Not to Say </td></tr>
+                    <tr> 
+                        <td rowspan="3">Enter Interests</td> <td rowspan="3">:</td>
+                        <td><input type="checkbox" name="Sports" value="Sports"> Sports </td>
+                        <td><input type="checkbox" name="News" value="News"> News </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="Science" value="Science"> Science </td>
+                        <td><input type="checkbox" name="Movies" value="Movies"> Movies </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="Fashion" value="Fashion"> Fashion </td>
+                        <td><input type="checkbox" name="Music" value="Music"> Music </td>        
+                    </tr>
+                </table>
+                <input type="password" name="password" placeholder="Enter Password">
+                <input type="submit" value="Sign Up"> 
+                <input type="button" onclick="location.href='https://github.com/login'" value="Sign in using GITHUB">
+            </div>
+        </div>
+        <input type="reset">
+    </form>
+</body>
+</html>

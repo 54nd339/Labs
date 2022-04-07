@@ -16,10 +16,10 @@ class xyz{
         cout << x << endl;
     }
 };
+
 int main(){
     xyz a, b;
-    a.set();
-    b=a;
+    a.set(); b = a;
     cout<<"ouput a : ";
     a.show();
     cout<<"ouput b : ";

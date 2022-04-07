@@ -7,9 +7,8 @@ int lcm(int a, int b){
     return (a/gcd(a, b)) * b;
 }
 int main(){
-    int x, y;
     printf("Enter 2 nos. : ");
-    scanf("%d%d",&x,&y);
+    int x, y; scanf("%d%d",&x,&y);
     printf("LCM of %d and %d is %d ", x, y, lcm(x, y));
     return 0;
 }
