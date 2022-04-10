@@ -11,4 +11,4 @@ lab 10 - Queue Applications\
 lab 11 - Stack Applications\
 lab 12 - Binary Search Tree\
 lab 13 - BST Applications\
-lab 14 - AVL\
+lab 14 - AVL
