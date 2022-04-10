@@ -11,4 +11,4 @@ lab 10 - String\
 lab 11 - Pointer\
 lab 12 - Dynamic Memory Allocation\
 lab 13 - Struct\
-lab 14 - File Handling\
+lab 14 - File Handling
