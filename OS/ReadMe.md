@@ -5,4 +5,6 @@ lab 3 - Loops\
 lab 4 - Arrays\
 lab 5 - FCFS\
 lab 6 - RR, SJF, SRTF\
-lab 7 - Prioriry (Preemptive)
+lab 7 - Prioriry (Preemptive)\
+lab 8 - Fork()\
+lab 9 - Pipe()
