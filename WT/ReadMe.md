@@ -6,4 +6,5 @@ lab 5 - Java Basics\
 lab 6 - Functions, Constructor, Inheritance\
 lab 7 - Interface, Abstract, Packages\
 lab 8 - Exception Handling\
-lab 9 - String
+lab 9 - String\
+lab 10 - Applet
