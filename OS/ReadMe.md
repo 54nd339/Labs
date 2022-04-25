@@ -7,4 +7,5 @@ lab 5 - FCFS\
 lab 6 - RR, SJF, SRTF\
 lab 7 - Prioriry (Preemptive)\
 lab 8 - Fork()\
-lab 9 - Pipe()
+lab 9 - Pipe()\
+lab 10 - InterProcessCommunication
