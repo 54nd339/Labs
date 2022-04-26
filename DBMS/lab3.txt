@@ -1,0 +1,370 @@
+SQL> connect sandeep25/kiit
+Connected.
+SQL> spool lab3
+SQL> create table item(itemno number(4),name varchar(20),qty number(5),catregory char(1),unit char(4),reorder number(5),reorderq number(5),rate number(8,2));
+
+Table created.
+
+SQL> desc item
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                             NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                            NUMBER(5)
+ REORDERQ                                           NUMBER(5)
+ RATE                                               NUMBER(8,2)
+
+SQL> create table item1(itemno number(4) not null,name varchar(20),qty number(5),catregory char(1),unit char(4),reorder number(5) not null,reorderq number(5) not null,rate number(8,2) not null);
+
+Table created.
+
+SQL> desc item1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+
+SQL> create table item2(itemno number(4) constraint c99 not null,name varchar(20),qty number(5),catregory char(1),unit char(4),reorder number(5),reorderq number(5),rate number(8));
+
+Table created.
+
+SQL> desc item2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                            NUMBER(5)
+ REORDERQ                                           NUMBER(5)
+ RATE                                               NUMBER(8)
+
+
+SQL> create table item3(itemno number(4) constraint c11 not null,name varchar(20),qty number(5),catregory char(1),unit char(4),reorder number(5) constraint c21  not null,reorderq number(5) constraint c32 not null,rate number(8));
+
+Table created.
+
+SQL> desc item3
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                               NUMBER(8)
+
+
+SQL> alter table item3 drop constraint c21;
+
+Table altered.
+
+SQL> desc item3
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                            NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                               NUMBER(8)
+
+SQL> create table item4(itemno number(4) constraint c12 not null,name varchar(20) unique,qty number(5),catregory char(1),unit char(4),reorder number(5) constraint c22  not null,reorderq number(5) constraint c33 not null,rate number(8));
+
+Table created.
+
+SQL> desc item4
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                               NUMBER(8)
+
+
+
+SQL> create table item5(itemno number(4) not null,name varchar(20),qty number(5),catregory char(1),unit char(4),reorder number(5) not null,reorderq number(5) not null,rate number(8,2) not null,constraint ce1 unique(name));
+
+Table created.
+
+SQL> desc item5
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+
+SQL> alter table item5 add constraint ce2 unique(unit);
+
+Table altered.
+
+SQL> desc item5
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+SQL> alter table item5 drop constraint ce2;
+
+Table altered.
+
+SQL> desc item5
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+SQL> alter table item5 add constraint ce2 primary key(unit);
+
+Table altered.
+
+SQL> desc item5
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                      NOT NULL CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+
+
+SQL> create table item6(itemno number(4) not null,name varchar(20) unique,qty number(5),catregory char(1),unit char(4),reorder number(5) not null,reorderq number(5) not null,rate number(8,2) not null,constraint ce3 primary key(itemno));
+
+Table created.
+
+SQL> desc item6
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+SQL> alter table item6 drop primary key;
+
+Table altered.
+
+
+SQL> create table item7(itemno number(4) not null,name varchar(20) unique,qty number(5),catregory char(1),unit char(4),reorder number(5) not null,reorderq number(5) not null,rate number(8,2) not null,constraint ce4 primary key(itemno));
+
+Table created.
+
+SQL> alter table item7 drop constraint ce4;
+
+Table altered.
+
+SQL> desc item7
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+
+SQL> desc s1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL                                               NUMBER(38)
+ NAME                                               VARCHAR2(15)
+ CGPA                                               NUMBER(4,2)
+
+SQL> CREATE TABLE ITEM_TRANS(It_no NUMBER(4),trans_date DATE,qty number(5));
+
+Table created.
+
+SQL> desc item_trans
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IT_NO                                              NUMBER(4)
+ TRANS_DATE                                         DATE
+ QTY                                                NUMBER(5)
+
+SQL> desc item6
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+
+SQL> CREATE TABLE ITEM_TRANS1(It_no NUMBER(4) primary key,trans_date DATE,qty number(5));
+
+Table created.
+
+SQL> desc item_trans1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IT_NO                                     NOT NULL NUMBER(4)
+ TRANS_DATE                                         DATE
+ QTY                                                NUMBER(5)
+
+SQL> desc item6
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+
+SQL> desc item7
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+
+SQL> create table item8(itemno number(4) not null,name varchar(20) unique,qty number(5),catregory char(1),unit char(4),reorder number(5) not null,reorderq number(5) not null,rate number(8,2) not null,constraint ce5 primary key(itemno));
+
+Table created.
+
+SQL> desc item8
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(20)
+ QTY                                                NUMBER(5)
+ CATREGORY                                          CHAR(1)
+ UNIT                                               CHAR(4)
+ REORDER                                   NOT NULL NUMBER(5)
+ REORDERQ                                  NOT NULL NUMBER(5)
+ RATE                                      NOT NULL NUMBER(8,2)
+
+SQL>  ALTER TABLE ITEM_TRANS1 ADD CONSTRAINT T1 FOREIGN KEY(It_no) REFERENCES ITEM8(itemno);
+
+Table altered.
+
+SQL> desc item_trans1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IT_NO                                     NOT NULL NUMBER(4)
+ TRANS_DATE                                         DATE
+ QTY                                                NUMBER(5)
+
+SQL> ALTER TABLE ITEM_TRANS1 ADD Category varchar(1);
+
+Table altered.
+
+SQL> desc item_trans1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IT_NO                                     NOT NULL NUMBER(4)
+ TRANS_DATE                                         DATE
+ QTY                                                NUMBER(5)
+ CATEGORY                                           VARCHAR2(1)
+
+SQL> ALTER TABLE ITEM_TRANS1 ADD CONSTRAINT T2 CHECK(Category in('A', 'B', 'C'));
+
+Table altered.
+
+SQL> desc item_trans1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IT_NO                                     NOT NULL NUMBER(4)
+ TRANS_DATE                                         DATE
+ QTY                                                NUMBER(5)
+ CATEGORY                                           VARCHAR2(1)
+
+SQL>  ALTER TABLE ITEM_TRANS ADD Qty_on_hand NUMBER(5) DEFAULT 100 CHECK(Qty_on_hand>=100);
+
+Table altered.
+
+SQL> desc item_trans1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IT_NO                                     NOT NULL NUMBER(4)
+ TRANS_DATE                                         DATE
+ QTY                                                NUMBER(5)
+ CATEGORY                                           VARCHAR2(1)
+
+SQL>  ALTER TABLE ITEM_TRANS1 ADD Qty_on_hand NUMBER(5) DEFAULT 100 CHECK(Qty_on_hand>=100);
+
+Table altered.
+
+SQL> desc item_trans1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ IT_NO                                     NOT NULL NUMBER(4)
+ TRANS_DATE                                         DATE
+ QTY                                                NUMBER(5)
+ CATEGORY                                           VARCHAR2(1)
+ QTY_ON_HAND                                        NUMBER(5)
+
+SQL> select *from ITEM_TRANS;
+
+no rows selected
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off
+
+Name - Sandeep Kumar Swain
+Roll - 20051025
+Section - CSE-13

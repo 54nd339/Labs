@@ -1,0 +1,347 @@
+SQL> connect sandeep25
+Connected.
+SQL> CREATE TABLE STUDENT2(Roll NUMBER(3), Name VARCHAR(10), City VARCHAR(15), Age NUMBER(2), CGPA NUMBER(4,2));
+
+Table created.
+
+SQL> DESC STUDENT2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL                                               NUMBER(3)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ CGPA                                               NUMBER(4,2)
+
+SQL> INSERT INTO STUDENT2 VALUES (101, 'Ram', 'Bhubaneswar', 19, 9.0);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2(Roll, Name, City, CGPA) VALUES (102, 'Hari', 'Bhubaneswar', 6.7);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES (103, 'Uday', 'Jharkhand', 20, 8.97);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES (104, 'Vikas', 'Uttar Pradesh', 19, 8.5);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES (105, 'Sweta', 'Ranchi', 19, 9.2);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES (106, 'Yogesh', 'Rajastan', 18, 7.9);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES (210, 'Smriti', 'Delhi', 20, 8.99);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES (211, 'Sudam', 'Cuttack', 21, 8.6);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2 VALUES (212, 'Vikas', 'Kolkota', 23, 5.98);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT2(Roll, Name, Age, CGPA) VALUES (165, 'Manish', 19, 9.15);
+
+1 row created.
+
+SQL> SELECT Roll, CGPA FROM STUDENT2;
+
+      ROLL       CGPA                                                           
+---------- ----------                                                           
+       101          9                                                           
+       102        6.7                                                           
+       103       8.97                                                           
+       104        8.5                                                           
+       105        9.2                                                           
+       106        7.9                                                           
+       210       8.99                                                           
+       211        8.6                                                           
+       212       5.98                                                           
+       165       9.15                                                           
+
+10 rows selected.
+
+SQL> SELECT DISTINCT City FROM STUDENT2;
+
+CITY                                                                            
+---------------                                                                 
+                                                                                
+Kolkota                                                                         
+Jharkhand                                                                       
+Delhi                                                                           
+Ranchi                                                                          
+Bhubaneswar                                                                     
+Uttar Pradesh                                                                   
+Rajastan                                                                        
+Cuttack                                                                         
+
+9 rows selected.
+
+SQL> SELECT Name, Age, Age+3 "Passing Age" FROM STUDENT2;
+
+NAME              AGE Passing Age                                               
+---------- ---------- -----------                                               
+Ram                19          22                                               
+Hari                                                                            
+Uday               20          23                                               
+Vikas              19          22                                               
+Sweta              19          22                                               
+Yogesh             18          21                                               
+Smriti             20          23                                               
+Sudam              21          24                                               
+Vikas              23          26                                               
+Manish             19          22                                               
+
+10 rows selected.
+
+SQL> SELECT Name||' '||City AS "Address" FROM STUDENT2;
+
+Address                                                                         
+--------------------------                                                      
+Ram Bhubaneswar                                                                 
+Hari Bhubaneswar                                                                
+Uday Jharkhand                                                                  
+Vikas Uttar Pradesh                                                             
+Sweta Ranchi                                                                    
+Yogesh Rajastan                                                                 
+Smriti Delhi                                                                    
+Sudam Cuttack                                                                   
+Vikas Kolkota                                                                   
+Manish                                                                          
+
+10 rows selected.
+
+SQL> SELECT * FROM STUDENT2 WHERE city='Bhubaneswar';
+
+      ROLL NAME       CITY                   AGE       CGPA                     
+---------- ---------- --------------- ---------- ----------                     
+       101 Ram        Bhubaneswar             19          9                     
+       102 Hari       Bhubaneswar                       6.7                     
+
+SQL> SELECT * FROM STUDENT2 WHERE age>=20 OR city='Bhubaneswar';
+
+      ROLL NAME       CITY                   AGE       CGPA                     
+---------- ---------- --------------- ---------- ----------                     
+       101 Ram        Bhubaneswar             19          9                     
+       102 Hari       Bhubaneswar                       6.7                     
+       103 Uday       Jharkhand               20       8.97                     
+       210 Smriti     Delhi                   20       8.99                     
+       211 Sudam      Cuttack                 21        8.6                     
+       212 Vikas      Kolkota                 23       5.98                     
+
+6 rows selected.
+
+SQL> SELECT * FROM STUDENT2 WHERE Name LIKE 'S%';
+
+      ROLL NAME       CITY                   AGE       CGPA                     
+---------- ---------- --------------- ---------- ----------                     
+       105 Sweta      Ranchi                  19        9.2                     
+       210 Smriti     Delhi                   20       8.99                     
+       211 Sudam      Cuttack                 21        8.6                     
+
+SQL> SELECT * FROM STUDENT2 ORDER By CGPA, Age DESC;
+
+      ROLL NAME       CITY                   AGE       CGPA                     
+---------- ---------- --------------- ---------- ----------                     
+       212 Vikas      Kolkota                 23       5.98                     
+       102 Hari       Bhubaneswar                       6.7                     
+       106 Yogesh     Rajastan                18        7.9                     
+       104 Vikas      Uttar Pradesh           19        8.5                     
+       211 Sudam      Cuttack                 21        8.6                     
+       103 Uday       Jharkhand               20       8.97                     
+       210 Smriti     Delhi                   20       8.99                     
+       101 Ram        Bhubaneswar             19          9                     
+       165 Manish                             19       9.15                     
+       105 Sweta      Ranchi                  19        9.2                     
+
+10 rows selected.
+
+SQL> ALTER TABLE STUDENT2 ADD(Gender CHAR(1));
+
+Table altered.
+
+SQL> DESC STUDENT2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL                                               NUMBER(3)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ CGPA                                               NUMBER(4,2)
+ GENDER                                             CHAR(1)
+
+SQL> ALTER TABLE STUDENT2 MODIFY(Gender CHAR(4));
+
+Table altered.
+
+SQL> DESC STUDENT2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL                                               NUMBER(3)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ CGPA                                               NUMBER(4,2)
+ GENDER                                             CHAR(4)
+
+SQL> ALTER TABLE STUDENT2 DROP COLUMN Gender;
+
+Table altered.
+
+SQL> DESC STUDENT2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL                                               NUMBER(3)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ CGPA                                               NUMBER(4,2)
+
+SQL> ALTER TABLE STUDENT2 RENAME COLUMN Roll to ID;
+
+Table altered.
+
+SQL> DESC STUDENT2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(3)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ CGPA                                               NUMBER(4,2)
+
+SQL> ALTER TABLE STUDENT2 ADD(Branch VARCHAR(3));
+
+Table altered.
+
+SQL> DESC STUDENT2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(3)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ CGPA                                               NUMBER(4,2)
+ BRANCH                                             VARCHAR2(3)
+
+SQL> UPDATE STUDENT2 SET Branch='CSE';
+
+10 rows updated.
+
+SQL> SELECT * FROM STUDENT2;
+
+        ID NAME       CITY                   AGE       CGPA BRA                 
+---------- ---------- --------------- ---------- ---------- ---                 
+       101 Ram        Bhubaneswar             19          9 CSE                 
+       102 Hari       Bhubaneswar                       6.7 CSE                 
+       103 Uday       Jharkhand               20       8.97 CSE                 
+       104 Vikas      Uttar Pradesh           19        8.5 CSE                 
+       105 Sweta      Ranchi                  19        9.2 CSE                 
+       106 Yogesh     Rajastan                18        7.9 CSE                 
+       210 Smriti     Delhi                   20       8.99 CSE                 
+       211 Sudam      Cuttack                 21        8.6 CSE                 
+       212 Vikas      Kolkota                 23       5.98 CSE                 
+       165 Manish                             19       9.15 CSE                 
+
+10 rows selected.
+
+SQL> UPDATE STUDENT2 SET Branch='IT' WHERE ID>200;
+
+3 rows updated.
+
+SQL> SELECT * FROM STUDENT2;
+
+        ID NAME       CITY                   AGE       CGPA BRA                 
+---------- ---------- --------------- ---------- ---------- ---                 
+       101 Ram        Bhubaneswar             19          9 CSE                 
+       102 Hari       Bhubaneswar                       6.7 CSE                 
+       103 Uday       Jharkhand               20       8.97 CSE                 
+       104 Vikas      Uttar Pradesh           19        8.5 CSE                 
+       105 Sweta      Ranchi                  19        9.2 CSE                 
+       106 Yogesh     Rajastan                18        7.9 CSE                 
+       210 Smriti     Delhi                   20       8.99 IT                  
+       211 Sudam      Cuttack                 21        8.6 IT                  
+       212 Vikas      Kolkota                 23       5.98 IT                  
+       165 Manish                             19       9.15 CSE                 
+
+10 rows selected.
+
+SQL> UPDATE STUDENT2 SET Branch='EEE' WHERE ID BETWEEN 150 AND 200;
+
+1 row updated.
+
+SQL> SELECT * FROM STUDENT2;
+
+        ID NAME       CITY                   AGE       CGPA BRA                 
+---------- ---------- --------------- ---------- ---------- ---                 
+       101 Ram        Bhubaneswar             19          9 CSE                 
+       102 Hari       Bhubaneswar                       6.7 CSE                 
+       103 Uday       Jharkhand               20       8.97 CSE                 
+       104 Vikas      Uttar Pradesh           19        8.5 CSE                 
+       105 Sweta      Ranchi                  19        9.2 CSE                 
+       106 Yogesh     Rajastan                18        7.9 CSE                 
+       210 Smriti     Delhi                   20       8.99 IT                  
+       211 Sudam      Cuttack                 21        8.6 IT                  
+       212 Vikas      Kolkota                 23       5.98 IT                  
+       165 Manish                             19       9.15 EEE                 
+
+10 rows selected.
+
+SQL> RENAME STUDENT2 TO S2;
+
+Table renamed.
+
+SQL> CREATE TABLE STUDENT2(ID, Name, CGPA) AS SELECT ID, Name, CGPA FROM S2;
+
+Table created.
+
+SQL> SELECT * FROM STUDENT2;
+
+        ID NAME             CGPA                                                
+---------- ---------- ----------                                                
+       101 Ram                 9                                                
+       102 Hari              6.7                                                
+       103 Uday             8.97                                                
+       104 Vikas             8.5                                                
+       105 Sweta             9.2                                                
+       106 Yogesh            7.9                                                
+       210 Smriti           8.99                                                
+       211 Sudam             8.6                                                
+       212 Vikas            5.98                                                
+       165 Manish           9.15                                                
+
+10 rows selected.
+
+SQL> SELECT * FROM S2;
+
+        ID NAME       CITY                   AGE       CGPA BRA                 
+---------- ---------- --------------- ---------- ---------- ---                 
+       101 Ram        Bhubaneswar             19          9 CSE                 
+       102 Hari       Bhubaneswar                       6.7 CSE                 
+       103 Uday       Jharkhand               20       8.97 CSE                 
+       104 Vikas      Uttar Pradesh           19        8.5 CSE                 
+       105 Sweta      Ranchi                  19        9.2 CSE                 
+       106 Yogesh     Rajastan                18        7.9 CSE                 
+       210 Smriti     Delhi                   20       8.99 IT                  
+       211 Sudam      Cuttack                 21        8.6 IT                  
+       212 Vikas      Kolkota                 23       5.98 IT                  
+       165 Manish                             19       9.15 EEE                 
+
+10 rows selected.
+
+SQL> commit
+
+SQL> spool off
+
+Name - Sandeep Kumar Swain
+Roll - 20051025
+Section - CSE-13

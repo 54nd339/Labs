@@ -1,0 +1,367 @@
+SQL> connect sandeep25/kiit
+Connected.
+SQL> create table emp(empno integer primary key,fname varchar(15),lname varchar(10),mgr integer,doj date,sal integer,comm integer,deptno integer);
+
+Table created.
+
+SQL> insert into emp values(7396,'Smith','Clerk',7902,to_date('17-12-1980','dd-mm-yyyy'),800,NULL,20);
+
+1 row created.
+
+SQL> insert into emp values(7499,'Allen','Salesman',7698,to_date('20-02-1981','dd-mm-yyyy'),1600,300,30);
+
+1 row created.
+
+SQL> insert into emp values(7566,'Jones','Manager',7839,to_date('02-04-1981','dd-mm-yyyy'),2975,NULL,20);
+
+1 row created.
+
+SQL> insert into emp values(7654,'Martin','Salesman',7839,to_date('28-09-1981','dd-mm-yyyy'),1250,1400,30);
+
+1 row created.
+
+SQL> insert into emp values(7782,'Clark','Manager',7839,to_date('09-06-1981','dd-mm-yyyy'),2450,NULL,10);
+
+1 row created.
+
+SQL> insert into emp values(7698,'Blake','Manager',7839,to_date('01-05-1981','dd-mm-yyyy'),2850,NULL,30);
+
+1 row created.
+
+SQL> insert into emp values(7788,'Scott','Analyst',7566,to_date('09-11-1981','dd-mm-yyyy'),3000,NULL,20);
+
+1 row created.
+
+SQL> insert into emp values(7839,'King','President',NULL,to_date('17-11-1981','dd-mm-yyyy'),5000,NULL,10);
+
+1 row created.
+
+SQL> insert into emp values(7844,'Turner','Salesman',7698,to_date('08-09-1981','dd-mm-yyyy'),1500,0,30);
+
+1 row created.
+
+SQL> select current_date from dual;
+
+CURRENT_D                                                                       
+---------                                                                       
+18-FEB-22                                                                       
+
+SQL> select fname, lname, doj, add_months(doj, 6) as "permanent" from emp;
+
+FNAME           LNAME      DOJ       permanent                                  
+--------------- ---------- --------- ---------                                  
+Smith           Clerk      17-DEC-80 17-JUN-81                                  
+Allen           Salesman   20-FEB-81 20-AUG-81                                  
+Jones           Manager    02-APR-81 02-OCT-81                                  
+Martin          Salesman   28-SEP-81 28-MAR-82                                  
+Clark           Manager    09-JUN-81 09-DEC-81                                  
+Blake           Manager    01-MAY-81 01-NOV-81                                  
+Scott           Analyst    09-NOV-81 09-MAY-82                                  
+King            President  17-NOV-81 17-MAY-82                                  
+Turner          Salesman   08-SEP-81 08-MAR-82                                  
+
+9 rows selected.
+
+SQL> select last_day(sysdate) from dual;
+
+LAST_DAY(                                                                       
+---------                                                                       
+28-FEB-22                                                                       
+
+SQL> select empno, fname, (sysdate-doj)/30 "exp" from emp;
+
+     EMPNO FNAME                  exp                                           
+---------- --------------- ----------                                           
+      7396 Smith           501.281856                                           
+      7499 Allen           499.115189                                           
+      7566 Jones           497.748522                                           
+      7654 Martin          491.781856                                           
+      7782 Clark           495.481856                                           
+      7698 Blake           496.781856                                           
+      7788 Scott           490.381856                                           
+      7839 King            490.115189                                           
+      7844 Turner          492.448522                                           
+
+9 rows selected.
+
+SQL> select next_day(sysdate,'tuesday') from dual;
+
+NEXT_DAY(                                                                       
+---------                                                                       
+22-FEB-22                                                                       
+
+SQL> select extract(month from sysdate) from dual;
+
+EXTRACT(MONTHFROMSYSDATE)                                                       
+-------------------------                                                       
+                        2                                                       
+
+SQL> select extract(year from sysdate) from dual;
+
+EXTRACT(YEARFROMSYSDATE)                                                        
+------------------------                                                        
+                    2022                                                        
+
+SQL> select abs(-505) from dual;
+
+ ABS(-505)                                                                      
+----------                                                                      
+       505                                                                      
+
+SQL> select ceil(10.44), ceil(10.50), ceil(10.65) from dual;
+
+CEIL(10.44) CEIL(10.50) CEIL(10.65)                                             
+----------- ----------- -----------                                             
+         11          11          11                                             
+
+SQL> select floor(10.44), floor(10.50), floor(10.65) from dual;
+
+FLOOR(10.44) FLOOR(10.50) FLOOR(10.65)                                          
+------------ ------------ ------------                                          
+          10           10           10                                          
+
+SQL> select log(2,10) from dual;
+
+ LOG(2,10)                                                                      
+----------                                                                      
+3.32192809                                                                      
+
+SQL> select mod(594, 7) from dual;
+
+MOD(594,7)                                                                      
+----------                                                                      
+         6                                                                      
+
+SQL> select power(8, 3) from dual;
+
+POWER(8,3)                                                                      
+----------                                                                      
+       512                                                                      
+
+SQL> select sqrt(3481) from dual;
+
+SQRT(3481)                                                                      
+----------                                                                      
+        59                                                                      
+
+SQL> select round(45.923,2), round(45.923,0), round(45.923,-1), round(45.923,-2) from dual;
+
+ROUND(45.923,2) ROUND(45.923,0) ROUND(45.923,-1) ROUND(45.923,-2)               
+--------------- --------------- ---------------- ----------------               
+          45.92              46               50                0               
+
+SQL> select trunc(45.888,2), trunc(56.758,0), trunc(49.245,-2), trunc(45.888,2), round(45.888,2) from dual;
+
+TRUNC(45.888,2) TRUNC(56.758,0) TRUNC(49.245,-2) TRUNC(45.888,2) ROUND(45.888,2)
+--------------- --------------- ---------------- --------------- ---------------
+          45.88              56                0           45.88           45.89
+
+SQL> select sign(20), sign(-67.60), sign(0) from dual;
+
+  SIGN(20) SIGN(-67.60)    SIGN(0)                                              
+---------- ------------ ----------                                              
+         1           -1          0                                              
+
+SQL> select cos(45), sin(45), tan(45) from dual;
+
+   COS(45)    SIN(45)    TAN(45)                                                
+---------- ---------- ----------                                                
+.525321989 .850903525 1.61977519                                                
+
+SQL> select chr(79) from dual;
+
+C                                                                               
+-                                                                               
+O                                                                               
+
+SQL> select concat(fname, lname) "full name" from emp;
+
+full name                                                                       
+-------------------------                                                       
+SmithClerk                                                                      
+AllenSalesman                                                                   
+JonesManager                                                                    
+MartinSalesman                                                                  
+ClarkManager                                                                    
+BlakeManager                                                                    
+ScottAnalyst                                                                    
+KingPresident                                                                   
+TurnerSalesman                                                                  
+
+9 rows selected.
+
+SQL> select upper(fname) from emp;
+
+UPPER(FNAME)                                                                    
+---------------                                                                 
+SMITH                                                                           
+ALLEN                                                                           
+JONES                                                                           
+MARTIN                                                                          
+CLARK                                                                           
+BLAKE                                                                           
+SCOTT                                                                           
+KING                                                                            
+TURNER                                                                          
+
+9 rows selected.
+
+SQL> slect fname, length(fname), lname, length(lname) from emp;
+SP2-0734: unknown command beginning "slect fnam..." - rest of line ignored.
+SQL> select fname, length(fname), lname, length(lname) from emp;
+
+FNAME           LENGTH(FNAME) LNAME      LENGTH(LNAME)                          
+--------------- ------------- ---------- -------------                          
+Smith                       5 Clerk                  5                          
+Allen                       5 Salesman               8                          
+Jones                       5 Manager                7                          
+Martin                      6 Salesman               8                          
+Clark                       5 Manager                7                          
+Blake                       5 Manager                7                          
+Scott                       5 Analyst                7                          
+King                        4 President              9                          
+Turner                      6 Salesman               8                          
+
+9 rows selected.
+
+SQL> select empno, (0*sal) "TAX" from emp where sal<20000;
+
+     EMPNO        TAX                                                           
+---------- ----------                                                           
+      7396          0                                                           
+      7499          0                                                           
+      7566          0                                                           
+      7654          0                                                           
+      7782          0                                                           
+      7698          0                                                           
+      7788          0                                                           
+      7839          0                                                           
+      7844          0                                                           
+
+9 rows selected.
+
+SQL> select empno, (0.09*sal) "TAX" from emp where sal>=20000 AND sal<40000;
+
+no rows selected
+
+SQL> select empno, (0.2*sal) "TAX" from emp where sal>=40000 AND sal<60000;
+
+no rows selected
+
+SQL> select empno, (0.3*sal) "TAX" from emp where sal>=60000 AND sal<80000;
+
+no rows selected
+
+SQL> select empno, (0.45*sal) "TAX" from emp where sal>=80000;
+
+no rows selected
+
+SQL> select sum(sal), avg(sal), max(sal), min(sal) from emp;
+
+  SUM(SAL)   AVG(SAL)   MAX(SAL)   MIN(SAL)                                     
+---------- ---------- ---------- ----------                                     
+     21425 2380.55556       5000        800                                     
+
+SQL> select sum(sal), avg(sal), max(sal), min(sal) from emp where lname='sales';
+
+  SUM(SAL)   AVG(SAL)   MAX(SAL)   MIN(SAL)                                     
+---------- ---------- ---------- ----------                                     
+                                                                                
+
+SQL> select sum(sal), avg(sal), max(sal), min(sal) from emp where lname='salesman';
+
+  SUM(SAL)   AVG(SAL)   MAX(SAL)   MIN(SAL)                                     
+---------- ---------- ---------- ----------                                     
+                                                                                
+
+SQL> select sum(sal), avg(sal), max(sal), min(sal) from emp where lname='Salesman';
+
+  SUM(SAL)   AVG(SAL)   MAX(SAL)   MIN(SAL)                                     
+---------- ---------- ---------- ----------                                     
+      4350       1450       1600       1250                                     
+
+SQL> select max(sysdate-doj) "old emp" from emp;
+
+   old emp                                                                      
+----------                                                                      
+15038.4633                                                                      
+
+SQL> select min(sysdate-doj) "new emp" from emp;
+
+   new emp                                                                      
+----------                                                                      
+14703.4634                                                                      
+
+SQL> select * from emp order by lname ASC;
+
+     EMPNO FNAME           LNAME             MGR DOJ              SAL       COMM
+---------- --------------- ---------- ---------- --------- ---------- ----------
+    DEPTNO                                                                      
+----------                                                                      
+      7788 Scott           Analyst          7566 09-NOV-81       3000           
+        20                                                                      
+                                                                                
+      7396 Smith           Clerk            7902 17-DEC-80        800           
+        20                                                                      
+                                                                                
+      7566 Jones           Manager          7839 02-APR-81       2975           
+        20                                                                      
+                                                                                
+
+     EMPNO FNAME           LNAME             MGR DOJ              SAL       COMM
+---------- --------------- ---------- ---------- --------- ---------- ----------
+    DEPTNO                                                                      
+----------                                                                      
+      7782 Clark           Manager          7839 09-JUN-81       2450           
+        10                                                                      
+                                                                                
+      7698 Blake           Manager          7839 01-MAY-81       2850           
+        30                                                                      
+                                                                                
+      7839 King            President             17-NOV-81       5000           
+        10                                                                      
+                                                                                
+
+     EMPNO FNAME           LNAME             MGR DOJ              SAL       COMM
+---------- --------------- ---------- ---------- --------- ---------- ----------
+    DEPTNO                                                                      
+----------                                                                      
+      7499 Allen           Salesman         7698 20-FEB-81       1600        300
+        30                                                                      
+                                                                                
+      7844 Turner          Salesman         7698 08-SEP-81       1500          0
+        30                                                                      
+                                                                                
+      7654 Martin          Salesman         7839 28-SEP-81       1250       1400
+        30                                                                      
+                                                                                
+
+9 rows selected.
+
+SQL> select count(lname) from emp where lname='engineer';
+
+COUNT(LNAME)                                                                    
+------------                                                                    
+           0                                                                    
+
+SQL> select count(DISTINCT lname) "lname" from emp;
+
+     lname                                                                      
+----------                                                                      
+         5                                                                      
+
+SQL> select avg(comm) from emp;
+
+ AVG(COMM)                                                                      
+----------                                                                      
+566.666667                                                                      
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off
+
+Name - Sandeep Kumar Swain
+Roll - 20051025
+Section - CSE-13
