@@ -1,6 +1,6 @@
 SQL> connect sandeep25/kiit
 Connected.
-SQL> spool lab3
+SQL> spool C:\Users\KIIT\OneDrive\Documents\Programming\Labs\DBMS\lab3.txt
 SQL> create table item(itemno number(4),name varchar(20),qty number(5),catregory char(1),unit char(4),reorder number(5),reorderq number(5),rate number(8,2));
 
 Table created.

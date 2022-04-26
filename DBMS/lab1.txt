@@ -1,3 +1,6 @@
+SQL> connect sandeep25/kiit
+Connected.
+SQL> spool C:\Users\KIIT\OneDrive\Documents\Programming\Labs\DBMS\lab1.txt
 SQL> set linesize 250;
 SQL> CREATE TABLE STUDENT(Roll NUMBER(8), Name VARCHAR2(20), Gender CHAR(1), Age NUMBER(3), CGPA NUMBER(4,2));
 

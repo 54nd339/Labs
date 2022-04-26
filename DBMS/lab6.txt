@@ -1,5 +1,6 @@
 SQL> connect sandeep25/kiit
 Connected.
+SQL> spool C:\Users\KIIT\OneDrive\Documents\Programming\Labs\DBMS\lab6.txt
 SQL> create table emp6(emp_no int primary key, f_name varchar(10) not null, l_name varchar(10), salary int, dept_no int);
 
 Table created.

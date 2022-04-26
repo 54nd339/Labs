@@ -1,5 +1,8 @@
 SQL> connect sandeep25/kiit
 Connected.
+SQL> spool C:\Users\KIIT\OneDrive\Documents\Programming\Labs\DBMS\lab4.txt
+SQL> connect sandeep25/kiit
+Connected.
 SQL> create table emp(empno integer primary key,fname varchar(15),lname varchar(10),mgr integer,doj date,sal integer,comm integer,deptno integer);
 
 Table created.

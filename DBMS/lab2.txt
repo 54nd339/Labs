@@ -1,5 +1,6 @@
-SQL> connect sandeep25
+SQL> connect sandeep25/kiit
 Connected.
+SQL> spool C:\Users\KIIT\OneDrive\Documents\Programming\Labs\DBMS\lab2.txt
 SQL> CREATE TABLE STUDENT2(Roll NUMBER(3), Name VARCHAR(10), City VARCHAR(15), Age NUMBER(2), CGPA NUMBER(4,2));
 
 Table created.
