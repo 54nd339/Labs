@@ -1,0 +1,14 @@
+SET SERVEROUTPUT ON;
+DECLARE
+	type ar IS VARRAY(5) OF INTEGER; 
+	ar array = new ar();
+	S NUMBER;
+	A NUMBER;
+
+BEGIN
+	S := SUM(ar); 
+	A := S / 5;
+	DBMS_OUTPUT.PUT_LINE('SUM : '||S);
+	DBMS_OUTPUT.PUT_LINE('AVG : '||A);
+END; 
+/

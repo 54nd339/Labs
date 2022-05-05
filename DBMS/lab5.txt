@@ -1,0 +1,540 @@
+SQL> connect sandeep25/kiit
+Connected.
+SQL> spool C:\Users\KIIT\OneDrive\Documents\Programming\Labs\DBMS\lab5.txt
+SQL> create table emp5(emp_id int, f_name varchar(10), l_name varchar(10), job varchar(10), salary int, commision int, dept varchar(10), manager_id int, doj date);
+
+Table created.
+
+SQL> desc emp5;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER(38)
+ F_NAME                                             VARCHAR2(10)
+ L_NAME                                             VARCHAR2(10)
+ JOB                                                VARCHAR2(10)
+ SALARY                                             NUMBER(38)
+ COMMISION                                          NUMBER(38)
+ DEPT                                               VARCHAR2(10)
+ MANAGER_ID                                         NUMBER(38)
+ DOJ                                                DATE
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,doj) values(1,'arun','khan','manager',90000,'production','04-jan-1998');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,doj) values(2,'barun','kumar','manager',80000,'marketing','09-feb-1998');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,manager_id,doj) values(3,'chitra','kappor','engineer',60000,'production',1,'08-jan-1998');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,manager_id,doj) values(4,'dheeraj','mishra','manager',75000,'sales',2,'27-dec-2001');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,manager_id,doj) values(5,'emma','dutt','engineer',55000,'production',1,'20-mar-2002');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,doj) values(6,'floka','dutt','accountant',70000,'accounts','16-jul-2000');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,manager_id,doj) values(7,'dheeraj','kumar','clerk',40000,'accounts',6,'01-jul-2016');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,doj) values(8,'saul','good','engineer',60000,'r&d','06-sep-2014');
+Enter value for d: 
+old   1: insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,doj) values(8,'saul','good','engineer',60000,'r&d','06-sep-2014')
+new   1: insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,doj) values(8,'saul','good','engineer',60000,'r','06-sep-2014')
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,doj) values(8,'saul','good','engineer',60000,'research','06-sep-2014');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,manager_id,doj) values(9,'mou','bhat','clerk',30000,'sales',4,'08-mar-2018');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,commision,dept,manager_id,doj) values(10,'sunny','deol','salesman',20000,10000,'marketing',2,'31-mar-2001');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,dept,manager_id,doj) values(11,'bobby','deol','engineer',35000,'research',8,'17-oct-2017');
+
+1 row created.
+
+SQL> insert into emp5(emp_id,f_name,l_name,job_type,salary,commision,dept,manager_id,doj) values(12,'amir','khan','salesman',15000,5000,'marketing',2,'11-jan-2013');
+
+1 row created.
+
+SQL> select * from emp5;
+
+    EMP_ID F_NAME     L_NAME     JOB            SALARY  COMMISION DEPT          
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+MANAGER_ID DOJ                                                                  
+---------- ---------                                                            
+         1 arun       khan       manager         90000            production    
+           04-JAN-98                                                            
+                                                                                
+         2 barun      kumar      manager         80000            marketing     
+           09-FEB-98                                                            
+                                                                                
+         3 chitra     kapoor     engineer        60000            production    
+         1 08-JAN-98                                                            
+                                                                                
+
+    EMP_ID F_NAME     L_NAME     JOB            SALARY  COMMISION DEPT          
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+MANAGER_ID DOJ                                                                  
+---------- ---------                                                            
+         4 dheeraj    mishra     manager         75000            sales         
+         2 27-DEC-01                                                            
+                                                                                
+         5 emma       dutt       engineer        55000            production    
+         1 20-MAR-02                                                            
+                                                                                
+         6 floki      dutt       accountant      70000            accounts      
+           16-JUL-00                                                            
+                                                                                
+
+    EMP_ID F_NAME     L_NAME     JOB            SALARY  COMMISION DEPT          
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+MANAGER_ID DOJ                                                                  
+---------- ---------                                                            
+         7 dheeraj    kumar      clerk           40000            accounts      
+         6 06-JUL-14                                                            
+                                                                                
+         8 saul       good       engineer        60000            r&d           
+           06-SEP-14                                                            
+                                                                                
+         9 mou        bhat       clerk           30000            sales         
+         4 08-MAR-18                                                            
+                                                                                
+
+    EMP_ID F_NAME     L_NAME     JOB            SALARY  COMMISION DEPT          
+---------- ---------- ---------- ---------- ---------- ---------- ----------    
+MANAGER_ID DOJ                                                                  
+---------- ---------                                                            
+        10 sunny      deol       salesman        20000      10000 marketing     
+         2 31-MAR-01                                                            
+                                                                                
+        11 bobby      deol       engineer        35000            r&d           
+         8 17-OCT-17                                                            
+                                                                                
+        12 amir       khan       salesman        15000       5000 marketing     
+         2 11-JAN-13                                                            
+                                                                                
+
+12 rows selected.
+
+SQL> create table emp_address(emp_id int, city varchar(15), district varchar(15), state varchar(15));
+
+Table created.
+
+SQL> desc emp_address;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                             NUMBER(38)
+ CITY                                               VARCHAR2(15)
+ DISTRICT                                           VARCHAR2(15)
+ STATE                                              VARCHAR2(15)
+
+SQL> insert into emp_address values(1,'suri','birbhum','wb');
+
+1 row created.
+
+SQL> insert into emp_address values(2,'kolkata','kolkata','wb');
+
+1 row created.
+
+SQL> insert into emp_address values(3,'kolkata','kolkata','wb');
+
+1 row created.
+
+SQL> insert into emp_address values(4,'bhubneswar','khurda','odisha');
+
+1 row created.
+
+SQL> insert into emp_address values(5,'noida','gb nagar','up');
+
+1 row created.
+
+SQL> insert into emp_address values(6,'secunderabad','hyderabad','telegana');
+
+1 row created.
+
+SQL> insert into emp_address values(7,'derhadun','derhadun','uttarakhand');
+
+1 row created.
+
+SQL> insert into emp_address values(9,'siliguri','darjeeling','wb');
+
+1 row created.
+
+SQL> insert into emp_address values(10,'kolkata','kolkata','wb');
+
+1 row created.
+
+SQL> insert into emp_address values(11,'new delhi','new delhi','delhi');
+
+1 row created.
+
+SQL> select * from emp_address;
+
+    EMP_ID CITY            DISTRICT        STATE                                
+---------- --------------- --------------- ---------------                      
+         1 Suri            Birbhum         WB                                   
+         3 Kolkata         Kolkata         WB                                   
+         4 Bhubaneswar     Khudra          Odisha                               
+         5 Noida           GB Nagar        UP                                   
+         6 Secundrabad     Hyderabad       Telangana                            
+         7 Dehradun        Dehradun        Uttarakhand                          
+         8 Asanol          Burdwan         WB                                   
+         9 Siliguri        Darjeeling      WB                                   
+        10 Kolkata         Kolkata         WB                                   
+        11 New Delhi       New Delhi       Delhi                                
+
+10 rows selected.
+
+SQL> select emp5.f_name, emp_address.city, emp_address.district from emp5, emp_address where emp5.emp_id=emp_address.emp_id;
+
+F_NAME     CITY            DISTRICT                                             
+---------- --------------- ---------------                                      
+arun       Suri            Birbhum                                              
+chitra     Kolkata         Kolkata                                              
+dheeraj    Bhubaneswar     Khudra                                               
+emma       Noida           GB Nagar                                             
+floki      Secundrabad     Hyderabad                                            
+dheeraj    Dehradun        Dehradun                                             
+saul       Asanol          Burdwan                                              
+mou        Siliguri        Darjeeling                                           
+sunny      Kolkata         Kolkata                                              
+bobby      New Delhi       New Delhi                                            
+
+10 rows selected.
+
+SQL> create table job_grades(grade char, lowest_sal int, highest_sal int);
+
+Table created.
+
+SQL> desc job_grades;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GRADE                                              CHAR(1)
+ LOWEST_SAL                                         NUMBER(38)
+ HIGHEST_SAL                                        NUMBER(38)
+
+SQL> insert into job_grades values('A',10000,24999);
+
+1 row created.
+
+SQL> insert into job_grades values('B',25000,49999);
+
+1 row created.
+
+SQL> insert into job_grades values('C',50000,100000);
+
+1 row created.
+
+SQL> select * from job_grades;
+
+G LOWEST_SAL HIGHEST_SAL                                                        
+- ---------- -----------                                                        
+A      10000       24999                                                        
+B      25000       49999                                                        
+C      50000      100000                                                        
+
+SQL> select emp5.f_name, emp5.salary, job_grades.grade from emp5, job_grades where emp5.salary between job_grades.lowest_sal and job_grades.highest_sal;
+
+F_NAME         SALARY G                                                         
+---------- ---------- -                                                         
+sunny           20000 A                                                         
+amir            15000 A                                                         
+dheeraj         40000 B                                                         
+mou             30000 B                                                         
+bobby           35000 B                                                         
+arun            90000 C                                                         
+barun           80000 C                                                         
+chitra          60000 C                                                         
+dheeraj         75000 C                                                         
+emma            55000 C                                                         
+floki           70000 C                                                         
+
+F_NAME         SALARY G                                                         
+---------- ---------- -                                                         
+saul            60000 C                                                         
+
+12 rows selected.
+
+SQL> select a.f_name, b.f_name from emp5 a, emp5 b where a.manager_id=b.emp_id;
+
+F_NAME     F_NAME                                                               
+---------- ----------                                                           
+emma       arun                                                                 
+chitra     arun                                                                 
+amir       barun                                                                
+sunny      barun                                                                
+dheeraj    barun                                                                
+mou        dheeraj                                                              
+dheeraj    floki                                                                
+bobby      saul                                                                 
+
+8 rows selected.
+
+SQL> create table dept5(d_name varchar(10), d_loc varchar(5), hod_id int);
+
+Table created.
+
+SQL> desc dept5;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ D_NAME                                             VARCHAR2(10)
+ D_LOC                                              VARCHAR2(5)
+ HOD_ID                                             NUMBER(38)
+
+SQL> insert into dept5 values('sales','kol',4);
+
+1 row created.
+
+SQL> insert into dept5 values('accounts','delhi',6);
+
+1 row created.
+
+SQL> insert into dept5 values('production','kol',1);
+
+1 row created.
+
+SQL>  insert into dept5 values('marketing','kol',2);
+
+1 row created.
+
+SQL>  insert into dept5 values('research','delhi',8);
+
+1 row created.
+
+SQL> select * from dept5;
+
+D_NAME               D_LOC                    HOD_ID                                                                                                                                                                                                                                                        
+-------------------- -------------------- ----------                                                                                                                                                                                                                                                        
+sales                kol                           4                                                                                                                                                                                                                                                        
+accounts             delhi                         6                                                                                                                                                                                                                                                        
+production           kol                           1                                                                                                                                                                                                                                                        
+marketing            kol                           2                                                                                                                                                                                                                                                        
+research             delhi                         8                                                                                                                                                                                                                                                        
+
+SQL> select emp5.emp_id, emp5.f_name, dept5.d_loc, dept5.hod_id from emp5, dept5 where emp5.dept=dept5.d_name;
+
+    EMP_ID F_NAME     D_LOC          HOD_ID                                     
+---------- ---------- ---------- ----------                                     
+         1 arun       Kolkata             1                                     
+         2 barun      Kolkata             2                                     
+         3 chitra     Kolkata             1                                     
+         4 dheeraj    Kolkata             4                                     
+         5 emma       Kolkata             1                                     
+         6 floki      New Delhi           6                                     
+         7 dheeraj    New Delhi           6                                     
+         8 saul       New Delhi           8                                     
+         9 mou        Kolkata             4                                     
+        10 sunny      Kolkata             2                                     
+        11 bobby      New Delhi           8                                     
+
+    EMP_ID F_NAME     D_LOC          HOD_ID                                     
+---------- ---------- ---------- ----------                                     
+        12 amir       Kolkata             2                                     
+
+12 rows selected.
+
+SQL> select emp5.f_name, emp_address.city, emp_address.district from emp5, emp_address where emp5.emp_id=emp_address.emp_id;
+
+F_NAME     CITY            DISTRICT                                             
+---------- --------------- ---------------                                      
+arun       Suri            Birbhum                                              
+chitra     Kolkata         Kolkata                                              
+dheeraj    Bhubaneswar     Khudra                                               
+emma       Noida           GB Nagar                                             
+floki      Secundrabad     Hyderabad                                            
+dheeraj    Dehradun        Dehradun                                             
+saul       Asanol          Burdwan                                              
+mou        Siliguri        Darjeeling                                           
+sunny      Kolkata         Kolkata                                              
+bobby      New Delhi       New Delhi                                            
+
+10 rows selected.
+
+SQL> select emp5.emp_id, emp5.f_name, dept5.d_loc, dept5.hod_id from emp5 inner join dept5 on emp5.dept=dept5.d_name;
+
+    EMP_ID F_NAME     D_LOC          HOD_ID                                     
+---------- ---------- ---------- ----------                                     
+         1 arun       Kolkata             1                                     
+         2 barun      Kolkata             2                                     
+         3 chitra     Kolkata             1                                     
+         4 dheeraj    Kolkata             4                                     
+         5 emma       Kolkata             1                                     
+         6 floki      New Delhi           6                                     
+         7 dheeraj    New Delhi           6                                     
+         8 saul       New Delhi           8                                     
+         9 mou        Kolkata             4                                     
+        10 sunny      Kolkata             2                                     
+        11 bobby      New Delhi           8                                     
+
+    EMP_ID F_NAME     D_LOC          HOD_ID                                     
+---------- ---------- ---------- ----------                                     
+        12 amir       Kolkata             2                                     
+
+12 rows selected.
+
+SQL> select emp5.f_name, emp_address.city, emp_address.state from emp5 inner join emp_address on emp5.emp_id=emp_address.emp_id;
+
+F_NAME     CITY            STATE                                                
+---------- --------------- ---------------                                      
+arun       Suri            WB                                                   
+chitra     Kolkata         WB                                                   
+dheeraj    Bhubaneswar     Odisha                                               
+emma       Noida           UP                                                   
+floki      Secundrabad     Telangana                                            
+dheeraj    Dehradun        Uttarakhand                                          
+saul       Asanol          WB                                                   
+mou        Siliguri        WB                                                   
+sunny      Kolkata         WB                                                   
+bobby      New Delhi       Delhi                                                
+
+10 rows selected.
+
+SQL> select emp5.f_name, emp_address.city, emp_address.state from emp5 join emp_address on emp5.emp_id=emp_address.emp_id;
+
+F_NAME     CITY            STATE                                                
+---------- --------------- ---------------                                      
+arun       Suri            WB                                                   
+chitra     Kolkata         WB                                                   
+dheeraj    Bhubaneswar     Odisha                                               
+emma       Noida           UP                                                   
+floki      Secundrabad     Telangana                                            
+dheeraj    Dehradun        Uttarakhand                                          
+saul       Asanol          WB                                                   
+mou        Siliguri        WB                                                   
+sunny      Kolkata         WB                                                   
+bobby      New Delhi       Delhi                                                
+
+10 rows selected.
+
+SQL> select emp5.f_name, emp_address.city, emp_address.state from emp5 left outer join emp_address on emp5.emp_id=emp_address.emp_id;
+
+F_NAME     CITY            STATE                                                
+---------- --------------- ---------------                                      
+arun       Suri            WB                                                   
+chitra     Kolkata         WB                                                   
+dheeraj    Bhubaneswar     Odisha                                               
+emma       Noida           UP                                                   
+floki      Secundrabad     Telangana                                            
+dheeraj    Dehradun        Uttarakhand                                          
+saul       Asanol          WB                                                   
+mou        Siliguri        WB                                                   
+sunny      Kolkata         WB                                                   
+bobby      New Delhi       Delhi                                                
+amir                                                                            
+
+F_NAME     CITY            STATE                                                
+---------- --------------- ---------------                                      
+priya                                                                           
+alex                                                                            
+barun                                                                           
+
+14 rows selected.
+
+SQL> select emp5.f_name, dept5.d_loc from emp5 left join dept5 on emp5.dept=dept5.d_name;
+
+F_NAME     D_LOC                                                                
+---------- ----------                                                           
+mou        Kolkata                                                              
+dheeraj    Kolkata                                                              
+dheeraj    New Delhi                                                            
+floki      New Delhi                                                            
+emma       Kolkata                                                              
+chitra     Kolkata                                                              
+arun       Kolkata                                                              
+amir       Kolkata                                                              
+sunny      Kolkata                                                              
+barun      Kolkata                                                              
+bobby      New Delhi                                                            
+
+F_NAME     D_LOC                                                                
+---------- ----------                                                           
+saul       New Delhi                                                            
+priya                                                                           
+alex                                                                            
+
+14 rows selected.
+
+SQL> select emp5.f_name, dept5.d_loc from emp5 right join dept5 on emp5.dept=dept5.d_name;
+
+F_NAME     D_LOC                                                                
+---------- ----------                                                           
+arun       Kolkata                                                              
+barun      Kolkata                                                              
+chitra     Kolkata                                                              
+dheeraj    Kolkata                                                              
+emma       Kolkata                                                              
+floki      New Delhi                                                            
+dheeraj    New Delhi                                                            
+saul       New Delhi                                                            
+mou        Kolkata                                                              
+sunny      Kolkata                                                              
+bobby      New Delhi                                                            
+
+F_NAME     D_LOC                                                                
+---------- ----------                                                           
+amir       Kolkata                                                              
+           Mumbai                                                               
+           Mumbai                                                               
+
+14 rows selected.
+
+SQL> select emp5.f_name, dept5.d_loc from emp5 full outer join dept5 on emp5.dept=dept5.d_name;
+
+F_NAME     D_LOC                                                                
+---------- ----------                                                           
+arun       Kolkata                                                              
+barun      Kolkata                                                              
+chitra     Kolkata                                                              
+dheeraj    Kolkata                                                              
+emma       Kolkata                                                              
+floki      New Delhi                                                            
+dheeraj    New Delhi                                                            
+saul       New Delhi                                                            
+mou        Kolkata                                                              
+sunny      Kolkata                                                              
+bobby      New Delhi                                                            
+
+F_NAME     D_LOC                                                                
+---------- ----------                                                           
+amir       Kolkata                                                              
+alex                                                                            
+priya                                                                           
+           Mumbai                                                               
+           Mumbai                                                               
+
+16 rows selected.
+
+SQL> select emp5.f_name from emp5, dept5, emp_address where dept5.d_loc=emp_address.city and emp5.emp_id=emp_address.emp_id and emp5.dept=dept5.d_name;
+
+F_NAME                                                                          
+----------                                                                      
+chitra                                                                          
+sunny                                                                           
+bobby                                                                           
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
+
+Name - Sandeep Kumar Swain
+Roll - 20051025
+Sec - CSE-13

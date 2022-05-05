@@ -1,0 +1,66 @@
+SQL> connect sandeep25/kiit
+Connected.
+SQL> spool C:\Users\KIIT\OneDrive\Documents\Programming\Labs\DBMS\lab1.txt
+SQL> set linesize 250;
+SQL> CREATE TABLE STUDENT(Roll NUMBER(8), Name VARCHAR2(20), Gender CHAR(1), Age NUMBER(3), CGPA NUMBER(4,2));
+
+Table created.
+
+SQL> DESC STUDENT;
+ Name                                                                                                                                            Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------- -------- ------------------------------------------------------------------------------------------------
+ ROLL                                                                                                                                                     NUMBER(6)
+ NAME                                                                                                                                                     VARCHAR2(20)
+ GENDER                                                                                                                                                   CHAR(1)
+ AGE                                                                                                                                                      NUMBER(3)
+ CGPA                                                                                                                                                     NUMBER(4,2)
+
+SQL> INSERT INTO STUDENT(Roll, Name, Gender, Age, CGPA) VALUES (20051025, 'Sandeep', 'M', 19, 9.2);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES (20051026, 'Kumar', 'F', 20, 9.7);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT(Roll, Name, CGPA) VALUES(20051022, 'Swain', 9.1);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES (&Roll, '&Name', '&Gender', &Age, &CGPA);
+Enter value for roll: 20051025
+Enter value for name: Sandeep
+old   1: INSERT INTO STUDENT VALUES (&Roll, '&Name',
+new   1: INSERT INTO STUDENT VALUES (20051025, 'Sandeep',
+Enter value for gender: M
+Enter value for age: 19
+Enter value for cgpa: 9.6
+old   2: '&Gender', &Age, &CGPA)
+new   2: 'M', 19, 9.6)
+
+
+SQL> INSERT INTO STUDENT (Roll, Name, Gender, Age) VALUES(&Roll, '&Name', '&Gender', &Age);
+Enter value for roll: 5
+Enter value for name: Sandy
+Enter value for gender: M
+Enter value for age: 19
+old   2: VALUES(&Roll, '&Name', '&Gender', &Age)
+new   2: VALUES(5, 'Sandy', 'M', 19)
+
+1 row created.
+
+SQL> SELECT * FROM STUDENT;
+
+      ROLL NAME                 G        AGE       CGPA                                                                                                                                                                                                   
+---------- -------------------- - ---------- ----------                                                                                                                                                                                                   
+    705129 Uday                 M         19        9.2                                                                                                                                                                                                   
+    705129 Uday                 M         19        9.2                                                                                                                                                                                                   
+    705129 Uday                                     9.2                                                                                                                                                                                                   
+         5 Sandy                M         19                                                                                                                                                                                                              
+SQL> commit
+
+SQL> spool off
+
+Name - Sandeep Kumar Swain
+Roll - 20051025
+Section - CSE-13

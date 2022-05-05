@@ -1,0 +1,128 @@
+SQL> connect sandeep25/kiit;
+Connected.
+SQL> CREATE TABLE CUSTOMER(CustNo NUMBER(3) PRIMARY KEY, CustName VARCHAR(10) NOT NULL, State VARCHAR(10) DEFAULT 'Odisha', Phone Number(10));
+
+Table created.
+
+SQL> desc CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTNO                                    NOT NULL NUMBER(3)
+ CUSTNAME                                  NOT NULL VARCHAR2(10)
+ STATE                                              VARCHAR2(10)
+ PHONE                                              NUMBER(10)
+
+SQL> INSERT INTO CUSTOMER VALUES(211, 'Sandeep', 'Odisha', 9668026535);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(212, 'Rajiv', 'Assam', 2345678934);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(225, 'Alka', 'Odisha', 3456789456);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(239, 'Aleena', 'Bihar', 4567895678);
+
+1 row created.
+
+SQL> SELECT * FROM CUSTOMER;
+
+    CUSTNO CUSTNAME   STATE           PHONE                                     
+---------- ---------- ---------- ----------                                     
+       211 Sandeep    Odisha     9668026535                                     
+       212 Rajiv      Assam      2345678934                                     
+       225 Alka       Odisha     3456789456                                     
+       239 Aleena     Bihar      4567895678   
+
+SQL> CREATE TABLE SELLER(SelID NUMBER(4) PRIMARY KEY, SName VARCHAR(10) NOT NULL, CustNo NUMBER(3) REFERENCES CUSTOMER(CustNo));
+
+Table created.
+
+SQL> desc SELLER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SELID                                     NOT NULL NUMBER(4)
+ SNAME                                     NOT NULL VARCHAR2(10)
+ CUSTNO                                             NUMBER(3)
+
+SQL> INSERT INTO SELLER VALUES(1001, 'Akash', 211);
+
+1 row created.
+
+SQL> INSERT INTO SELLER VALUES(1002, 'Raj', 212);
+
+1 row created.
+
+SQL> INSERT INTO SELLER VALUES(1003, 'Malika', 212);
+
+1 row created.
+
+SQL> INSERT INTO SELLER VALUES(1004, 'Tania', 225);
+
+1 row created.
+
+SQL> SELECT * FROM SELLER;
+
+     SELID SNAME          CUSTNO                                                
+---------- ---------- ----------                                                
+      1001 Akash             211                                                
+      1002 Raj               212                                                
+      1003 Malika            212                                                
+      1004 Tania             225 
+
+SQL> SELECT * FROM CUSTOMER ORDER BY State ASC;
+
+    CUSTNO CUSTNAME   STATE           PHONE                                     
+---------- ---------- ---------- ----------                                     
+       212 Rajiv      Assam      2345678934                                     
+       239 Aleena     Bihar      4567895678                                     
+       225 Alka       Odisha     3456789456                                     
+       211 Sandeep    Odisha     9668026535                                     
+
+SQL> SELECT * FROM CUSTOMER WHERE CustName LIKE '%l%';
+
+    CUSTNO CUSTNAME   STATE           PHONE                                     
+---------- ---------- ---------- ----------                                     
+       225 Alka       Odisha     3456789456                                     
+       239 Aleena     Bihar      4567895678                                     
+
+SQL> SELECT * FROM CUSTOMER WHERE State IN ('Odisha', 'Assam');
+
+    CUSTNO CUSTNAME   STATE           PHONE                                     
+---------- ---------- ---------- ----------                                     
+       211 Sandeep    Odisha     9668026535                                     
+       212 Rajiv      Assam      2345678934                                     
+       225 Alka       Odisha     3456789456                                     
+
+SQL> UPDATE CUSTOMER SET Phone=3459876423, State='Assam' WHERE CustName='Aleena';
+
+1 row updated.
+
+SQL> SELECT * FROM CUSTOMER;
+
+    CUSTNO CUSTNAME   STATE           PHONE                                     
+---------- ---------- ---------- ----------                                     
+       211 Sandeep    Odisha     9668026535                                     
+       212 Rajiv      Assam      2345678934                                     
+       225 Alka       Odisha     3456789456                                     
+       239 Aleena     Assam      3459876423                                     
+
+SQL> SELECT SName FROM SELLER, CUSTOMER WHERE SELLER.CustNo=CUSTOMER.CustNo AND CUSTOMER.State='Odisha';
+
+SNAME                                                                           
+----------                                                                      
+Akash                                                                           
+Tania                                                                           
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
+
+SANDEEP KUMAR SWAIN
+20051025
+CSE-13

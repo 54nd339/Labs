@@ -1,0 +1,584 @@
+SQL> connect sandeep25
+Connected.
+SQL> CREATE TABLE emp12(empid int primary key, empname varchar(10) NOT NULL, phno int unique, age int CHECK(age>=18), emp_country varchar(10) default 'INDIA');
+
+Table created.
+
+SQL> desc emp
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                     NOT NULL NUMBER(38)
+ EMPNAME                                   NOT NULL VARCHAR2(25)
+ PHNO                                               NUMBER(38)
+ AGE                                                NUMBER(38)
+ EMP_COUNTRY                                        VARCHAR2(25)
+
+SQL> insert into emp12 values(112, 'Michael', 234, 19, 'Russia');
+
+1 row created.
+
+SQL> insert into emp12(empid, empname, phno, age) values(113, 'Abdul', 913, 25);
+
+1 row created.
+
+SQL> insert into emp12 values(131, ' ', 678, 43, 'USA');
+
+1 row created.
+
+SQL> insert into emp(empid,empname,phno,age) values(132,'Riya',235,22);
+
+1 row created.
+
+SQL> insert into emp values(114,'lily',876,60,'uk');
+
+1 row created.
+
+SQL> insert into emp values(127,'dino',77,19,'italy');
+
+1 row created.
+
+SQL> insert into emp(empid,empname,phno) values (117,'indrai',676);
+
+1 row created.
+
+SQL> insert into emp values (124,'raj',238,54,'usa');
+
+1 row created.
+
+SQL> insert into emp(empid,empname,phno) values (125,'abhya',222);
+
+1 row created.
+
+1 row created.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY
+---------- ------------------------- ---------- ---------- -------------------------
+       112 Michale                          234         19 Russia
+       113 Abdul                            913         25 india
+       131                                  678         43 usa
+       132 Riya                             235         22 india
+       114 lily                             876         60 uk
+       127 dino                              77         19 italy
+
+6 rows selected.
+
+SQL> insert into emp(empid,empname,phno) values (117,'indrai',676);
+
+1 row created.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY
+---------- ------------------------- ---------- ---------- -------------------------
+       112 Michale                          234         19 Russia
+       113 Abdul                            913         25 india
+       131                                  678         43 usa
+       132 Riya                             235         22 india
+       114 lily                             876         60 uk
+       127 dino                              77         19 italy
+       117 indrai                           676            india
+
+7 rows selected.
+
+SQL> alter table emp drop check age;
+alter table emp drop check age
+                     *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> alter table emp drop check chk_age;
+alter table emp drop check chk_age
+                     *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> alter table emp drop constraint check age;
+alter table emp drop constraint check age
+                                *
+ERROR at line 1:
+ORA-02250: missing or invalid constraint name
+
+
+SQL> alter table emp drop constraint check chk_age;
+alter table emp drop constraint check chk_age
+                                *
+ERROR at line 1:
+ORA-02250: missing or invalid constraint name
+
+
+SQL> alter table emp drop constraint age;
+alter table emp drop constraint age
+                                *
+ERROR at line 1:
+ORA-02443: Cannot drop constraint  - nonexistent constraint
+
+
+SQL> alter table emp drop constraint check;
+alter table emp drop constraint check
+                                *
+ERROR at line 1:
+ORA-02250: missing or invalid constraint name
+
+
+SQL> alter table emp drop constraint age;
+alter table emp drop constraint age
+                                *
+ERROR at line 1:
+ORA-02443: Cannot drop constraint  - nonexistent constraint
+
+
+SQL> insert into emp values (114,'raj',238,54,'usa');
+insert into emp values (114,'raj',238,54,'usa')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SANDEEP25.SYS_C007454) violated
+
+
+SQL> insert into emp values (124,'raj',238,54,'usa');
+
+1 row created.
+
+SQL> insert into emp(empid,empname,phno) values (125,'abhya',222);
+
+1 row created.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY
+---------- ------------------------- ---------- ---------- -------------------------
+       112 Michale                          234         19 Russia
+       113 Abdul                            913         25 india
+       131                                  678         43 usa
+       132 Riya                             235         22 india
+       114 lily                             876         60 uk
+       127 dino                              77         19 italy
+       117 indrai                           676            india
+       124 raj                              238         54 usa
+       125 abhya                            222            india
+
+9 rows selected.
+
+SQL> create tabel projectx (
+  2  pid int,
+  3  pname varchar(20),
+  4  phead int,
+  5  ploc varchar(20),
+  6  pmembers int default 5,
+  7  constraint pk_px primary key (pid,pname),
+  8  constraint uc_px unique (phead,ploc));
+create tabel projectx (
+       *
+ERROR at line 1:
+ORA-00901: invalid CREATE command
+
+
+SQL> create table projectx (
+  2  pid int,
+  3  pname varchar(20),
+  4  phead int,
+  5  ploc varchar(20),
+  6  pmembers int default 5,
+  7  constraint pk_px primary key (pid,pname),
+  8  constraint uc_px unique (phead,ploc));
+
+Table created.
+
+SQL> desc projectx;
+ Name
+
+               Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ PID
+
+               NOT NULL NUMBER(38)
+ PNAME
+
+               NOT NULL VARCHAR2(20)
+ PHEAD
+
+                        NUMBER(38)
+ PLOC
+
+                        VARCHAR2(20)
+ PMEMBERS
+
+                        NUMBER(38)
+
+SQL> alter table projectx add constraint ck_px_5 check (pmembers>5);
+
+Table altered.
+
+SQL> desc projectx;
+ Name
+
+               Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ PID
+
+               NOT NULL NUMBER(38)
+ PNAME
+
+               NOT NULL VARCHAR2(20)
+ PHEAD
+
+                        NUMBER(38)
+ PLOC
+
+                        VARCHAR2(20)
+ PMEMBERS
+
+                        NUMBER(38)
+
+SQL> alter table emp 2 drop constraint chk;
+alter table emp 2 drop constraint chk
+                *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table emp  drop constraint chk;
+alter table emp  drop constraint chk
+                                 *
+ERROR at line 1:
+ORA-02443: Cannot drop constraint  - nonexistent constraint
+
+
+SQL> alter table emp  drop constraint age;
+alter table emp  drop constraint age
+                                 *
+ERROR at line 1:
+ORA-02443: Cannot drop constraint  - nonexistent constraint
+
+
+SQL> alter table emp  drop constraint ck age;
+alter table emp  drop constraint ck age
+                                    *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table emp  drop constraint chk age;
+alter table emp  drop constraint chk age
+                                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table projectx drop constraint pk_px;
+
+Table altered.
+
+SQL> desc projectx;
+ Name
+
+               Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ PID
+
+                        NUMBER(38)
+ PNAME
+
+                        VARCHAR2(20)
+ PHEAD
+
+                        NUMBER(38)
+ PLOC
+
+                        VARCHAR2(20)
+ PMEMBERS
+
+                        NUMBER(38)
+
+SQL> alter table projectx add constraint pk_px_1 primary key (pid);
+
+Table altered.
+
+SQL> desc projectx;
+ Name
+
+               Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ PID
+
+               NOT NULL NUMBER(38)
+ PNAME
+
+                        VARCHAR2(20)
+ PHEAD
+
+                        NUMBER(38)
+ PLOC
+
+                        VARCHAR2(20)
+ PMEMBERS
+
+                        NUMBER(38)
+
+SQL> alter table projectx modify column pid varchar(10);
+alter table projectx modify column pid varchar(10)
+                                       *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> alter table projectx alter column pid varchar(10);
+alter table projectx alter column pid varchar(10)
+                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table projectx modify column pid varchar(10);
+alter table projectx modify column pid varchar(10)
+                                       *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> alter table projectx modify column pid type varchar(10);
+alter table projectx modify column pid type varchar(10)
+                                       *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> insert into projectx('a11','dexter',112,'miami',2);
+insert into projectx('a11','dexter',112,'miami',2)
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> alter table projectx modif (pid varchar(10));
+alter table projectx modif (pid varchar(10))
+                     *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table projectx modify (pid varchar(10));
+
+Table altered.
+
+SQL> insert into projectx('a11','dexter',112,'miami',2);
+insert into projectx('a11','dexter',112,'miami',2)
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into projectx values('a11','dexter',112,'miami',2);
+insert into projectx values('a11','dexter',112,'miami',2)
+*
+ERROR at line 1:
+ORA-02290: check constraint (SANDEEP25.CK_PX_5) violated
+
+
+SQL> insert into projectx values('a11','dexter',112,'miami',7);
+
+1 row created.
+
+SQL> insert into projectx values('p67','luna',113,'chennai',8);
+
+1 row created.
+
+SQL> insert into projectx(pid,pname,phead,ploc) values('x55','east_west',114,'japan');
+insert into projectx(pid,pname,phead,ploc) values('x55','east_west',114,'japan')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SANDEEP25.CK_PX_5) violated
+
+
+SQL> insert into projectx(pid,pname,phead,ploc) values('x55','east_west',114,'japan');
+insert into projectx(pid,pname,phead,ploc) values('x55','east_west',114,'japan')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SANDEEP25.CK_PX_5) violated
+
+
+SQL> select * from projectx;
+
+PID        PNAME                     PHEAD PLOC                   PMEMBERS
+---------- -------------------- ---------- -------------------- ----------
+a11        dexter                      112 miami                         7
+p67        luna                        113 chennai                       8
+
+SQL> insert into projectx(pid,pname,phead,ploc) values('x55','east_west',114,'japan');
+insert into projectx(pid,pname,phead,ploc) values('x55','east_west',114,'japan')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SANDEEP25.CK_PX_5) violated
+
+
+SQL> insert into projectx values('x55','east_west',114,'japan',9);
+
+1 row created.
+
+SQL> select * from projectx;
+
+PID        PNAME                     PHEAD PLOC                   PMEMBERS
+---------- -------------------- ---------- -------------------- ----------
+a11        dexter                      112 miami                         7
+p67        luna                        113 chennai                       8
+x55        east_west                   114 japan                         9
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY
+---------- ------------------------- ---------- ---------- -------------------------
+       112 Michale                          234         19 Russia
+       113 Abdul                            913         25 india
+       131                                  678         43 usa
+       132 Riya                             235         22 india
+       114 lily                             876         60 uk
+       127 dino                              77         19 italy
+       117 indrai                           676            india
+       124 raj                              238         54 usa
+       125 abhya                            222            india
+
+9 rows selected.
+
+SQL> delete from emp where empid not in(112,113,114);
+
+6 rows deleted.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY
+---------- ------------------------- ---------- ---------- -------------------------
+       112 Michale                          234         19 Russia
+       113 Abdul                            913         25 india
+       114 lily                             876         60 uk
+
+SQL> alter table emp add project varchar(20);
+
+Table altered.
+
+SQL> desc emp;
+ Name
+
+               Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ EMPID
+
+               NOT NULL NUMBER(38)
+ EMPNAME
+
+               NOT NULL VARCHAR2(25)
+ PHNO
+
+                        NUMBER(38)
+ AGE
+
+                        NUMBER(38)
+ EMP_COUNTRY
+
+                        VARCHAR2(25)
+ PROJECT
+
+                        VARCHAR2(20)
+
+SQL> set linesize 200;
+SQL> desc emp;
+ Name
+                                   Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMPID
+                                   NOT NULL NUMBER(38)
+ EMPNAME
+                                   NOT NULL VARCHAR2(25)
+ PHNO
+                                            NUMBER(38)
+ AGE
+                                            NUMBER(38)
+ EMP_COUNTRY
+                                            VARCHAR2(25)
+ PROJECT
+                                            VARCHAR2(20)
+
+SQL> upadte emp set project="a11" where empid=112;
+SP2-0734: unknown command beginning "upadte emp..." - rest of line ignored.
+SQL> upadte emp set project='a11' where empid=112;
+SP2-0734: unknown command beginning "upadte emp..." - rest of line ignored.
+SQL> upadte emp project='a11' where empid=112;
+SP2-0734: unknown command beginning "upadte emp..." - rest of line ignored.
+SQL> upadte table emp set project='a11' where empid=112;
+SP2-0734: unknown command beginning "upadte tab..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> update emp set project='a11' where empid=112;
+
+1 row updated.
+
+SQL> update emp set project='p67' where empid=113;
+
+1 row updated.
+
+SQL> update emp set project='x55' where empid=114;
+
+1 row updated.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY               PROJECT
+---------- ------------------------- ---------- ---------- ------------------------- --------------------
+       112 Michale                          234         19 Russia                    a11
+       113 Abdul                            913         25 india                     p67
+       114 lily                             876         60 uk                        x55
+
+SQL> alter table emp
+  2  add foreign key (project) references projectx(pid);
+
+Table altered.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY               PROJECT
+---------- ------------------------- ---------- ---------- ------------------------- --------------------
+       112 Michale                          234         19 Russia                    a11
+       113 Abdul                            913         25 india                     p67
+       114 lily                             876         60 uk                        x55
+
+SQL> insert into emp(empid,empname,phno,project) vlaues (115,'Bono',910,'a11');
+insert into emp(empid,empname,phno,project) vlaues (115,'Bono',910,'a11')
+                                            *
+ERROR at line 1:
+ORA-00926: missing VALUES keyword
+
+
+SQL> insert into emp(empid,empname,phno,project) values (115,'Bono',910,'a11');
+
+1 row created.
+
+SQL> insert into emp values (116,'Catilin',660,25,'uk','p67');
+
+1 row created.
+
+SQL> select * from emp;
+
+     EMPID EMPNAME                         PHNO        AGE EMP_COUNTRY               PROJECT
+---------- ------------------------- ---------- ---------- ------------------------- --------------------
+       112 Michale                          234         19 Russia                    a11
+       113 Abdul                            913         25 india                     p67
+       116 Catilin                          660         25 uk                        p67
+       114 lily                             876         60 uk                        x55
+       115 Bono                             910            india                     a11
+
+SQL> insert into emp(empid,empanme,phno,age,project) values (117,'rajesh',220,60,'x50');
+insert into emp(empid,empanme,phno,age,project) values (117,'rajesh',220,60,'x50')
+                      *
+ERROR at line 1:
+ORA-00904: "EMPANME": invalid identifier
+
+
+SQL> insert into emp(empid,empname,phno,age,project) values (117,'rajesh',220,60,'x50');
+insert into emp(empid,empname,phno,age,project) values (117,'rajesh',220,60,'x50')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SANDEEP25.SYS_C007460) violated - parent key not found
+
+SQL> spool off
