@@ -1,3 +1,4 @@
+set serveroutput on;
 DECLARE
 	n number(5);
 

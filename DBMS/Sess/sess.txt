@@ -1,0 +1,119 @@
+SQL> connect sandeep25/kiit;
+Connected.
+SQL> CREATE TABLE ITEM(ItemNo NUMBER(1) PRIMARY KEY, ItemName VARCHAR(10) NOT NULL, ItemPrice DECIMAL(5,2) DEFAULT 100.00, QtyOnHand NUMBER(3));
+
+Table created.
+
+SQL> DESC ITEM;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEMNO                                    NOT NULL NUMBER(1)
+ ITEMNAME                                  NOT NULL VARCHAR2(10)
+ ITEMPRICE                                          NUMBER(5,2)
+ QTYONHAND                                          NUMBER(3)
+
+SQL> insert into ITEM values(1, 'Hammer', 9.99, 125);
+
+1 row created.
+
+SQL> insert into ITEM values(2, 'Bolt', 3.99, 75);
+
+1 row created.
+
+SQL> insert into ITEM values(3, 'Washer', 1.99, 100);
+
+1 row created.
+
+SQL> insert into ITEM values(4, 'Screw', 2.25, 50);
+
+1 row created.
+
+SQL> SELECT * FROM ITEM;
+
+    ITEMNO ITEMNAME    ITEMPRICE  QTYONHAND                                     
+---------- ---------- ---------- ----------                                     
+         1 Hammer           9.99        125                                     
+         2 Bolt             3.99         75                                     
+         3 Washer           1.99        100                                     
+         4 Screw            2.25         50                                     
+
+SQL> CREATE TABLE BUYER(Buyer_id NUMBER(3) PRIMARY KEY, name VARCHAR(10) NOT NULL, ItemNo NUMBER(1) REFERENCES ITEM(ItemNo), date_of_purchase DATE);
+
+Table created.
+
+SQL> DESC BUYER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BUYER_ID                                  NOT NULL NUMBER(3)
+ NAME                                      NOT NULL VARCHAR2(10)
+ ITEMNO                                             NUMBER(1)
+ DATE_OF_PURCHASE                                   DATE
+
+SQL> insert into BUYER values(101, 'ram', 1, 12-MAR-2018);
+
+1 row created.
+
+SQL> insert into BUYER values(201, 'sam', 2, 07-FEB-2018);
+
+1 row created.
+
+SQL> insert into BUYER values(301, 'hari', 3, 01-MAR-2018);
+
+1 row created.
+
+SQL> insert into BUYER values(401, 'dham', 2, 05-MAR-2019);
+
+1 row created.
+
+SQL> SELECT * FROM BUYER;
+
+  BUYER_ID NAME           ITEMNO DATE_OF_P                                      
+---------- ---------- ---------- ---------                                      
+       101 ram                 1 12-MAR-18                                      
+       201 sam                 2 07-FEB-18                                      
+       301 hari                3 01-MAR-18                                      
+       401 dham                2 05-MAR-19                                      
+
+SQL> SELECT ItemName, ItemPrice FROM Item WHERE ItemPrice >= 5;
+
+ITEMNAME    ITEMPRICE                                                           
+---------- ----------                                                           
+Hammer           9.99                                                           
+
+SQL> SELECT ItemName FROM ITEM WHERE ItemName LIKE '%w%' OR ItemName LIKE '%W%';
+
+ITEMNAME                                                                        
+----------                                                                      
+Washer                                                                          
+Screw                                                                           
+
+SQL> SELECT * FROM Item ORDER BY ItemPrice DESC;
+
+    ITEMNO ITEMNAME    ITEMPRICE  QTYONHAND                                     
+---------- ---------- ---------- ----------                                     
+         1 Hammer           9.99        125                                     
+         2 Bolt             3.99         75                                     
+         4 Screw            2.25         50                                     
+         3 Washer           1.99        100                                     
+
+SQL> SELECT SUM(ItemPrice), AVG(ItemPrice), Max(ItemPrice), Min(ItemPrice) FROM Item;
+
+SUM(ITEMPRICE) AVG(ITEMPRICE) MAX(ITEMPRICE) MIN(ITEMPRICE)                     
+-------------- -------------- -------------- --------------                     
+         18.22          4.555           9.99           1.99                     
+
+SQL> SELECT ItemName FROM ITEM, BUYER WHERE ITEM.ItemNo = BUYER.ItemNo AND BUYER.date_of_purchase > '30-jun-2018';
+
+ITEMNAME                                                                        
+----------                                                                      
+Bolt                                                                            
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off
+
+Name - Sandeep Kumar Swain
+Roll - 20051025
+Section - CSE-13
