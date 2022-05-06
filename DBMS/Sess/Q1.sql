@@ -1,6 +1,7 @@
 set serveroutput on;
 DECLARE
     n NUMBER;
+
 BEGIN
     n:=&n;
     IF MOD(n, 400)=0

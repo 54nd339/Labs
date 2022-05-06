@@ -1,3 +1,4 @@
+set serveroutput on;
 DECLARE
 	CURSOR CSR IS SELECT EMP_ID, salary FROM EMP_CURSOR
 		WHERE DEPT_NO='D05';

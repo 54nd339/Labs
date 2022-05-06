@@ -1,4 +1,4 @@
-SET SERVEROUTPUT ON;
+set serveroutput on;
 DECLARE
 	n1 NUMBER;
 	n2 NUMBER;

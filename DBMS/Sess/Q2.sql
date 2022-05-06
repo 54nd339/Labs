@@ -1,9 +1,10 @@
 set serveroutput on;
-declare
+DECLARE
     a NUMBER;
     b NUMBER;
     c NUMBER;
-begin
+
+BEGIN
     a:=&a;
     b:=&b;
     dbms_output.Put_line('BEFORE SWAP : a = ' ||a|| ', b = ' ||b);
@@ -12,5 +13,5 @@ begin
     a:=b;
     b:=c;
     dbms_output.Put_line('AFTER SWAP : a = ' ||a|| ', b = ' ||b);
-end;
+END;
 /
