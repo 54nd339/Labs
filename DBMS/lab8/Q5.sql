@@ -1,6 +1,8 @@
+set serveroutput on;
 DECLARE
 	CURSOR CSR IS SELECT emp_id,salary FROM EMP_CURSOR
 		WHERE dept_no='D05';
+
 BEGIN
 	FOR i IN CSR
 	LOOP
