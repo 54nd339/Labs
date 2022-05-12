@@ -1,9 +1,11 @@
+set serveroutput on;
 DECLARE
 	vname EMPLOYEE.ename%TYPE;
 	vdesg EMPLOYEE.job%TYPE;
 	did NUMBER(2);
 	CURSOR empcr(dno EMPLOYEE.deptno%TYPE) IS SELECT
 	ename, job FROM EMPLOYEE WHERE dno=deptno;
+
 BEGIN
 	did:=&did;
 	OPEN empcr(did);

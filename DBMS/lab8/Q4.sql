@@ -1,3 +1,4 @@
+set serveroutput on;
 DECLARE
 	CURSOR CSR IS SELECT emp_name,dept_no,salary FROM EMP_CURSOR
 		ORDER BY salary DESC;
