@@ -6,5 +6,6 @@
         "cstddef": "cpp",
         "istream": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "liveServer.settings.port": 5501
 }
