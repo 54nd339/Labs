@@ -26,7 +26,8 @@ int main() {
     }
     printf("\nEntered Details :");
     for(int i=0; i<3; i++) {
-        printf("\nempId : %d\n",employee[i].empl.empId);
+        printf("\nEmpId : %d\n",employee[i].empl.empId);
+        printf("\nAge : %d\n",employee[i].age);
         printf("Basic : %.2f\n",employee[i].empl.basic);
         printf("DA : %.2f\n",employee[i].empl.da);
         printf("HRA : %.2f\n",employee[i].empl.hra);
