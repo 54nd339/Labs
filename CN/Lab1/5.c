@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #define DA 0.05
 #define HRA 0.05
-typedef struct employee {
+struct Employee {
     int empId;
     float basic, da, hra, gross;
-}emp;
+};
 typedef struct emp_info {
     int age;
-    emp empl;
+    struct Employee empl;
 }info;
 
 int main() {
@@ -27,7 +27,7 @@ int main() {
     printf("\nEntered Details :");
     for(int i=0; i<3; i++) {
         printf("\nEmpId : %d\n",employee[i].empl.empId);
-        printf("\nAge : %d\n",employee[i].age);
+        printf("Age : %d\n",employee[i].age);
         printf("Basic : %.2f\n",employee[i].empl.basic);
         printf("DA : %.2f\n",employee[i].empl.da);
         printf("HRA : %.2f\n",employee[i].empl.hra);
