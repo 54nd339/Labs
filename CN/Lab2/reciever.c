@@ -24,7 +24,7 @@ int main() {
 		
 	// Bind the socket with the port
 	if (bind(sockfd, (const struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
-		perror("binding failed");
+		perror("Binding Failed");
 		exit(EXIT_FAILURE);
 	}
     else 
