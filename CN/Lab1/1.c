@@ -4,6 +4,7 @@ void swap(int *x, int *y) {
     *x = *y;
     *y = temp;
 }
+
 int main() {
     printf("Enter 2 nos. : ");
     int m, n;

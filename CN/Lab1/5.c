@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #define DA 0.05
 #define HRA 0.05
 struct Employee {
@@ -10,7 +9,6 @@ typedef struct emp_info {
     int age;
     struct Employee empl;
 }info;
-
 int main() {
     info employee[3];
     for(int i=0; i<3; i++) {
