@@ -28,6 +28,9 @@ int binarySearch(int arr[], int l, int r, int x) {
     return -1;
 }
  
+int cmpfunc (const void *a, const void *b) {
+   return (*(int*)a - *(int*)b);
+}
 int main() {
     printf("Enter the size of array : ");
     int n; scanf("%d", &n);
@@ -38,7 +41,7 @@ int main() {
 
     printf("Original Array : ");
     for(int i = 0; i < n; i++)
-        printf("%d", &ele);
+        printf("%d ", &arr[i]);
     printf("\nElement to be searched : %d\n", ele);
 
     clock_t start = clock();
@@ -46,6 +49,7 @@ int main() {
     clock_t end = clock();
     printf("\nTime taken by linear search : %f\n", (double)(end - start) / CLOCKS_PER_SEC);
 
+    qsort(arr, n, sizeof(int), cmpfunc);
     start = clock();
     int result = binarySearch(arr, 0, n - 1, ele);
     (result == -1)
