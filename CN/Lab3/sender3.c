@@ -23,11 +23,22 @@ int main() {
 	recvaddr.sin_addr.s_addr = INADDR_ANY;
 
     // Sending msgessage to reciever
-	printf("Enter 2 nos. : ");
-    for(int i = 0; i < 2; i++) {
-        int a; scanf("%d",&a);
-        int m = sendto(sockfd, &a, sizeof(int), 0,
-            (const struct sockaddr *) &recvaddr, sizeof(recvaddr));
+	printf("Enter No. of ints to be entered : ");
+    int size; scanf("%d", &size);
+    int m = sendto(sockfd, &size, sizeof(int), 0,
+        (const struct sockaddr *) &recvaddr, sizeof(recvaddr));
+    if (m == -1) {
+        printf("Sending Failed.");
+        exit(1);
+    }
+    else
+        printf("Array Size Sent.\n");
+
+    for(int i = 0; i < size; i++) {
+        printf("Enter int %d : ", i+1);
+        int a; scanf("%d", &a);
+        m = sendto(sockfd, &a, sizeof(int), 0,
+            (const struct sockaddr *)&recvaddr, sizeof(recvaddr));
         if (m == -1) {
             printf("Sending Failed.");
             exit(1);
@@ -35,7 +46,7 @@ int main() {
         else
             printf("INT Sent : %d\n", a);
     }
-	
+
     // Receiving message from reciever
 	int res, len, n = recvfrom(sockfd, &res, sizeof(int), 0,
         (struct sockaddr *) &recvaddr, &len);

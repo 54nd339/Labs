@@ -10,7 +10,7 @@ int main() {
 	// Creating socket file descriptor
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd == -1) {
-		perror("Socket creation failed");
+		printf("Socket creation failed");
 		exit(1);
 	}
     else
@@ -38,7 +38,7 @@ int main() {
         int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
             (struct sockaddr *) &recvaddr, sizeof(recvaddr));
         if (m == -1) {
-            perror("Sending Failed.");
+            printf("Sending Failed.");
             exit(1);
         }
         else

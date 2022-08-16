@@ -10,7 +10,7 @@ int main() {
 	// Creating socket file descriptor
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd == -1) {
-		perror("Socket creation failed");
+		printf("Socket creation failed");
 		exit(1);
 	}
     else 
@@ -24,36 +24,36 @@ int main() {
 		
 	// Bind the socket with the port
 	if (bind(sockfd, (const struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
-		perror("Binding Failed");
+		printf("Binding Failed");
 		exit(1);
 	}
     else 
         printf("Binding successful.\n");
 	
-    // Reciving message from Sender
-	char buffer[100];
+    // Recieving message from Sender
 	int len = sizeof(sendaddr);
-	int n = recvfrom(sockfd, (char *)buffer, 100, 0,
-        (struct sockaddr *)&sendaddr, &len);
-    if (n == -1) {
-        printf("Recieving Failed");
-        exit(1);
-    }
-    else {
-        buffer[n] = '\0';
-        printf("Sender : %s\n", buffer);
+    int ar[2];
+    for(int i = 0; i < 2; i++) {
+        int n = recvfrom(sockfd, &ar[i], sizeof(int), 0,
+            (struct sockaddr *)&sendaddr, &len);
+        if (n == -1) {
+            printf("Recieving Failed");
+            exit(1);
+        }
+        else
+            printf("INT Recieved : %d\n", ar[i]);
     }
 
     // Sending message to Sender
-	char *msg = "Hello from Reciever";
-	int m = sendto(sockfd, (const char *)msg, strlen(msg), 0,
+	int res = ar[0] + ar[1];
+	int m = sendto(sockfd, &res, sizeof(int), 0,
         (const struct sockaddr *) &sendaddr, len);
     if (m == -1) {
-        perror("Sending Failed.");
+        printf("Sending Failed.");
         exit(1);
     }
     else 
-	    printf("Hello message sent.\n");
+	    printf("Result sent : %d\n", res);
 		
 	return 0;
 }
