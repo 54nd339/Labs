@@ -21,42 +21,30 @@ int main() {
     recvaddr.sin_family = AF_INET;
 	recvaddr.sin_port = PORT;
 	recvaddr.sin_addr.s_addr = INADDR_ANY;
-		
-    // Binding socket to port 5000
-    // if (bind(sockfd, (const struct sockaddr*)&recvaddr, sizeof(recvaddr)) == -1) {
-	// 	perror("binding failed.");
-	// 	exit(1);
-	// }
-    // else {
-    //     printf("Binding successful.\n");
-    // }
 
     // Sending msgessage to reciever
-    char msg[100];
-    do {
-        printf("Enter Message : "); scanf("%s", msg);
-        int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
-            (struct sockaddr *) &recvaddr, sizeof(recvaddr));
+	printf("Enter 2 nos. : ");
+    for(int i = 0; i < 2; i++) {
+        int a; scanf("%d",&a);
+        int m = sendto(sockfd, &a, sizeof(int), 0,
+            (const struct sockaddr *) &recvaddr, sizeof(recvaddr));
         if (m == -1) {
             printf("Sending Failed.");
             exit(1);
         }
         else
-            printf("Message sent. : %s\n", msg);
-
-        // Receiving message from reciever
-        char buffer[100];
-        int len, n = recvfrom(sockfd, (char *)buffer, 100, 0,
-            (struct sockaddr *) &recvaddr, &len);
-        if (n == -1) {
-            printf("Recieving Failed");
-            exit(1);
-        }
-        else {
-            buffer[n] = '\0';
-            printf("Reciever : %s\n", buffer);
-        }
-    } while (strcmp(msg, "bye") != 0);
+            printf("INT Sent : %d\n", a);
+    }
+	
+    // Receiving message from reciever
+	int res, len, n = recvfrom(sockfd, &res, sizeof(int), 0,
+        (struct sockaddr *) &recvaddr, &len);
+	if (n == -1) {
+        printf("Receiving Failed");
+        exit(1);
+    }
+    else
+        printf("Result Received : %d\n", res);
 	
 	close(sockfd);
 	return 0;

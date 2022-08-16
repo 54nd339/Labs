@@ -30,13 +30,13 @@ int main() {
     else 
         printf("Binding successful.\n");
 	
-    // Recieving message from Sender
+    // Receiving message from Sender
 	char buffer[100];
 	int len = sizeof(sendaddr);
 	int n = recvfrom(sockfd, (char *)buffer, 100, 0,
         (struct sockaddr *)&sendaddr, &len);
     if (n == -1) {
-        printf("Recieving Failed");
+        printf("Receiving Failed");
         exit(1);
     }
     else {

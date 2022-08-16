@@ -23,7 +23,7 @@ int main() {
 	recvaddr.sin_addr.s_addr = INADDR_ANY;
 		
 	// Bind the socket with the port
-	if (bind(sockfd, (struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
+	if (bind(sockfd, (const struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
 		printf("Binding Failed");
 		exit(1);
 	}
@@ -31,39 +31,32 @@ int main() {
         printf("Binding successful.\n");
 	
     // Receiving message from Sender
-	int len = sizeof(sendaddr), res = 0;
-    int size, n = recvfrom(sockfd, &size, sizeof(int), 0,
-        (struct sockaddr *)&sendaddr, &len);
-    if (n == -1) {
-        printf("Receiving Failed");
-        exit(1);
-    }
-    else
-        printf("Size Received : %d\n", size);
-
-    for (int i = 0; i < size; i++) {
-        int a;
-        n = recvfrom(sockfd, &a, sizeof(int), 0,
+    char msg[100];
+    do {
+        char buffer[100];
+        int len = sizeof(sendaddr);
+        int n = recvfrom(sockfd, (char *)buffer, 100, 0,
             (struct sockaddr *)&sendaddr, &len);
         if (n == -1) {
             printf("Receiving Failed");
             exit(1);
         }
         else {
-            printf("Int Received : %d\n", a);
-            res += a;
+            buffer[n] = '\0';
+            printf("Sender : %s\n", buffer);
         }
-    }
 
-    // Sending message to Sender
-	int m = sendto(sockfd, &res, sizeof(int), 0,
-        (const struct sockaddr *) &sendaddr, len);
-    if (m == -1) {
-        printf("Sending Failed.");
-        exit(1);
-    }
-    else 
-	    printf("\nResult sent : %d\n", res);
+        // Sending message to Sender
+        printf("Enter Message : "); scanf("%s", msg);
+        int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
+            (struct sockaddr *) &sendaddr, len);
+        if (m == -1) {
+            printf("Sending Failed.");
+            exit(1);
+        }
+        else 
+            printf("Message Sent. : %s\n", msg);
+    } while(strcmp(msg, "bye") != 0);
 		
 	return 0;
 }

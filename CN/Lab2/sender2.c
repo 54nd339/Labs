@@ -32,28 +32,31 @@ int main() {
     // }
 
     // Sending msgessage to reciever
-	char *msg = "Hello from sender";
-	int m = sendto(sockfd, (const char *)msg, strlen(msg), 0,
-        (const struct sockaddr *) &recvaddr, sizeof(recvaddr));
-	if (m == -1) {
-        printf("Sending Failed.");
-        exit(1);
-    }
-    else
-	    printf("Hello message sent.\n");
-	
-    // Receiving message from reciever
-	char buffer[100];
-	int len, n = recvfrom(sockfd, (char *)buffer, 100, 0,
-        (struct sockaddr *) &recvaddr, &len);
-	if (n == -1) {
-        printf("Receiving Failed");
-        exit(1);
-    }
-    else {
-        buffer[n] = '\0';
-        printf("Reciever : %s\n", buffer);
-    }
+    char msg[100];
+    do {
+        printf("Enter Message : "); scanf("%s", msg);
+        int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
+            (struct sockaddr *) &recvaddr, sizeof(recvaddr));
+        if (m == -1) {
+            printf("Sending Failed.");
+            exit(1);
+        }
+        else
+            printf("Message sent. : %s\n", msg);
+
+        // Receiving message from reciever
+        char buffer[100];
+        int len, n = recvfrom(sockfd, (char *)buffer, 100, 0,
+            (struct sockaddr *) &recvaddr, &len);
+        if (n == -1) {
+            printf("Receiving Failed");
+            exit(1);
+        }
+        else {
+            buffer[n] = '\0';
+            printf("Reciever : %s\n", buffer);
+        }
+    } while (strcmp(msg, "bye") != 0);
 	
 	close(sockfd);
 	return 0;

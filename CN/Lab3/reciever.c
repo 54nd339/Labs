@@ -30,33 +30,30 @@ int main() {
     else 
         printf("Binding successful.\n");
 	
-    // Recieving message from Sender
-    char msg[100];
-    do {
-        char buffer[100];
-        int len = sizeof(sendaddr);
-        int n = recvfrom(sockfd, (char *)buffer, 100, 0,
+    // Receiving message from Sender
+	int len = sizeof(sendaddr);
+    int ar[2];
+    for(int i = 0; i < 2; i++) {
+        int n = recvfrom(sockfd, &ar[i], sizeof(int), 0,
             (struct sockaddr *)&sendaddr, &len);
         if (n == -1) {
-            printf("Recieving Failed");
+            printf("Receiving Failed");
             exit(1);
         }
-        else {
-            buffer[n] = '\0';
-            printf("Sender : %s\n", buffer);
-        }
+        else
+            printf("INT Received : %d\n", ar[i]);
+    }
 
-        // Sending message to Sender
-        printf("Enter Message : "); scanf("%s", msg);
-        int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
-            (struct sockaddr *) &sendaddr, len);
-        if (m == -1) {
-            printf("Sending Failed.");
-            exit(1);
-        }
-        else 
-            printf("Message Sent. : %s\n", msg);
-    } while(strcmp(msg, "bye") != 0);
+    // Sending message to Sender
+	int res = ar[0] + ar[1];
+	int m = sendto(sockfd, &res, sizeof(int), 0,
+        (const struct sockaddr *) &sendaddr, len);
+    if (m == -1) {
+        printf("Sending Failed.");
+        exit(1);
+    }
+    else 
+	    printf("Result sent : %d\n", res);
 		
 	return 0;
 }
