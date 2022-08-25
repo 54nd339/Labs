@@ -86,8 +86,8 @@ int main() {
     for (int i = 0; i < n; i++)
         br[i] = ar[i];
 	
-    printf("Original array : ");
-	print(ar, n);
+    // printf("Original array : ");
+	// print(ar, n);
 
     clock_t start = clock();
     quickSort(ar, 0, n-1);
