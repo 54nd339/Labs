@@ -85,7 +85,6 @@ int main() {
     int *br = malloc(n * sizeof(int));
     for (int i = 0; i < n; i++)
         br[i] = ar[i];
-	
     // printf("Original array : ");
 	// print(ar, n);
 
@@ -93,7 +92,6 @@ int main() {
     quickSort(ar, 0, n-1);
     clock_t end = clock();
     printf("Time taken by Quick Sort : %f\n", (double)(end - start) / CLOCKS_PER_SEC);
-	
     // printf("Sorted array : ");
 	// print(ar, n);
 
@@ -101,7 +99,6 @@ int main() {
     mergeSort(br, 0, n-1);
     end = clock();
     printf("Time taken by Merge Sort : %f\n", (double)(end - start) / CLOCKS_PER_SEC);
-	
     // printf("Sorted array : ");
 	// print(br, n);
 	return 0;
