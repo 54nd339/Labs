@@ -34,7 +34,7 @@ int main() {
     // Sending msgessage to reciever
     char msg[100];
     do {
-        printf("Enter Message : "); scanf("%s", msg);
+        printf("Enter Message : "); scanf("%[^\n]s", msg);
         int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
             (struct sockaddr *) &recvaddr, sizeof(recvaddr));
         if (m == -1) {
@@ -56,6 +56,7 @@ int main() {
             buffer[n] = '\0';
             printf("Reciever : %s\n", buffer);
         }
+        fflush(stdin);
     } while (strcmp(msg, "bye") != 0);
 	
 	close(sockfd);
