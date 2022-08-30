@@ -31,23 +31,27 @@ int main() {
         printf("Binding successful.\n");
 	
     // Receiving message from Sender
-    char msg[100];
-    do {
+    while(1) {
         char buffer[100];
         int len = sizeof(sendaddr);
         int n = recvfrom(sockfd, (char *)buffer, 100, 0,
             (struct sockaddr *)&sendaddr, &len);
         if (n == -1) {
-            printf("Receiving Failed");
+            printf("Failed to receive message.\n");
             exit(1);
         }
         else {
             buffer[n] = '\0';
-            printf("Sender : %s\n", buffer);
+            printf("Message from client: %s\n", buffer);
+            if(strcmp(buffer, "exit") == 0) {
+                sendto(sockfd, "exit", strlen("exit"), 0, (struct sockaddr *) &sendaddr, len);
+                break;
+            }
         }
 
         // Sending message to Sender
-        printf("Enter Message : "); scanf("%[^\n]s", msg);
+        printf("Enter Response : ");
+        char msg[100]; scanf("%s", msg);
         int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
             (struct sockaddr *) &sendaddr, len);
         if (m == -1) {
@@ -55,8 +59,8 @@ int main() {
             exit(1);
         }
         else 
-            printf("Message Sent. : %s\n", msg);
-    } while(strcmp(msg, "bye") != 0);
+            printf("Response : %s\n", msg);
+    }
 		
 	return 0;
 }

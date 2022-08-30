@@ -10,7 +10,7 @@ int main() {
 	// Creating socket file descriptor
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd == -1) {
-		printf("Socket creation failed");
+		printf("Socket Creation FAILED.\n");
 		exit(1);
 	}
     else
@@ -22,43 +22,36 @@ int main() {
 	recvaddr.sin_port = PORT;
 	recvaddr.sin_addr.s_addr = INADDR_ANY;
 		
-    // Binding socket to port 5000
-    // if (bind(sockfd, (const struct sockaddr*)&recvaddr, sizeof(recvaddr)) == -1) {
-	// 	perror("binding failed.");
-	// 	exit(1);
-	// }
-    // else {
-    //     printf("Binding successful.\n");
-    // }
-
-    // Sending msgessage to reciever
-    char msg[100];
-    do {
-        printf("Enter Message : "); scanf("%[^\n]s", msg);
+    while(1) {
+        // Sending message to reciever
+        printf("Enter Message : ");
+        char msg[100]; scanf("%s", msg);
         int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
             (struct sockaddr *) &recvaddr, sizeof(recvaddr));
         if (m == -1) {
-            printf("Sending Failed.");
+            printf("Failed to send message.\n");
             exit(1);
         }
         else
-            printf("Message sent. : %s\n", msg);
+            printf("Message sent : %s\n", msg);
 
         // Receiving message from reciever
         char buffer[100];
         int len, n = recvfrom(sockfd, (char *)buffer, 100, 0,
             (struct sockaddr *) &recvaddr, &len);
         if (n == -1) {
-            printf("Receiving Failed");
+            printf("Failed to receive message.\n");
             exit(1);
         }
         else {
             buffer[n] = '\0';
-            printf("Reciever : %s\n", buffer);
+            printf("Response from the Server: %s\n",buffer);
+            if(strcmp(buffer, "exit") == 0) {
+                sendto(sockfd, "exit", strlen("exit"), 0, (struct sockaddr *) &recvaddr, sizeof(recvaddr));
+                break;
+            }	
         }
-        fflush(stdin);
-    } while (strcmp(msg, "bye") != 0);
-	
-	close(sockfd);
+    }
+
 	return 0;
 }
