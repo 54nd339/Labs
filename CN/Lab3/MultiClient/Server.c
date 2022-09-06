@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#define N 10
 
 int main() {
     // Create socket:
@@ -16,7 +17,7 @@ int main() {
         printf("Socket created successfully\n");
     
     // Set port and IP:
-    struct sockaddr_in servaddr, cliaddr;
+    struct sockaddr_in servaddr, cliaddr[N];
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(2000);
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -36,44 +37,49 @@ int main() {
     }
     else
         printf("\nListening for incoming client messages.....\n");
-    
-    // Accept an incoming connection:
-    int client_size = sizeof(cliaddr);
-    int client_sock = accept(sockfd, (struct sockaddr*)&cliaddr, &client_size);
 
-    if (client_sock < 0){
-        printf("Can't accept the message\n");
-        exit(1);
-    }
-    else
-        printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
     
-    while(1){
-        // Receive client's message:
-        char buff[2000];
-        int n = recv(client_sock, buff, sizeof(buff), 0);     
-        buff[n] = '\0';
-        if(n < 0) {
-            printf("Failed to receive message.\n");
-            exit(1);   
-        }
-        else {
-            printf("Message from client: %s\n", buff);
-            if(strcmp(buff, "exit") == 0) {
-                send(client_sock, "exit", strlen("exit"), 0);
-                break;
-            }
-        }
-        
-        // Respond to client
-        printf("Enter Respose : ");
-        char msg[2000]; scanf("%s", msg);
-        if (send(client_sock, msg, strlen(msg), 0) < 0){
-            printf("Sending Failed\n");
+    int client_size = sizeof(cliaddr);
+    int client_sock[N];
+    
+    for(int i = 0; i < N; i++){
+        // Accept an incoming connection:
+        client_sock[i] = accept(sockfd, (struct sockaddr*)&(cliaddr[i]), &client_size);
+
+        if (client_sock[i] < 0){
+            printf("Can't accept the message\n");
             exit(1);
         }
         else
-            printf("Response : %s\n", msg); 
+            printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr[i].sin_addr), ntohs(cliaddr[i].sin_port));
+
+        while(1) {
+            // Receive client's message:
+            char buff[2000];
+            int n = recv(client_sock[i], buff, sizeof(buff), 0);     
+            buff[n] = '\0';
+            if(n < 0) {
+                printf("Failed to receive message.\n");
+                exit(1);   
+            }
+            else {
+                printf("Message from client: %s\n", buff);
+                if(strcmp(buff, "exit") == 0) {
+                    send(client_sock[i], "exit", strlen("exit"), 0);
+                    break;
+                }
+            }
+            
+            // Respond to client
+            printf("Enter Respose : ");
+            char msg[2000]; scanf("%s", msg);
+            if (send(client_sock[i], msg, strlen(msg), 0) < 0){
+                printf("Sending Failed\n");
+                exit(1);
+            }
+            else
+                printf("Response : %s\n", msg);
+        } 
     }
         
     // Closing the socket:
