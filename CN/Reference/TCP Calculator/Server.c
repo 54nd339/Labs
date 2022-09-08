@@ -1,3 +1,7 @@
+// Write the client side and server side program TCP using C to design a Calculator (Menu driven), where the
+// Client sends two integers and an option as an operator (+, -, *, / or ℅) to the Server,
+// Server calculates accordingly and returns the //result to the Client. Now Client will display the result. 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,7 +9,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-int main() {
+void main() {
     // Create socket:
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd < 0){
@@ -39,35 +43,32 @@ int main() {
 
     // Accept an incoming connection:
     int client_size = sizeof(cliaddr);
-    int client_sock = accept(sockfd, (struct sockaddr*)&cliaddr, &client_size);
+    int connfd = accept(sockfd, (struct sockaddr*)&cliaddr, &client_size);
 
-    if (client_sock < 0){
+    if (connfd < 0){
         printf("Can't accept the message\n");
         exit(1);
     }
     else
         printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
     
-    char server_message[2000], client_message[2000];
-    // Receive client's message:
-    if (recv(client_sock, client_message, sizeof(client_message), 0) < 0){
-        printf("Couldn't receive messages!!\n");
-        exit(1);
-    }
-    else
-        printf("Message from client: %s\n", client_message);
+    char operator; int op1, op2, result;
+    read(connfd, &operator, 10);
+    read(connfd, &op1, sizeof(op1));
+    read(connfd, &op2, sizeof(op2));
+    if(operator == '+')
+        result = op1 + op2;
+    else if(operator == '-')
+        result = op1 - op2;
+    else if(operator == '*')
+        result = op1 * op2;
+    else if(operator == '/')
+        result = op1 / op2;
+    else 
+        printf("ERROR: Unsupported Operation");
 
-    // Respond to client:
-    strcpy(server_message, "Hello Client.");
-    if (send(client_sock, server_message, strlen(server_message), 0) < 0){
-        printf("Sending Failed\n");
-        exit(1);
-    }
-    else
-        printf("Response : %s",server_message);
-
-    // Closing the socket:
-    close(client_sock);
+    printf("Result is: %d %c %d = %d\n",op1, operator, op2, result);
+    write(connfd, &result, sizeof(result));   
     close(sockfd);
     return 0;
 }

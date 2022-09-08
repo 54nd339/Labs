@@ -27,29 +27,18 @@ int main() {
         exit(1);
     }
     printf("Connection with server Processed Successfully !!\n");
-    
-    char server_message[2000], client_message[2000];
-    // Get input from the user:
-    printf("Enter message to be sent to the server: ");
-    scanf("%s",client_message);
-    
-    // Send the message to server:
-    if(send(sockfd, client_message, strlen(client_message), 0) < 0){
-        printf("Failed to send message\n");
-        exit(1);
-    }
-    else
-        printf("Message Sent : %s\n", client_message);
 
-    // Receive the server's response:
-    if(recv(sockfd, server_message, sizeof(server_message), 0) < 0){
-        printf("Error while receiving server's msg\n");
-        exit(1);
-    }
-    else
-        printf("Response from the Server: %s\n",server_message);
-    
-    // Close the socket:
+    printf("Enter operation :\n + : Addition \n - : Subtraction \n / : Division \n * : Multiplication \n");
+    char operator; scanf("%c",&operator);
+    int op1, op2, result;
+    printf("Enter operands : ");
+    scanf("%d %d", &op1, &op2);
+
+    write(sockfd, &operator, 10);
+    write(sockfd, &op1, sizeof(op1));
+    write(sockfd, &op2, sizeof(op2));
+    read(sockfd, &result, sizeof(result)); 
+    printf("Operation result from server : %d\n", result);  
     close(sockfd);
     return 0;
 }
