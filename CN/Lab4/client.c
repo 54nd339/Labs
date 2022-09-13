@@ -14,7 +14,11 @@ void recvFile(char *filename, int sockfd) {
     }
     // File transfer:
     char data[SIZE] = {0};
-    while(recv(sockfd, data, SIZE, 0) > 0) {
+    while(1) {
+        if (recv(sockfd, data, SIZE, 0) == -1) {
+            printf("Error in receiving file.");
+            exit(1);
+        }
         if(strcmp(data, "EOF") == 0) break;
         fprintf(fp, "%s", data);
         bzero(data, SIZE);
@@ -47,7 +51,7 @@ int main() {
     // Receive list from server:
     recvFile("rlist", sockfd);
     printf("List received successfully :\n");
-    system("cat rlist && rm rlist");
+    system("cat rlist");
 
     // Send filename to server:
     printf("Name of file to be downloaded: ");
@@ -60,6 +64,7 @@ int main() {
     printf("File received successfully !!\n");
     
     // Close the socket:
+    system("rm rlist");
     close(sockfd);
     return 0;
 }

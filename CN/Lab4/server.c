@@ -68,7 +68,6 @@ int main() {
     // Create list of files and send to client:
     system("ls >> list");
     sendFile("list", client_sock);
-    system("rm list");  
     printf("List sent successfully.\n");
 
     // Request file from client:
@@ -81,6 +80,7 @@ int main() {
     printf("File sent successfully.\n");
 
     // Closing the socket:
+    system("rm list");  
     close(client_sock);
     close(sockfd);
     return 0;
