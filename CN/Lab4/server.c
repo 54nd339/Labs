@@ -4,6 +4,25 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#define SIZE 1024
+
+void sendFile(char *filename, int sockfd) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("[-]Error reading list.");
+        exit(1);
+    }
+    // File transfer:
+    char data[SIZE] = {0};
+    while(fgets(data, SIZE, fp) != NULL) {
+        if(send(sockfd, data, sizeof(data), 0) == -1) {
+            perror("[-]Error in sending file.");
+            exit(1);
+        }
+        bzero(data, SIZE);
+    }
+    fclose(fp);
+}
 
 int main() {
     // Create socket:
@@ -17,7 +36,7 @@ int main() {
     // Set port and IP:
     struct sockaddr_in servaddr, cliaddr;
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(2000);
+    servaddr.sin_port = htons(2080);
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     // Bind to the set port and IP:
@@ -32,7 +51,7 @@ int main() {
         printf("Error, Couldnt Listen !!\n");
         exit(1);
     }
-    printf("\nListening for incoming client messages.....\n");
+    printf("\nListening for incoming client messages..\n");
 
     // Accept an incoming connection:
     int client_size = sizeof(cliaddr);
@@ -43,22 +62,18 @@ int main() {
         exit(1);
     }
     printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
-    
-    char server_message[2000], client_message[2000];
-    // Receive client's message:
-    if (recv(client_sock, client_message, sizeof(client_message), 0) < 0){
-        printf("Couldn't receive messages!!\n");
-        exit(1);
-    }
-    printf("Message from client: %s\n", client_message);
 
-    // Respond to client:
-    strcpy(server_message, "Hello Client.");
-    if (send(client_sock, server_message, strlen(server_message), 0) < 0){
-        printf("Sending Failed\n");
-        exit(1);
-    }
-    printf("Response : %s",server_message);
+    system("ls >> list"); 
+    sendFile("list", client_sock);
+    // system("rm list");
+    printf("List sent successfully.\n");
+
+    // char filename[SIZE];
+    // recv(client_sock, filename, SIZE, 0);
+    // printf("File requested: %s\n", filename);
+
+    // sendFile(filename, client_sock);
+    // printf("File sent successfully.\n");
 
     // Closing the socket:
     close(client_sock);

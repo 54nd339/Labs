@@ -13,8 +13,7 @@ int main() {
 		printf("Socket creation failed");
 		exit(1);
 	}
-    else
-        printf("Socket created successfully.\n");
+    printf("Socket created successfully.\n");
 		
 	// Filling server information
 	struct sockaddr_in recvaddr;
@@ -27,9 +26,7 @@ int main() {
 	// 	perror("binding failed.");
 	// 	exit(1);
 	// }
-    // else {
-    //     printf("Binding successful.\n");
-    // }
+    // printf("Binding successful.\n");
 
     // Sending msgessage to reciever
 	char *msg = "Hello from sender";
@@ -39,8 +36,7 @@ int main() {
         printf("Sending Failed.");
         exit(1);
     }
-    else
-	    printf("Hello message sent.\n");
+    printf("Hello message sent.\n");
 	
     // Receiving message from reciever
 	char buffer[100];
@@ -50,10 +46,9 @@ int main() {
         printf("Receiving Failed");
         exit(1);
     }
-    else {
-        buffer[n] = '\0';
-        printf("Reciever : %s\n", buffer);
-    }
+
+    buffer[n] = '\0';
+    printf("Reciever : %s\n", buffer);
 	
 	close(sockfd);
 	return 0;

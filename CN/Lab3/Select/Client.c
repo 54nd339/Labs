@@ -44,7 +44,7 @@ int main() {
             printf("Failed to receive message.\n");
             exit(1);
         }
-
+        
         buff[n] = '\0';
         printf("Response from the Server: %s\n",buff);
         if(strcmp(buff, "exit") == 0) {

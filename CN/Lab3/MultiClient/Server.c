@@ -13,8 +13,7 @@ int main() {
         printf("Socket Creation FAILED!!\n");
         exit(1);
     }
-    else
-        printf("Socket created successfully\n");
+    printf("Socket created successfully\n");
     
     // Set port and IP:
     struct sockaddr_in servaddr, cliaddr[N];
@@ -27,17 +26,14 @@ int main() {
         printf("Bind Failed!!\n");
         exit(1);
     }
-    else
-        printf("Bind Successfull!!\n");
+    printf("Bind Successfull!!\n");
 
     // Listen for clients:
     if(listen(sockfd, 1) < 0){
         printf("Error, Couldnt Listen !!\n");
         exit(1);
     }
-    else
-        printf("\nListening for incoming client messages.....\n");
-
+    printf("\nListening for incoming client messages.....\n");
     
     int client_size = sizeof(cliaddr);
     int client_sock[N];
@@ -50,8 +46,7 @@ int main() {
             printf("Can't accept the message\n");
             exit(1);
         }
-        else
-            printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr[i].sin_addr), ntohs(cliaddr[i].sin_port));
+        printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr[i].sin_addr), ntohs(cliaddr[i].sin_port));
 
         while(1) {
             // Receive client's message:
@@ -62,12 +57,10 @@ int main() {
                 printf("Failed to receive message.\n");
                 exit(1);   
             }
-            else {
-                printf("Message from client: %s\n", buff);
-                if(strcmp(buff, "exit") == 0) {
-                    send(client_sock[i], "exit", strlen("exit"), 0);
-                    break;
-                }
+            printf("Message from client: %s\n", buff);
+            if(strcmp(buff, "exit") == 0) {
+                send(client_sock[i], "exit", strlen("exit"), 0);
+                break;
             }
             
             // Respond to client
@@ -77,8 +70,7 @@ int main() {
                 printf("Sending Failed\n");
                 exit(1);
             }
-            else
-                printf("Response : %s\n", msg);
+            printf("Response : %s\n", msg);
         } 
     }
         

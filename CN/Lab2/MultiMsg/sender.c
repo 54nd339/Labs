@@ -13,8 +13,7 @@ int main() {
 		printf("Socket Creation FAILED.\n");
 		exit(1);
 	}
-    else
-        printf("Socket created successfully.\n");
+    printf("Socket created successfully.\n");
 		
 	// Filling server information
 	struct sockaddr_in recvaddr;
@@ -32,8 +31,7 @@ int main() {
             printf("Failed to send message.\n");
             exit(1);
         }
-        else
-            printf("Message sent : %s\n", msg);
+        printf("Message sent : %s\n", msg);
 
         // Receiving message from reciever
         char buffer[100];
@@ -43,15 +41,13 @@ int main() {
             printf("Failed to receive message.\n");
             exit(1);
         }
-        else {
-            buffer[n] = '\0';
-            printf("Response from the Server: %s\n",buffer);
-            if(strcmp(buffer, "exit") == 0) {
-                sendto(sockfd, "exit", strlen("exit"), 0, (struct sockaddr *) &recvaddr, sizeof(recvaddr));
-                break;
-            }	
-        }
-    }
 
+        buffer[n] = '\0';
+        printf("Response from the Server: %s\n",buffer);
+        if(strcmp(buffer, "exit") == 0) {
+            sendto(sockfd, "exit", strlen("exit"), 0, (struct sockaddr *) &recvaddr, sizeof(recvaddr));
+            break;
+        }	
+    }
 	return 0;
 }
