@@ -61,7 +61,8 @@ int main() {
         printf("Can't accept the message\n");
         exit(1);
     }
-    printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+    printf("Client connected at IP: %s and port: %i\n",
+        inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
     system("ls >> list"); 
     sendFile("list", client_sock);
