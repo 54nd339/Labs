@@ -9,15 +9,13 @@
 void recvFile(char *filename, int sockfd) {
     FILE *fp = fopen(filename, "w");
     if (fp == NULL) {
-        printf("[-]Error in writing file.");
+        printf("Error in writing file.");
         exit(1);
     }
     // File transfer:
     char data[SIZE] = {0};
     while(recv(sockfd, data, SIZE, 0) > 0) {
-        if(strcmp(data, "EOF") == 0) {
-            break;
-        }
+        if(strcmp(data, "EOF") == 0) break;
         fprintf(fp, "%s", data);
         bzero(data, SIZE);
     }
@@ -36,7 +34,7 @@ int main() {
     // Set port and IP the same as server-side:
     struct sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(2080);
+    server_addr.sin_port = htons(8080);
     server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     
     // Send connection request to server:
@@ -46,15 +44,18 @@ int main() {
     }
     printf("Connection with server Processed Successfully !!\n");
     
+    // Receive list from server:
     recvFile("rlist", sockfd);
     printf("List received successfully :\n");
-    system("cat rlist");
+    system("cat rlist && rm rlist");
 
+    // Send filename to server:
     printf("Name of file to be downloaded: ");
     char filename[SIZE]; scanf("%s", filename);
     send(sockfd, filename, sizeof(filename), 0);
     printf("File requested successfully !!\n");
 
+    // Receive file from server:
     recvFile("rfile", sockfd);
     printf("File received successfully !!\n");
     

@@ -9,14 +9,14 @@
 void sendFile(char *filename, int sockfd) {
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
-        printf("[-]Error reading list.");
+        printf("Error reading list.");
         exit(1);
     }
     // File transfer:
     char data[SIZE] = {0};
     while(fgets(data, SIZE, fp) != NULL) {
         if(send(sockfd, data, sizeof(data), 0) == -1) {
-            perror("[-]Error in sending file.");
+            printf("Error in sending file.");
             exit(1);
         }
         bzero(data, SIZE);
@@ -37,7 +37,7 @@ int main() {
     // Set port and IP:
     struct sockaddr_in servaddr, cliaddr;
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(2080);
+    servaddr.sin_port = htons(8080);
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     // Bind to the set port and IP:
@@ -65,15 +65,18 @@ int main() {
     printf("Client connected at IP: %s and port: %i\n",
         inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
-    system("ls >> list"); 
+    // Create list of files and send to client:
+    system("ls >> list");
     sendFile("list", client_sock);
-    // system("rm list");
+    system("rm list");  
     printf("List sent successfully.\n");
 
+    // Request file from client:
     char filename[SIZE];
     recv(client_sock, filename, SIZE, 0);
     printf("File requested: %s\n", filename);
 
+    // Send file to client:
     sendFile(filename, client_sock);
     printf("File sent successfully.\n");
 

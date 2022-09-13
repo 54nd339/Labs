@@ -37,7 +37,7 @@ int main() {
     // Set port and IP:
     struct sockaddr_in servaddr, cliaddr;
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(2080);
+    servaddr.sin_port = htons(8080);
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     // Bind to the set port and IP:
@@ -67,7 +67,7 @@ int main() {
 
     system("ls >> list"); 
     sendFile("list", client_sock);
-    // system("rm list");
+    system("rm list");
     printf("List sent successfully.\n");
 
     char filename[SIZE];
