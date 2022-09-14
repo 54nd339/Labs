@@ -6,23 +6,31 @@
 #include <arpa/inet.h>
 #define SIZE 1024
 
-void sendFile(char *filename, int sockfd) {
+int sendFile(char *filename, int sockfd) {
     FILE *fp = fopen(filename, "r");
+    char data[SIZE] = {0}; int flag = 0;
     if (fp == NULL) {
-        printf("Error reading list.");
-        exit(1);
+        // File not found:
+        strcpy(data, "File not found.");
+        send(sockfd, data, sizeof(data), 0);
+        printf("%s\n", data);
     }
-    // File transfer:
-    char data[SIZE] = {0};
-    while(fgets(data, SIZE, fp) != NULL) {
-        if(send(sockfd, data, sizeof(data), 0) == -1) {
-            printf("Error in sending file.");
-            exit(1);
+    else {
+        // File transfer:
+        printf("Transferring File....");
+        while(fgets(data, SIZE, fp) != NULL) {
+            if(send(sockfd, data, sizeof(data), 0) == -1) {
+                printf("Error in sending file.");
+                exit(1);
+            }
+            bzero(data, SIZE);
         }
-        bzero(data, SIZE);
+        flag = 1; fclose(fp);
     }
-    send(sockfd, "EOF", sizeof("EOF"), 0);
-    fclose(fp);
+    // Send EOF:
+    char eof = EOF;
+    send(sockfd, &eof, sizeof(eof), 0);
+    return flag;
 }
 
 int main() {
@@ -67,8 +75,8 @@ int main() {
 
     // Create list of files and send to client:
     system("ls >> list");
-    sendFile("list", client_sock);
-    printf("List sent successfully.\n");
+    if(sendFile("list", client_sock))
+        printf("List sent successfully.\n");
 
     // Request file from client:
     char filename[SIZE];
@@ -76,8 +84,8 @@ int main() {
     printf("File requested: %s\n", filename);
 
     // Send file to client:
-    sendFile(filename, client_sock);
-    printf("File sent successfully.\n");
+    if(sendFile(filename, client_sock))
+        printf("File sent successfully.\n");
 
     // Closing the socket:
     system("rm list");  

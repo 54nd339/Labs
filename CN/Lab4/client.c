@@ -6,24 +6,29 @@
 #include <arpa/inet.h>
 #define SIZE 1024
 
-void recvFile(char *filename, int sockfd) {
+int recvFile(char *filename, int sockfd) {
     FILE *fp = fopen(filename, "w");
     if (fp == NULL) {
         printf("Error in writing file.");
         exit(1);
     }
     // File transfer:
-    char data[SIZE] = {0};
+    char data[SIZE] = {0}; int flag = 1;
     while(1) {
         if (recv(sockfd, data, SIZE, 0) == -1) {
             printf("Error in receiving file.");
             exit(1);
         }
-        if(strcmp(data, "EOF") == 0) break;
+        if (data[0] == EOF) break;
+        if(strcmp(data, "File not found.") == 0) {
+            flag = 0; break;
+        }
         fprintf(fp, "%s", data);
         bzero(data, SIZE);
     }
     fclose(fp);
+    if(!flag) system("rm rfile");
+    return flag;
 }
 
 int main() {
@@ -60,8 +65,12 @@ int main() {
     printf("File requested successfully !!\n");
 
     // Receive file from server:
-    recvFile("rfile", sockfd);
-    printf("File received successfully !!\n");
+    if(recvFile("rfile", sockfd)) {
+        printf("File received successfully !!\n");
+        printf("File contents:\n");
+        system("cat rfile");
+    }
+    else printf("File not found !!\n");
     
     // Close the socket:
     system("rm rlist");
