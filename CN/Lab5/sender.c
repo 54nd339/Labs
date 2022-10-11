@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>>
+#include <arpa/inet.h>
 #define PORT 8080
 typedef struct PKT {
     int seqNo;
@@ -23,9 +23,9 @@ int main() {
 	struct sockaddr_in recvaddr;
     recvaddr.sin_family = AF_INET;
 	recvaddr.sin_port = htons(PORT);
-	recvaddr.sin_addr.s_addr = in_addr("127.0.0.1");
+	recvaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	
-    int flag; pkt packet;
+    int flag = 0; pkt packet;
     for(int seqNo = 1; 1; seqNo++) {
         // Sending packet
         if(flag != seqNo) {
@@ -39,10 +39,11 @@ int main() {
             (struct sockaddr *) &recvaddr, sizeof(recvaddr));
         if (m == -1) {
             printf("Failed to send message.\n");
-            exit(1);
+            seqNo--; continue;
         }
         printf("Sent Packet Message : %s\n", packet.msg);
         printf("Sent packet Sequence No. : %d\n", packet.seqNo);
+        if(strcmp(packet.msg, "exit") == 0) break;
 
         // Receiving an ack
         int ack;
@@ -50,10 +51,12 @@ int main() {
             (struct sockaddr *) &recvaddr, &len);
         if (n == -1) {
             printf("Failed to receive ack.\n");
-            packet.seqNo--;
+            packet.seqNo--; continue;
         }
 
         printf("Received ack: %d\n", ack);
+        if(ack != (seqNo+1) % 2)
+            seqNo--;
     }
 	return 0;
 }

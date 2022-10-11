@@ -3,8 +3,12 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
+#include <arpa/inet.h>
 #define PORT 8080
+typedef struct PKT {
+    int seqNo;
+    char msg[100];
+}pkt;
 
 int main() {		
 	// Creating socket file descriptor
@@ -17,9 +21,9 @@ int main() {
 		
 	// Filling server information
 	struct sockaddr_in recvaddr, sendaddr;
-	recvaddr.sin_family = AF_INET;
-	recvaddr.sin_port = PORT;
-	recvaddr.sin_addr.s_addr = INADDR_ANY;
+    recvaddr.sin_family = AF_INET;
+	recvaddr.sin_port = htons(PORT);
+	recvaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 		
 	// Bind the socket with the port
 	if (bind(sockfd, (const struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
@@ -28,34 +32,30 @@ int main() {
 	}
     printf("Binding successful.\n");
 	
-    // Receiving message from Sender
+    pkt packet; int flag = 1;
     while(1) {
-        char buffer[100];
-        int len = sizeof(sendaddr);
-        int n = recvfrom(sockfd, (char *)buffer, 100, 0,
+        // Recieving Packet
+        int len, n = recvfrom(sockfd, &packet, sizeof(packet), 0,
             (struct sockaddr *)&sendaddr, &len);
         if (n == -1) {
-            printf("Failed to receive message.\n");
-            exit(1);
+            printf("Failed to receive packet.\n");
         }
+        printf("Packet msg recieved: %s\n",packet.msg);
+        printf("Packet seq No. recieved: %d\n", packet.seqNo);
 
-        buffer[n] = '\0';
-        printf("Message from client: %s\n", buffer);
-        if(strcmp(buffer, "exit") == 0) {
-            sendto(sockfd, "exit", strlen("exit"), 0, (struct sockaddr *) &sendaddr, len);
-            break;
+        // Sending ack
+        int ack = (packet.seqNo + 1) % 2;
+        if(ack != flag) {
+            flag = ack;
+            int m = sendto(sockfd, &ack, sizeof(ack), 0,
+                (struct sockaddr *)&sendaddr, len);
+            while (m == -1) {
+                printf("Sending Ack Failed.");
+                flag = ack ? 0 : 1;
+            }
         }
-
-        // Sending message to Sender
-        printf("Enter Response : ");
-        char msg[100]; scanf("%s", msg);
-        int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
-            (struct sockaddr *) &sendaddr, len);
-        if (m == -1) {
-            printf("Sending Failed.");
-            exit(1);
-        }
-        printf("Response : %s\n", msg);
+        printf("Ack sent : %d\n", ack);
+        if(strcmp(packet.msg, "exit") == 0) break;
     }
 	return 0;
 }
