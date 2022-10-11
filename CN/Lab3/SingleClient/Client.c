@@ -30,7 +30,7 @@ int main() {
     char server_message[2000], client_message[2000];
     // Get input from the user:
     printf("Enter message to be sent to the server: ");
-    scanf("%s",client_message);
+    scanf("%[^\n]%*c", client_message);
     
     // Send the message to server:
     if(send(sockfd, client_message, strlen(client_message), 0) < 0){

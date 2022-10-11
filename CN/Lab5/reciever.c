@@ -4,58 +4,53 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#define PORT 8080
+
 typedef struct PKT {
     int seqNo;
     char msg[100];
 }pkt;
 
-int main() {		
-	// Creating socket file descriptor
-    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-	if (sockfd == -1) {
-		printf("Socket creation failed");
-		exit(1);
-	}
-    printf("Socket created successfully.\n");
-		
-	// Filling server information
-	struct sockaddr_in recvaddr, sendaddr;
-    recvaddr.sin_family = AF_INET;
-	recvaddr.sin_port = htons(PORT);
-	recvaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-		
-	// Bind the socket with the port
-	if (bind(sockfd, (const struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
-		printf("Binding Failed");
-		exit(1);
-	}
-    printf("Binding successful.\n");
-	
-    pkt packet; int flag = 1;
-    while(1) {
-        // Recieving Packet
-        int len, n = recvfrom(sockfd, &packet, sizeof(packet), 0,
-            (struct sockaddr *)&sendaddr, &len);
-        if (n == -1) {
-            printf("Failed to receive packet.\n");
-        }
-        printf("Packet msg recieved: %s\n",packet.msg);
-        printf("Packet seq No. recieved: %d\n", packet.seqNo);
-
-        // Sending ack
-        int ack = (packet.seqNo + 1) % 2;
-        if(ack != flag) {
-            flag = ack;
-            int m = sendto(sockfd, &ack, sizeof(ack), 0,
-                (struct sockaddr *)&sendaddr, len);
-            while (m == -1) {
-                printf("Sending Ack Failed.");
-                flag = ack ? 0 : 1;
-            }
-        }
-        printf("Ack sent : %d\n", ack);
-        if(strcmp(packet.msg, "exit") == 0) break;
+int main() {
+    // Create a socket
+    int sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock < 0) {
+        perror("socket creation failed");
+        exit(1);
     }
-	return 0;
+    printf("Socket creation successful.\n");
+
+    // Fill the server address
+    struct sockaddr_in addr, client;
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(8080);
+    addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    
+    // Bind the socket to the address
+    if (bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+        perror("bind failed");
+        exit(1);
+    }
+    printf("Bind successful.\n");
+
+    pkt p; int ack;
+    while(1) {
+        int len, n = recvfrom(sock, &p, sizeof(p), 0, (struct sockaddr *)&client, &len);
+        if (n < 0) {
+            perror("recvfrom failed");
+            exit(1);
+        }
+        printf("Received packet with seqNo %d and message %s\n", p.seqNo, p.msg);
+        if (strcmp(p.msg, "exit") == 0) {
+            break;
+        }
+        ack = (p.seqNo+1) % 2;
+        while (sendto(sock, &ack, sizeof(ack), 0, (struct sockaddr *)&client, sizeof(client)) < 0) {
+            perror("sendto failed");
+            exit(1);
+        }
+        printf("Sent ack : %d\n", ack);
+    }
+    // Close the socket
+    close(sock);
+    return 0;
 }

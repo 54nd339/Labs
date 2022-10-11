@@ -48,7 +48,7 @@ int main() {
 
         // Sending message to Sender
         printf("Enter Response : ");
-        char msg[100]; scanf("%s", msg);
+        char msg[100]; scanf("%[^\n]%*c", msg);
         int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
             (struct sockaddr *) &sendaddr, len);
         if (m == -1) {

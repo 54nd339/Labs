@@ -24,7 +24,7 @@ int main() {
     while(1) {
         // Sending message to reciever
         printf("Enter Message : ");
-        char msg[100]; scanf("%s", msg);
+        char msg[100];  scanf("%[^\n]%*c", msg);
         int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
             (struct sockaddr *) &recvaddr, sizeof(recvaddr));
         if (m == -1) {

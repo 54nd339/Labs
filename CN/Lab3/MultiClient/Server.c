@@ -65,7 +65,7 @@ int main() {
             
             // Respond to client
             printf("Enter Respose : ");
-            char msg[2000]; scanf("%s", msg);
+            char msg[2000]; scanf("%[^\n]%*c", msg);
             if (send(client_sock[i], msg, strlen(msg), 0) < 0){
                 printf("Sending Failed\n");
                 exit(1);

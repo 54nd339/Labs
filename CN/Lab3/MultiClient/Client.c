@@ -30,7 +30,7 @@ int main() {
     while(1) {
         // Sending message to Server 
     	printf("Enter message : ");
-    	char msg[2000]; scanf("%s", msg);
+    	char msg[2000]; scanf("%[^\n]%*c", msg);
 	    if(send(sockfd, msg, strlen(msg), 0) < 0){
             printf("Failed to send message.\n");
             exit(1);
