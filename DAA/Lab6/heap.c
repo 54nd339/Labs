@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+typedef struct heap {
+    int *arr, size, capacity;
+}Heap;
 void swap(int* a, int* b) {
 	int t = *a;
 	*a = *b;
@@ -8,7 +11,6 @@ void swap(int* a, int* b) {
 void heapify(int *arr, int n, int i){
     int largest = i;
     int l = 2*i+1, r = 2*i+2;
- 
     if (l < n && arr[l] > arr[largest])
         largest = l;
     if (r < n && arr[r] > arr[largest])
@@ -28,58 +30,61 @@ void heapSort(int *arr, int n) {
     }
 }
 
-void insertNode(int arr[], int *n, int Key) {
-    *n += 1; arr[*n - 1] = Key;
-    heapify(arr, *n, *n - 1);
+void insertNode(Heap *h, int Key) {
+    h->size++;
+    int i = h->size - 1;
+    h->arr[i] = Key; int j = (i-1)/2;
+    while (i != 0 && h->arr[j] < h->arr[i]) {
+        swap(&(h->arr[i]), &(h->arr[j]));
+        i = j; j = (i-1)/2;
+    }
 }
-void deleteNode(int arr[], int *n, int i) {
-    swap(&(arr[i]), &(arr[*n - 1]));
-    *n -= 1; heapify(arr, *n, i);
+void deleteNode(Heap *h, int i) {
+    h->arr[i] = h->arr[h->size-1];
+    h->size--;
+    heapify(h->arr, h->size, i);
 }
-void print(int *arr, int size) {
-	for (int i = 0; i < size; i++)
-		printf("%d ", arr[i]);
-	printf("\n");
+void print(Heap h) {
+    for (int i = 0; i < h.size; ++i)
+        printf("%d ", h.arr[i]);
+    printf("\n");
 }
 
 int main() {
-    printf("Enter no. of elements : ");
-    int n; scanf("%d", &n);
-    int *ar = malloc(n * sizeof(int));
+    Heap *h = (Heap*)malloc(sizeof(Heap));
+    printf("Enter the size of the array: ");
+    scanf("%d", &h->capacity);
+    h->arr = (int*)malloc(h->capacity * sizeof(int));
+    h->size = 0;
 
-    printf("Enter Elements : ");
-    for (int i = 0; i < n; i++)
-        scanf("%d", &ar[i]);
-	
-    printf("Original array : ");
-	print(ar, n);
-
-    printf("\n1. Insert Node\n2. Delete Node\n3. Heap Sort\n0. Exit");
-    while(1) {
-        printf("\nEnter Choice : ");
+    while (1) {
+        printf("\n1. Insert\n2. Delete\n3. Sort\n0. Exit\nEnter choice : ");
         int ch; scanf("%d", &ch);
-
-        if(ch == 1) {
-            printf("Enter Key : ");
-            int key; scanf("%d", &key);
-            insertNode(ar, &n, key);
-            printf("After Insertion : ");
-            print(ar, n);
+        switch (ch) {
+            case 1: if (h->size == h->capacity)
+                        printf("Heap is full :\n");
+                    else {
+                        printf("Enter the key to be inserted: ");
+                        int key; scanf("%d", &key);
+                        insertNode(h, key);
+                    }
+                    print(*h);
+                    break;
+            case 2: if (h->size == 0) {
+                        printf("Heap is empty\n");
+                        break;
+                    }
+                    printf("Enter the index of the node to be deleted: ");
+                    int i; scanf("%d", &i);
+                    deleteNode(h, i);
+                    print(*h);
+                    break;
+            case 3: heapSort(h->arr, h->size);
+                    print(*h);
+                    break;
+            case 0: exit(0);
+            default: printf("Invalid choice\n");
         }
-        else if(ch == 2) {
-            printf("Enter Key : ");
-            int key; scanf("%d", &key);
-            deleteNode(ar, &n, key);
-            printf("After Deletion : ");
-            print(ar, n);
-        }
-        else if(ch == 3) {
-            heapSort(ar, n);
-            printf("After Sorting : ");
-            print(ar, n);
-        }
-        else if(ch == 0) break;
-        else printf("Invalid Choice");
     }
     return 0;
 }

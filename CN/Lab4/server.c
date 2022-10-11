@@ -80,7 +80,10 @@ int main() {
 
     // Request file from client:
     char filename[SIZE];
-    recv(client_sock, filename, SIZE, 0);
+    if(recv(client_sock, filename, SIZE, 0) < 0) {
+        printf("Error in receiving filename.");
+        exit(1);
+    }
     printf("File requested: %s\n", filename);
 
     // Send file to client:
