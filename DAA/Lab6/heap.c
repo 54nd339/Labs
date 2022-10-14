@@ -9,12 +9,9 @@ void swap(int* a, int* b) {
 	*b = t;
 }
 void heapify(int *arr, int n, int i){
-    int largest = i;
-    int l = 2*i+1, r = 2*i+2;
-    if (l < n && arr[l] > arr[largest])
-        largest = l;
-    if (r < n && arr[r] > arr[largest])
-        largest = r;
+    int largest = i, l = 2*i+1, r = 2*i+2;
+    if (l < n && arr[l] > arr[largest]) largest = l;
+    if (r < n && arr[r] > arr[largest]) largest = r;
     if (largest != i) {
         swap(&(arr[i]), &(arr[largest]));
         heapify(arr, n, largest);
@@ -31,8 +28,7 @@ void heapSort(int *arr, int n) {
 }
 
 void insertNode(Heap *h, int Key) {
-    h->size++;
-    int i = h->size - 1;
+    h->size++; int i = h->size - 1;
     h->arr[i] = Key; int j = (i-1)/2;
     while (i != 0 && h->arr[j] < h->arr[i]) {
         swap(&(h->arr[i]), &(h->arr[j]));
@@ -40,11 +36,19 @@ void insertNode(Heap *h, int Key) {
     }
 }
 void deleteNode(Heap *h, int i) {
+    if(i >= h->size) {
+        printf("Invalid Index\n");
+        return;
+    }
     h->arr[i] = h->arr[h->size-1];
     h->size--;
     heapify(h->arr, h->size, i);
 }
 void print(Heap h) {
+    if(h.size == 0) {
+        printf("Heap is empty\n");
+        return;
+    }
     for (int i = 0; i < h.size; ++i)
         printf("%d ", h.arr[i]);
     printf("\n");
@@ -77,11 +81,9 @@ int main() {
                     printf("Enter the index of the node to be deleted: ");
                     int i; scanf("%d", &i);
                     deleteNode(h, i);
-                    print(*h);
-                    break;
+                    print(*h); break;
             case 3: heapSort(h->arr, h->size);
-                    print(*h);
-                    break;
+                    print(*h); break;
             case 0: exit(0);
             default: printf("Invalid choice\n");
         }
