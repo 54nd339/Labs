@@ -1,14 +1,3 @@
-/* Write a C Program to enter a number and store the
-number across the following structure and print the
-content of each member of the structure. Then
-aggregate each member of the structure to form the
-original number and print the same.
-struct pkt{
-	char ch1;
-	char ch2[2];
-	char ch3;
-}; */
-
 #include<stdio.h>
 #include<string.h>
 struct pkt{
@@ -29,8 +18,7 @@ void number_aggregate(struct pkt p) {
 			p.ch2[1] = r;
 		if(c == 4)
 			p.ch3 = r;
-		c++;
-		number = number / 10;
+		c++; number /= 10;
 	}
 	printf("The aggregated characters are: %d %d %d %d ", p.ch3, p.ch2[1], p.ch2[0], p.ch1);
 	printf("\nThe original number: %d%d%d%d", p.ch3, p.ch2[1], p.ch2[0], p.ch1);
