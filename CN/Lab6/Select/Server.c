@@ -1,37 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#define PORT 9034 // port we’re listening on
+#include <sys/time.h>
+#define PORT 9034
 
-int main(void) {
-    // get the listener
-    int listener; // listening socket descriptor
+int main() {
+    // Create socket:
+    int listener;
     if ((listener = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         printf("listener socket creation failed");
         exit(1);
     }
     printf("listener socket created successfully.\n");
 
-    // lose the pesky "address already in use" error message
-    int yes = 1; // for setsockopt() SO_REUSEADDR, below
+    // set listener socket to allow multiple connections
+    int yes = 1;
     if (setsockopt(listener, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
         printf("setsockopt failed");
         exit(1);
     }
-    printf("setsockopt successful.\n");
 
-    // bind
-    struct sockaddr_in myaddr; // server address
-    struct sockaddr_in remoteaddr; // client address
-    myaddr.sin_family = AF_INET;
-    myaddr.sin_port = htons(PORT);
-    myaddr.sin_addr.s_addr = INADDR_ANY;
-    memset(&(myaddr.sin_zero), '\0', 8);
-    if (bind(listener, (struct sockaddr *)&myaddr, sizeof(myaddr)) == -1) {
+    // fill in address info
+    struct sockaddr_in servaddr, cliaddr;
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(PORT);
+    servaddr.sin_addr.s_addr = INADDR_ANY;
+    
+    // bind the socket to the port
+    if (bind(listener, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1) {
         printf("binding failed");
         exit(1);
     }
@@ -42,8 +43,8 @@ int main(void) {
         printf("listening failed");
         exit(1);
     }
-    printf("listening successful.\n");
-    
+    printf("listening for connections..  .\n");
+   
     fd_set master;      // master file descriptor list
     fd_set read_fds;    // temp file descriptor list for select()
     FD_ZERO(&master);   // clear the master and temp sets
@@ -59,18 +60,18 @@ int main(void) {
         }
         // run through the existing connections looking for data to read
         for(int i = 0; i <= fdmax; i++) {
-            if (FD_ISSET(i, &read_fds)) { // we got one!!
+            if (FD_ISSET(i, &read_fds)) {
                 if (i == listener) {
                     // handle new connections
-                    int addrlen = sizeof(remoteaddr);
+                    int addrlen = sizeof(cliaddr);
                     int newfd; // newly accept()ed socket descriptor
-                    if ((newfd = accept(listener, &remoteaddr, &addrlen)) == -1)
+                    if ((newfd = accept(listener, (struct sockaddr *)&cliaddr, &addrlen)) == -1)
                         printf("accept failed");
                     else {
                         FD_SET(newfd, &master);             // add to master set
                         if (newfd > fdmax) fdmax = newfd;   // keep track of the maximum
-                        printf("selectserver: new connection from %s on "
-                        "socket %d\n", inet_ntoa(remoteaddr.sin_addr), newfd);
+                        printf("selectserver: new connection from %s:%d\n",
+                        inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
                     }
                 }
                 else {
@@ -79,7 +80,8 @@ int main(void) {
                     if ((nbytes = recv(i, buf, sizeof(buf), 0)) <= 0) {
                         // got error or connection closed by client
                         if (nbytes == 0) // connection closed
-                            printf("selectserver: socket %d hung up\n", i);
+                            printf("selectserver: connection at %s:%d hung up\n",
+                            inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
                         else
                             printf("recv failed");
                         close(i); // bye!
