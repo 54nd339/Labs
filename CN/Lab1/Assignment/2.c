@@ -12,7 +12,7 @@ typedef struct student_info {
 void print(Student s) {
     printf("Roll no. : %d\n", s.roll_no);
     printf("Name : %s\n", s.name);
-    printf("CGPA : %f\n", s.CGPA);
+    printf("CGPA : %.1f\n", s.CGPA);
     printf("DOB : %d/%d/%d\n", s.age.date, s.age.month, s.age.year);
 }
 void input(Student *s) {
@@ -23,7 +23,7 @@ void input(Student *s) {
     printf("Enter CGPA : ");
     scanf("%f", &s->CGPA);
     printf("Enter DOB : ");
-    scanf("%d/%d/%d", &s->age.date, &s->age.month, &s->age.year);
+    scanf("%d%d%d", &s->age.date, &s->age.month, &s->age.year);
 }
 
 int main() {

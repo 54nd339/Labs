@@ -4,16 +4,18 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+
 #define PORT 8080
+#define SIZE 1024
 
 int main() {	
 	// Creating socket file descriptor
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd == -1) {
-		printf("Socket creation failed");
+		printf("Socket Creation Failed");
 		exit(1);
 	}
-    printf("Socket created successfully.\n");
+    printf("Socket Creation Successful.\n");
 		
 	// Filling server information
 	struct sockaddr_in recvaddr;
@@ -23,7 +25,7 @@ int main() {
 		
     // Binding socket to port 5000
     // if (bind(sockfd, (const struct sockaddr*)&recvaddr, sizeof(recvaddr)) == -1) {
-	// 	perror("binding failed.");
+	// 	perror("Port Binding Failed.");
 	// 	exit(1);
 	// }
     // printf("Binding successful.\n");
@@ -48,7 +50,7 @@ int main() {
     }
 
     buffer[n] = '\0';
-    printf("Reciever : %s\n", buffer);
+    printf("Reciever: %s\n", buffer);
 	
 	close(sockfd);
 	return 0;

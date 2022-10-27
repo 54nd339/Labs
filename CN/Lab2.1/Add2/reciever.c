@@ -10,11 +10,10 @@ int main() {
 	// Creating socket file descriptor
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd == -1) {
-		printf("Socket creation failed");
+		printf("Socket Creation Failed.\n");
 		exit(1);
 	}
-    else 
-        printf("Socket created successfully.\n");
+    printf("Socket Creation Successful.\n");
 		
 	// Filling server information
 	struct sockaddr_in recvaddr, sendaddr;
@@ -24,11 +23,10 @@ int main() {
 		
 	// Bind the socket with the port
 	if (bind(sockfd, (const struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
-		printf("Binding Failed");
+		printf("Port Binding Failed.");
 		exit(1);
 	}
-    else 
-        printf("Binding successful.\n");
+    printf("Binding Successful with PORT: %d\n", PORT);
 	
     // Receiving message from Sender
 	int len = sizeof(sendaddr);
@@ -40,8 +38,7 @@ int main() {
             printf("Receiving Failed");
             exit(1);
         }
-        else
-            printf("INT Received : %d\n", ar[i]);
+        printf("INT Received: %d\n", ar[i]);
     }
 
     // Sending message to Sender
@@ -52,8 +49,7 @@ int main() {
         printf("Sending Failed.");
         exit(1);
     }
-    else 
-	    printf("Result sent : %d\n", res);
+    printf("Result sent: %d\n", res);
 		
 	return 0;
 }

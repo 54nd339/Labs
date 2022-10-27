@@ -5,11 +5,12 @@ struct pkt{
 };
 
 void number_aggregate(struct pkt p) {
-	int number, r, c = 1;
-	printf("Enter a number of 4 digits \n");
-	scanf("%d", &number);
+	printf("Enter a 4 digit number: ");
+	int number; scanf("%d", &number);
+
+	int c = 1;
 	while(number != 0 && c <= 4) {
-		r = number % 10;
+		int r = number % 10;
 		if(c == 1)
 			p.ch1 = r;
 		if(c == 2)
@@ -20,8 +21,8 @@ void number_aggregate(struct pkt p) {
 			p.ch3 = r;
 		c++; number /= 10;
 	}
-	printf("The aggregated characters are: %d %d %d %d ", p.ch3, p.ch2[1], p.ch2[0], p.ch1);
-	printf("\nThe original number: %d%d%d%d", p.ch3, p.ch2[1], p.ch2[0], p.ch1);
+	printf("The aggregated characters are: %d %d %d %d\n", p.ch3, p.ch2[1], p.ch2[0], p.ch1);
+	printf("The original number: %d%d%d%d\n", p.ch3, p.ch2[1], p.ch2[0], p.ch1);
 }
 int main() {
 	struct pkt p;

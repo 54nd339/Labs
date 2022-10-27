@@ -4,58 +4,62 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+
 #define PORT 8080
+#define SIZE 1024
 
 int main() {		
 	// Creating socket file descriptor
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd == -1) {
-		printf("Socket creation failed");
+		printf("Socket Creation Failed.\n");
 		exit(1);
 	}
-    printf("Socket created successfully.\n");
-		
+    printf("Socket Creation Successful.\n");
+
 	// Filling server information
 	struct sockaddr_in recvaddr, sendaddr;
 	recvaddr.sin_family = AF_INET;
 	recvaddr.sin_port = PORT;
 	recvaddr.sin_addr.s_addr = INADDR_ANY;
-		
+
 	// Bind the socket with the port
 	if (bind(sockfd, (const struct sockaddr *)&recvaddr, sizeof(recvaddr)) == -1) {
-		printf("Binding Failed");
+		printf("Port Binding Failed.");
 		exit(1);
 	}
-    printf("Binding successful.\n");
+    printf("Binding Successful with PORT: %d\n", PORT);
 	
-    // Receiving message from Sender
     while(1) {
-        char buffer[100];
+        // Receiving message from Sender
+        char buffer[SIZE];
         int len = sizeof(sendaddr);
-        int n = recvfrom(sockfd, (char *)buffer, 100, 0,
+        int n = recvfrom(sockfd, (char *)buffer, SIZE, 0,
             (struct sockaddr *)&sendaddr, &len);
         if (n == -1) {
-            printf("Failed to receive message.\n");
+            printf("Receiving Failed.\n");
             exit(1);
         }
 
         buffer[n] = '\0';
-        printf("Message from client: %s\n", buffer);
+        printf("\nClient: %s\n", buffer);
         if(strcmp(buffer, "exit") == 0) {
-            sendto(sockfd, "exit", strlen("exit"), 0, (struct sockaddr *) &sendaddr, len);
+            sendto(sockfd, "Bye", strlen("Bye"), 0, (struct sockaddr *) &sendaddr, len);
+            printf("Server Exiting.\n");
             break;
         }
 
         // Sending message to Sender
-        printf("Enter Response : ");
-        char msg[100]; scanf("%[^\n]%*c", msg);
+        printf("Enter Response: ");
+        char msg[SIZE]; scanf("%[^\n]%*c", msg);
         int m = sendto(sockfd, (char *)msg, strlen(msg), 0,
             (struct sockaddr *) &sendaddr, len);
         if (m == -1) {
             printf("Sending Failed.");
             exit(1);
         }
-        printf("Response : %s\n", msg);
+        printf("Response: %s\n", msg);
     }
+    close(sockfd);
 	return 0;
 }

@@ -8,17 +8,16 @@
 
 int main() {	
 	// Creating socket file descriptor
-	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd == -1) {
-		printf("Socket creation failed");
+		printf("Socket Creation Failed.\n");
 		exit(1);
 	}
-    else
-        printf("Socket created successfully.\n");
+    printf("Socket Creation Successful.\n");
 		
 	// Filling server information
 	struct sockaddr_in recvaddr;
-    recvaddr.sin_family = AF_INET;
+	recvaddr.sin_family = AF_INET;
 	recvaddr.sin_port = PORT;
 	recvaddr.sin_addr.s_addr = INADDR_ANY;
 
@@ -31,8 +30,7 @@ int main() {
         printf("Sending Failed.");
         exit(1);
     }
-    else
-        printf("Array Size Sent.\n");
+    printf("Array Size Sent.\n");
 
     for(int i = 0; i < size; i++) {
         printf("Enter int %d : ", i+1);
@@ -43,8 +41,7 @@ int main() {
             printf("Sending Failed.");
             exit(1);
         }
-        else
-            printf("INT Sent : %d\n", a);
+        printf("INT Sent: %d\n", a);
     }
 
     // Receiving message from reciever
@@ -54,8 +51,7 @@ int main() {
         printf("Receiving Failed");
         exit(1);
     }
-    else
-        printf("Result Received : %d\n", res);
+    printf("Result Received: %d\n", res);
 	
 	close(sockfd);
 	return 0;

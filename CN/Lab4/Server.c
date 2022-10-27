@@ -4,23 +4,25 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+
+#define PORT 8080
 #define SIZE 1024
 
 int sendFile(char *filename, int sockfd) {
     FILE *fp = fopen(filename, "r");
     char data[SIZE] = {0}; int flag = 0;
-    if (fp == NULL) {
+    if(fp == NULL) {
         // File not found:
-        strcpy(data, "File not found.");
+        strcpy(data, "File Not Found.");
         send(sockfd, data, sizeof(data), 0);
         printf("%s\n", data);
     }
     else {
         // File transfer:
-        printf("Transferring File....");
+        printf("\nTransferring File....");
         while(fgets(data, SIZE, fp) != NULL) {
             if(send(sockfd, data, sizeof(data), 0) == -1) {
-                printf("Error in sending file.");
+                printf("Error in Sending File.");
                 exit(1);
             }
             bzero(data, SIZE);
@@ -37,62 +39,62 @@ int main() {
     // Create socket:
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd < 0){
-        printf("Socket Creation FAILED!!\n");
+        printf("Socket Creation Failed.\n");
         exit(1);
     }
-    printf("Socket created successfully\n");
+    printf("Socket Creation Successful.\n");
 
     // Set port and IP:
     struct sockaddr_in servaddr, cliaddr;
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(8080);
+    servaddr.sin_port = htons(PORT);
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     // Bind to the set port and IP:
     if(bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) == -1){
-        printf("Bind Failed!!\n");
+        printf("Port Binding Failed.\n");
         exit(1);
     }
-    printf("Bind Successfull!!\n");
+    printf("Bind Successfull with PORT: %d\n", PORT);
 
     // Listen for clients:
     if(listen(sockfd, 1) < 0){
-        printf("Error, Couldnt Listen !!\n");
+        printf("Server Listening Failed.\n");
         exit(1);
     }
-    printf("\nListening for incoming client messages..\n");
+    printf("\nServer Listening..\n");
 
     // Accept an incoming connection:
-    int client_size = sizeof(cliaddr);
-    int client_sock = accept(sockfd, (struct sockaddr*)&cliaddr, &client_size);
+    int clisize = sizeof(cliaddr);
+    int newSock = accept(sockfd, (struct sockaddr*)&cliaddr, &clisize);
 
-    if (client_sock < 0){
-        printf("Can't accept the message\n");
+    if(newSock < 0){
+        printf("Error Accepting Client\n");
         exit(1);
     }
-    printf("Client connected at IP: %s and port: %i\n",
-        inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+    printf("Client connected from %s:%i\n",
+    inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
     // Create list of files and send to client:
     system("ls >> list");
-    if(sendFile("list", client_sock))
-        printf("List sent successfully.\n");
+    if(sendFile("list", newSock))
+        printf("\nList sent successfully.\n");
 
     // Request file from client:
     char filename[SIZE];
-    if(recv(client_sock, filename, SIZE, 0) < 0) {
-        printf("Error in receiving filename.");
+    if(recv(newSock, filename, SIZE, 0) < 0) {
+        printf("Error Receiving Filename.");
         exit(1);
     }
     printf("File requested: %s\n", filename);
 
     // Send file to client:
-    if(sendFile(filename, client_sock))
-        printf("File sent successfully.\n");
+    if(sendFile(filename, newSock))
+        printf("\nFile sent successfully.\n");
 
     // Closing the socket:
     system("rm list");  
-    close(client_sock);
+    close(newSock);
     close(sockfd);
     return 0;
 }

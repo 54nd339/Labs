@@ -5,25 +5,28 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
+#define PORT 8080
+#define SIZE 1024
+
 typedef struct PKT {
     int seqNo;
-    char msg[100];
+    char msg[SIZE];
 }pkt;
 
 int main() {
-    // Create a socket
-    int sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sock < 0) {
-        perror("socket creation failed");
-        exit(1);
-    }
-    printf("Socket creation successful.\n");
-
-    // Fill the server address
-    struct sockaddr_in addr;
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(8080);
-    addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    // Creating socket file descriptor
+    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (sockfd == -1) {
+		printf("Socket Creation Failed.\n");
+		exit(1);
+	}
+    printf("Socket Creation Successful.\n");
+		
+	// Filling server information
+	struct sockaddr_in recvaddr;
+	recvaddr.sin_family = AF_INET;
+    recvaddr.sin_port = htons(PORT);
+    recvaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     int flag = 1; // 1 for sending 0 for not sending
     pkt p; int seqNo;
@@ -34,24 +37,23 @@ int main() {
 
     while(1) {
         if (flag) {
-            printf("\nEnter message: ");
-            scanf(" %[^\n]", p.msg);
+            printf("\nEnter a message: ");
+            scanf("%[^\n]%*c", p.msg);
             p.seqNo = seqNo;
             printf("Sending packet %d: %s\n", p.seqNo, p.msg);
         }
-        int stat = sendto(sock, &p, sizeof(p), 0, (struct sockaddr *)&addr, sizeof(addr));
-        if(stat < 0){
-            perror("sendto failed. resending...");
+        if(sendto(sockfd, &p, sizeof(p), 0, (struct sockaddr *)&recvaddr, sizeof(recvaddr)) < 0){
+            printf("Sending Failed. Resending...\n");
             continue;
         }
-        printf("Sent packet %d: %s\n", p.seqNo, p.msg);
+        printf("Sent packet with seqNo %d and message %s\n", p.seqNo, p.msg);
         printf("Waiting for ACK %d\n", !seqNo);
 
         // receive the ack
-        int len = sizeof(addr); int ack;
-        stat = recvfrom(sock, &ack, sizeof(ack), 0, (struct sockaddr *)&addr, &len);
-        if(stat < 0){
-            perror("recvfrom failed");
+        int len = sizeof(recvaddr); int ack;
+        int n = recvfrom(sockfd, &ack, sizeof(ack), 0, (struct sockaddr *)&recvaddr, &len);
+        if(n < 0){
+            printf("Receiving Failed.\n");
             exit(1);
         }
         printf("Received ACK %d\n", ack);
@@ -68,6 +70,6 @@ int main() {
     }
 
     // Close the socket
-    close(sock);
+    close(sockfd);
     return 0;
 }

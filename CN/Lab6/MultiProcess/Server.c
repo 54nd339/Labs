@@ -4,79 +4,82 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#define PORT 4444
+
+#define PORT 8080
+#define SIZE 2048
 
 int main() {
 	// Create socket:
-	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	if (sockfd < 0) {
-		printf("Error in connection.\n");
-		exit(1);
-	}
-    printf("Server Socket is created.\n");
-
-	// Set port and IP the same as server-side:
-    struct sockaddr_in server_addr, cli_addr;
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(PORT);
-    server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    // Bind the socket to the port and IP:
-    if (bind(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-        printf("Error in binding.\n");
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if(sockfd < 0){
+        printf("Socket Creation Failed.\n");
         exit(1);
     }
-    printf("Bind to port %d\n", PORT);
+    printf("Socket Creation Successful.\n");
 
-    // Listen for connections:
-	if (listen(sockfd, 10) == 0) {
-		printf("Listening...\n\n");
-	}
+    // Set port and IP:
+    struct sockaddr_in servaddr, cliaddr;
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(PORT);
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+    // Bind to the set port and IP:
+    if(bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) == -1){
+        printf("Port Binding Failed.\n");
+        exit(1);
+    }
+    printf("Bind Successfull with PORT: %d\n", PORT);
+
+    // Listen for clients:
+    if(listen(sockfd, 1) < 0){
+        printf("Server Listening Failed.\n");
+        exit(1);
+    }
+    printf("\nServer Listening..\n");
 	
-    int cnt = 0, clientSocket;
-    int len = sizeof(cli_addr);
+    int len = sizeof(cliaddr), cnt = 0;
 	while (1) {
-        clientSocket = accept(sockfd, (struct sockaddr*)&cli_addr, &len);
-        if (clientSocket < 0) {
-            printf("Error in connection.\n");
+        // Accept client:
+        int newSock = accept(sockfd, (struct sockaddr*)&cliaddr, &len);
+        if(newSock < 0) {
+            printf("Error Accepting Client\n");
             exit(1);
         }
-		printf("Connection accepted from %s:%d\n",
-        inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
-		printf("Clients connected: %d\n", ++cnt);
+		printf("Client connected from %s:%i\n",
+        inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+        printf("Total Clients: %d\n", cnt);
 
-		if (fork() == 0) {
-            char buff[2000];
+		if(fork() == 0) {
             while (1) {
-                // Receive the client's message:
-                int n = recv(clientSocket, buff, sizeof(buff), 0);
-                if (n < 0) {
-                    printf("Error in receiving.\n");
+                // Receive client's message:
+                char buff[SIZE];
+                int n = recv(newSock, buff, sizeof(buff), 0);
+                if(n < 0) {
+                    printf("Receiving Failed.\n");
                     exit(1);
                 }
+
                 buff[n] = '\0';
                 printf("Client: %s\n", buff);
-                if (strcmp(buff, "exit") == 0) {
-                    printf("Client disconnected.\n");
-                    break;
+                if(strcmp(buff, "exit") == 0) {
+                    send(newSock, "Bye", strlen("Bye"), 0);
+                    printf("Client disconnected from %s:%d\n",
+                    inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+                    close(newSock); break;
                 }
 
-                // Send the message to the client:
-                printf("Server: ");
-                if (send(clientSocket, buff, strlen(buff), 0) < 0) {
-                    printf("Error in sending.\n");
+                // Respond to client:
+                printf("Response: ");
+                if(send(newSock, buff, strlen(buff), 0) < 0) {
+                    printf("Sending Failed.\n");
                     exit(1);
                 }
-                if (strcmp(buff, "exit") == 0) {
-                    printf("Client disconnected from %s:%d\n",
-                    inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
-                    break;
-                }
+                printf("%s echoed\n", buff);
             }
 		}
 	}
 
-	// Close the client socket id
-	close(clientSocket);
+    // Close the socket:
+	close(sockfd);
 	return 0;
 }

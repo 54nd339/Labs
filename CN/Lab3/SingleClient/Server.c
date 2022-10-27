@@ -5,63 +5,76 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
+#define PORT 8080
+#define SIZE 2048
+
 int main() {
     // Create socket:
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if(sockfd < 0){
-        printf("Socket Creation FAILED!!\n");
+        printf("Socket Creation Failed.\n");
         exit(1);
     }
-    printf("Socket created successfully\n");
+    printf("Socket Creation Successful.\n");
 
     // Set port and IP:
     struct sockaddr_in servaddr, cliaddr;
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(2000);
+    servaddr.sin_port = htons(PORT);
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     // Bind to the set port and IP:
     if(bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) == -1){
-        printf("Bind Failed!!\n");
+        printf("Port Binding Failed.\n");
         exit(1);
     }
-    printf("Bind Successfull!!\n");
+    printf("Bind Successfull with PORT: %d\n", PORT);
 
     // Listen for clients:
     if(listen(sockfd, 1) < 0){
-        printf("Error, Couldnt Listen !!\n");
+        printf("Server Listening Failed.\n");
         exit(1);
     }
-    printf("\nListening for incoming client messages.....\n");
+    printf("\nServer Listening..\n");
 
     // Accept an incoming connection:
-    int client_size = sizeof(cliaddr);
-    int client_sock = accept(sockfd, (struct sockaddr*)&cliaddr, &client_size);
+    int clisize = sizeof(cliaddr);
+    int newSock = accept(sockfd, (struct sockaddr*)&cliaddr, &clisize);
 
-    if (client_sock < 0){
-        printf("Can't accept the message\n");
+    if(newSock < 0){
+        printf("Error Accepting Client\n");
         exit(1);
     }
-    printf("Client connected at IP: %s and port: %i\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+    printf("Client connected from %s:%i\n",
+    inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
     
-    char server_message[2000], client_message[2000];
-    // Receive client's message:
-    if (recv(client_sock, client_message, sizeof(client_message), 0) < 0){
-        printf("Couldn't receive messages!!\n");
-        exit(1);
-    }
-    printf("Message from client: %s\n", client_message);
+    while(1) {
+        // Receive client's message:
+        char buff[SIZE];
+        int n = recv(newSock, buff, sizeof(buff), 0);
+        if(n < 0){
+            printf("Receiving Failed.\n");
+            exit(1);
+        }
 
-    // Respond to client:
-    strcpy(server_message, "Hello Client.");
-    if (send(client_sock, server_message, strlen(server_message), 0) < 0){
-        printf("Sending Failed\n");
-        exit(1);
+        buff[n] = '\0';
+        printf("\nClient: %s\n",buff);
+        if(strcmp(buff, "exit") == 0) {
+            send(newSock, "Bye", strlen("Bye"), 0);
+            close(newSock); break;
+        }
+
+        // Respond to client:
+        printf("Enter Response : ");
+        char msg[SIZE]; scanf("%[^\n]%*c", msg);
+        if(send(newSock, msg, strlen(msg), 0) < 0){
+            printf("Sending Failed.\n");
+            exit(1);
+        }
+        printf("Response: %s\n", msg);
     }
-    printf("Response : %s",server_message);
 
     // Closing the socket:
-    close(client_sock);
     close(sockfd);
     return 0;
 }

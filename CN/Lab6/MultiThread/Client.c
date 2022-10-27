@@ -8,116 +8,108 @@
 #include <signal.h>
 
 #define PORT 8080
-#define LENGTH 2048
+#define SIZE 2048
 
 int flag = 0;
 char name[32];
-void catch_ctrl_c_and_exit(int sig) {
+void ctrl_c(int sig) {
     flag = 1;
 }
 
-void send_msg_handler(void *arg) {
+void send_handler(void *arg) {
     int sockfd = *((int *)arg);
-    char message[LENGTH] = {};
-    char buffer[LENGTH + 32] = {};
+    char message[SIZE] = {};
+    char buffer[SIZE + 32] = {};
     while (1) {
         // printf("Enter your message: ");
-        fgets(message, LENGTH, stdin);
-        if(strcmp(message, "exit") == 0) break;
+        fgets(message, SIZE, stdin);
+        if(strcmp(message, "exit\n") == 0) break;
 
         sprintf(buffer, "%s: %s", name, message);
         if(send(sockfd, buffer, strlen(buffer), 0) < 0 ) {
-            perror("Sending message failed");
+            printf("Sending Failed");
             break;
         }
-        else
-            printf("You : %s\n", message);
+        printf("You: %s", message);
 
-        memset(message, 0, LENGTH);
-        memset(buffer, 0, LENGTH + 32);
+        bzero(message, SIZE);
+        bzero(buffer, (SIZE + 32));
     }
-    catch_ctrl_c_and_exit(2);
+    flag = 1;
 }
 
-void recv_msg_handler(void *arg) {
+void recv_handler(void *arg) {
     int sockfd = *((int *)arg);
-    char message[LENGTH+32] = {}; int n;
-    while ((n = recv(sockfd, message, LENGTH, 0)) > 0) {
+    char message[SIZE+32] = {}; int n;
+    while ((n = recv(sockfd, message, SIZE, 0)) > 0) {
         message[n] = '\0';
-        printf("%s", message);
+        printf("\n%s", message);
     }
-    if (n < 0) {
-        perror("Receiving message failed");
+    if(n < 0) {
+        perror("Receiving Failed");
         exit(1);
     }
-    else {
-        printf("Server closed connection\n");
-        exit(1);
-    }
+    printf("Server Connection Closed\n");
+    exit(1);
 }
 
 int main() {
-    // create socket
+    // Create socket:
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) {
-        printf("socket creation failed...\n");
-        exit(0);
+    if(sockfd < 0){
+        printf("Socket Creation Failed.\n");
+        exit(1);
     }
-    printf("Socket successfully created..\n");
-
-    // fill server information
+    printf("Socket Creation Successful.\n");
+    
+    // Set port and IP the same as server-side:
     struct sockaddr_in servaddr;
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     servaddr.sin_port = htons(PORT);
-
-    // connect the client socket to server socket
-    if (connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
-        printf("connection with the server failed...\n");
-        exit(0);
-    }
-    printf("connected to the server..\n");
-
-    // get name
-    printf("Enter your name: ");
-    scanf("%[^\n]%*c", name);
-    signal(SIGINT, catch_ctrl_c_and_exit);
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     
-    // send name
-    if(send(sockfd, name, 32, 0) == -1) {
-        printf("Failed to send name.\n");
-        exit(0);
+    // Send connection request to server:
+    if(connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0) {
+        printf("Connection Failed.\n");
+        exit(1);
     }
-    printf("Name sent successfully.\n");
+    printf("Connection Established with Server.\nEnter 'exit' to leave\n");
 
-    // create a thread to send message
-    pthread_t send_msg_thread;
-    if(pthread_create(&send_msg_thread, NULL, (void *)send_msg_handler, &sockfd) != 0) {
-        printf("Failed to create thread.\n");
-        exit(0);
+    signal(SIGINT, ctrl_c);
+    // Setting up the name:
+    printf("\nEnter Your Name: ");
+    scanf("%[^\n]%*c", name);
+    if(send(sockfd, name, 32, 0) < 0) {
+        printf("Sending Name Failed.\n");
+        exit(1);
     }
-    else
-        printf("Send thread created successfully.\n");
+    printf("Name Sent Successfully.\n");
 
-    // create a thread to receive message
-    pthread_t recv_msg_thread;
-    if(pthread_create(&recv_msg_thread, NULL, (void *)recv_msg_handler, &sockfd) != 0) {
-        printf("Failed to create thread.\n");
-        exit(0);
+    // Creating thread to handle sending message:
+    pthread_t send_thread;
+    if(pthread_create(&send_thread, NULL, (void *)send_handler, &sockfd) != 0) {
+        printf("Failed to Create Send Thread.\n");
+        exit(1);
     }
-    else
-        printf("Receive thread created successfully.\n");
+    printf("Send Thread Creation successful.\n");
 
-    printf("\nEnter 'exit' to leave the chatroom.\n");
+    // Creating thread to handle receiving message:
+    pthread_t recv_thread;
+    if(pthread_create(&recv_thread, NULL, (void *)recv_handler, &sockfd) != 0) {
+        printf("Failed to create Receive thread.\n");
+        exit(1);
+    }
+    printf("Receive Thread Creation Successful.\n");
 
+    // Waiting for threads to finish:
     while (1) {
         if(flag) {
-            printf("Bye\n");
+            printf("See Yaa Soon..\n");
             break;
         }
     }
 
-    // close the socket
+    // Close the socket:
     close(sockfd);
     return 0;
 }
