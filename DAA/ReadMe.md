@@ -5,4 +5,6 @@ lab 4 - Linear & Binary Search\
 lab 5 - Quick & Merge Sort\
 lab 6 - Heap & Greedy\
 lab 7 - Kruskal's Algorithm\
-lab 8 - Prim's Algorithm
+lab 8 - Prim's & Dijkstra's Algorithm\
+lab 9 - Matrix Chain Multiplication\
+lab 10 - Graph BFS & DFS
