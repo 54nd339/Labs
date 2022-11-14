@@ -4,45 +4,10 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <pthread.h>
-#include <signal.h>
+#include <sys/time.h>
 
 #define PORT 8080
 #define SIZE 2048
-int flag = 0;
-
-void send_handler(void *arg) {
-    int sockfd = *((int *)arg);
-    char msg[SIZE] = {};
-    while (1) {
-        // printf("Enter your message: ");
-        fgets(msg, SIZE, stdin);
-        if(strcmp(msg, "exit\n") == 0) break;
-
-        if(send(sockfd, msg, strlen(msg), 0) < 0 ) {
-            printf("Sending Failed");
-            break;
-        }
-        printf("You: %s", msg);
-        bzero(msg, SIZE);
-    }
-    flag = 1;
-}
-
-void recv_handler(void *arg) {
-    int sockfd = *((int *)arg);
-    char buff[SIZE] = {}; int n;
-    while ((n = recv(sockfd, buff, SIZE, 0)) > 0) {
-        buff[n] = '\0';
-        printf("\n%s", buff);
-    }
-    if(n < 0) {
-        printf("Receiving Failed\n");
-        exit(1);
-    }
-    printf("Server Connection Closed\n");
-    flag = 1;
-}
 
 int main() {
     // Create socket:
@@ -66,27 +31,47 @@ int main() {
     }
     printf("Connection Established with Server.\nEnter 'exit' to leave\n");
 
-    // Creating thread to handle sending message:
-    pthread_t send_thread;
-    if(pthread_create(&send_thread, NULL, (void *)send_handler, &sockfd) != 0) {
-        printf("Failed to Create Send Thread.\n");
-        exit(1);
-    }
-    printf("Send Thread Creation successful.\n");
+    fd_set readfds;
+    FD_ZERO(&readfds);
+    FD_SET(sockfd, &readfds);
+    FD_SET(0, &readfds); 
+    int fdmax = sockfd;
 
-    // Creating thread to handle receiving message:
-    pthread_t recv_thread;
-    if(pthread_create(&recv_thread, NULL, (void *)recv_handler, &sockfd) != 0) {
-        printf("Failed to create Receive Thread.\n");
-        exit(1);
-    }
-    printf("Receive Thread Creation Successful.\n");
-
-    // Waiting for threads to finish:
-    while (1) {
-        if(flag) {
-            printf("See Yaa Soon..\n");
-            break;
+    while(1) {
+        fd_set temp = readfds;
+        if(select(fdmax+1, &temp, NULL, NULL, NULL) == -1) {
+            printf("ERROR: select failed");
+            exit(1);
+        }
+        for(int i = 0; i <= fdmax; i++) {
+            if(FD_ISSET(i, &temp)) {
+                if(i == sockfd) {   // check if it's the server
+                    char buff[SIZE]; int n;
+                    if((n = recv(sockfd, buff, SIZE, 0)) < 0) {
+                        printf("Receiving Failed.\n");
+                        exit(1);
+                    }
+                    else if(n == 0) {
+                        printf("Server Disconnected.\n");
+                        exit(1);
+                    }
+                    buff[n] = '\0';
+                    printf("\n%s", buff);
+                }
+                else {              // check if user typed a message
+                    char msg[SIZE];
+                    fgets(msg, SIZE, stdin);
+                    if(strcmp(msg, "logout\n") == 0) {
+                        printf("Client Disconnected.\n");
+                        exit(1);
+                    }
+                    if(send(sockfd, msg, strlen(msg), 0) < 0) {
+                        printf("Sending Failed.\n");
+                        exit(1);
+                    }
+                    printf("You: %s", msg);
+                }
+            }
         }
     }
     // Close the socket:
