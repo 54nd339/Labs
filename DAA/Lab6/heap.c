@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 typedef struct heap {
     int *arr, size, capacity;
 }Heap;
@@ -8,6 +9,7 @@ void swap(int* a, int* b) {
 	*a = *b;
 	*b = t;
 }
+
 void heapify(int *arr, int n, int i){
     int largest = i, l = 2*i+1, r = 2*i+2;
     if (l < n && arr[l] > arr[largest]) largest = l;
@@ -88,5 +90,6 @@ int main() {
             default: printf("Invalid choice\n");
         }
     }
+
     return 0;
 }

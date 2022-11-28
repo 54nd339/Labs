@@ -11,12 +11,9 @@ int main() {
 
     int max = ar[0], min = ar[0];
     for (int i = 1; i < n; i++) {
-        if (max < ar[i])
-            max = ar[i];
-        if (min > ar[i])
-            min = ar[i];
+        if (max < ar[i]) max = ar[i];
+        if (min > ar[i]) min = ar[i];
     }
-
     printf("Max : %d\n", max);
     printf("Min : %d\n", min);
     return 0;

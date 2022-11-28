@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+
 int main() {
     printf("Enter the size of array : ");
     int n; scanf("%d", &n);

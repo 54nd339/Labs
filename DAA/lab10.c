@@ -14,12 +14,10 @@ graph *createGraph(int vertices) {
         g->adjMatrix[i] = malloc(vertices * sizeof(int));
     return g;
 }
-
 void addEdge(graph *g, int src, int dest) {
     g->adjMatrix[src][dest] = 1;
     g->adjMatrix[dest][src] = 1;
 }
-
 void printGraph(graph *g) {
     for (int i = 0; i < g->vertices; i++) {
         printf("Vertex %d is connected to: ", i);

@@ -19,7 +19,6 @@ int find(subset *subsets, int i) {  // Time complexity: O(logV)
         subsets[i].parent = find(subsets, subsets[i].parent);
     return subsets[i].parent;
 }
-
 void Union(subset *subsets, int x, int y) { // Time complexity: O(logV)
     int xroot = find(subsets, x);
     int yroot = find(subsets, y);
@@ -41,7 +40,7 @@ int myComp(const void *a, const void *b) {
 
 void KruskalMST(graph *G) {
     int V = G->V;
-    edge result[V];
+    edge *result = (edge *)malloc(sizeof(edge) * (V - 1));
     qsort(G->edges, G->E, sizeof(G->edges[0]), myComp); // Time complexity: O(ElogE)
     subset *subsets = (subset *)malloc(V * sizeof(subset));
     for (int v = 0; v < V; ++v) {

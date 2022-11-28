@@ -3,12 +3,14 @@
 #include<limits.h>
 
 int tabulate(int *arr, int n) {
-    int dp[n][n], i;
-    for (i = 1; i < n; i++)
+    int **dp = malloc(n * sizeof(int *));
+    for (int i = 0; i < n; i++)
+        dp[i] = calloc(n, sizeof(int));
+    for (int i = 1; i < n; i++)
 		dp[i][i] = 0;
 
 	for (int len = 2; len < n; len++) {
-		for (i = 1; i < n-len+1; i++) {
+		for (int i = 1; i < n-len+1; i++) {
 			int j = i+len-1;
 			dp[i][j] = INT_MAX;
 			for (int k = i; k <= j-1; k++) {
@@ -20,12 +22,12 @@ int tabulate(int *arr, int n) {
 	}
 	return dp[1][n - 1];
 }
-
 int memoize(int *arr, int i, int j, int **dp) {
     if (i >= j)
         return 0;
     if (dp[i][j] != -1)
         return dp[i][j];
+
     int ans = INT_MAX;
     for (int k = i; k < j; k++) {
         int temp = memoize(arr, i, k, dp) + memoize(arr, k + 1, j, dp) + arr[i - 1] * arr[k] * arr[j];
@@ -35,12 +37,10 @@ int memoize(int *arr, int i, int j, int **dp) {
     dp[i][j] = ans;
     return ans;
 }
-
 int main() {
-    int n;
     printf("Enter the number of matrices: ");
-    scanf("%d", &n);
-    int arr[n + 1];
+    int n; scanf("%d", &n);
+    int *arr = malloc((n + 1) * sizeof(int));
     printf("Enter the dimensions of the matrices: ");
     for (int i = 0; i <= n; i++)
         scanf("%d", &arr[i]);
@@ -56,7 +56,6 @@ int main() {
     printf("\nMinimum number of multiplications required: %d", tabulate(arr, n + 1));
     return 0;
 }
-
 /*
 Enter the number of matrices : 4
 Enter the dimensions of each matrix :

@@ -38,7 +38,6 @@ int main() {
     for(int i = 0; i < n; i++)
         arr[i] = rand() % (n+1);
     int ele = rand() % (n+1);
-
     // printf("Original Array : ");
     // for(int i = 0; i < n; i++)
     //     printf("%d ", &arr[i]);

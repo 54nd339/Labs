@@ -33,7 +33,6 @@ int main() {
     int *ar = malloc(n * sizeof(int));
     for (int i = 0; i < n; i++)
         ar[i] = rand() % (n+1);
-	
     // printf("Original array : ");
 	// print(ar, n);
 

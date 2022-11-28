@@ -51,7 +51,6 @@ int main() {
     int *br = malloc(n * sizeof(int));
     for (int i = 0; i < n; i++)
         br[i] = ar[i];
-	
     // printf("Original array : ");
 	// print(ar, n);
 

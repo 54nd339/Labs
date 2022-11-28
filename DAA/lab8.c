@@ -76,6 +76,7 @@ void prim(graph *g, int start) {
     }
     printf("Total cost: %d\n", total);
 }
+
 void dijkstra(graph *g, int src) {
     int *dist = malloc(g->vertices * sizeof(int));
     int *visited = malloc(g->vertices * sizeof(int));
