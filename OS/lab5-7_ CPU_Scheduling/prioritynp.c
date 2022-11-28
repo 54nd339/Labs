@@ -1,6 +1,6 @@
 #include <stdio.h>
 typedef struct {
-    int id, bt, at;
+    int id, bt, at, pr;
 }Process;
 void swap(Process *xp, Process *yp) {
     Process temp = *xp;
@@ -11,7 +11,7 @@ void Sort(Process arr[], int n, int f) {
     for (int i = 0; i < n-1; i++) {
         int flag = 0;
         for (int j = 0; j < n-i-1; j++) {
-			if (f==1 && arr[j].bt > arr[j+1].bt) {
+			if (f==1 && arr[j].pr > arr[j+1].pr) {
                 swap(&arr[j], &arr[j+1]);
                 flag = 1;
             }
@@ -25,7 +25,7 @@ void Sort(Process arr[], int n, int f) {
 }
 int ind(Process p[], int n, int ele){
     for(int i=0; i<n;i++)
-        if(ele == p[i].id)
+        if(ele==p[i].id)
             return i;
 }
 
@@ -45,6 +45,10 @@ int main() {
     for(int i=0; i<n; i++)
         scanf("%d",&p[i].bt);
     
+    printf("\nEnter Priority of all p :\n");
+    for(int i=0; i<n; i++)
+        scanf("%d",&p[i].pr);
+    
     printf("\nEnter 0 if AT = 0 else anything : ");
     int ch; scanf("%d",&ch);
     if(ch!=0) {
@@ -53,18 +57,18 @@ int main() {
             scanf("%d",&p[i].at);
         Sort(p, n, 2);
 
-		int sum = p[0].at + p[0].bt;
+		int sum=p[0].at+p[0].bt;
 		for(int i=1, j; i<n; i++){
-			int count = 0;
+			int count=0;
 			for(j=i; j<n; j++){
-				if(p[j].at > sum){
+				if(p[j].at>=sum){
                     last:
 					Sort(wait, count, 1);
                     int in = ind(p, n, wait[0].id);
                     swap(&p[i],&p[in]);
 					break;
 				}
-                wait[count++] = p[j];
+                wait[count++]=p[j];
                 if(j==n-1) goto last;
 			}
             if(j==n) break;

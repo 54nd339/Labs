@@ -9,21 +9,25 @@ int main() {
     for(int i=0; i<n; i++)
         scanf("%d",&p[i]);
 
-    printf("\nEnter Arrival time of all p :\n");
-    for(int i=0; i<n; i++)
-        scanf("%d",&at[i]);
-
     printf("\nEnter Burst time of all p :\n");
     for(int i=0; i<n; i++){
         scanf("%d",&bt[i]);
-        rt[i] = bt[i];
+		at[i] = 0; rt[i] = bt[i];
 	}
 
     printf("\nEnter Priority of all p :\n");
     for(int i=0; i<n; i++)
         scanf("%d",&pr[i]);
+    
+    printf("\nEnter 0 if AT = 0 else anything : ");
+    int ch; scanf("%d",&ch);
+    if(ch!=0) {
+        printf("Enter Arrival time of all p :\n");
+        for(int i=0; i<n; i++)
+            scanf("%d",&at[i]);
+    }
 
-	int found = 0, ind = 0, minm = INT_MAX;
+	int found = 0, ind = 0, minm = INT_MAX, idle = 0;
 	for (int i=0, t=0; i<n; t++) {
 		for (int j = 0; j < n; j++) {
 			if ((at[j] <= t) && (pr[j] < minm) && rt[j] > 0) {
@@ -39,6 +43,7 @@ int main() {
 				if (wt[ind] < 0) wt[ind] = 0;
 			}
 		}
+		else idle++;
 	}
 
 	int tot_wt = 0, tot_tat = 0;
@@ -48,6 +53,8 @@ int main() {
         tot_tat += tat[i];
         printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", p[i],at[i],bt[i],wt[i],tat[i],ct[i]);
     }
+    printf("CPU Idle time = %d\n", idle);
+    printf("Efficiency = %.2f% \n", (float)((ct[n-1]-idle)*100)/ct[n-1]);
     printf("Average waiting time = %.2f\n", (float)tot_wt/n);
     printf("Average turn around time = %.2f\n", (float)tot_tat/n);
 	return 0;

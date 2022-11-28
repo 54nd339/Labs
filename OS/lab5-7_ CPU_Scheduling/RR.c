@@ -1,9 +1,10 @@
 #include <stdio.h>
 int main() {
-    printf("Enter No. of processes : ");
-    int n; scanf("%d",&n);
+    int n, tq, t = 0;
+	printf("Enter No. of processes : ");
+    scanf("%d",&n);
     printf("Enter the time quanta : ");
-    int tq; scanf("%d",&tq);
+    scanf("%d",&tq);
     int p[n], bt[n], wt[n], tat[n], ct[n], rem_bt[n];
     
     printf("\nEnter process IDS :\n");
@@ -15,7 +16,7 @@ int main() {
         scanf("%d",&bt[i]);
         rem_bt[i] = bt[i];
     }
-    int t = 0;
+
     while (1) {
 		int done = 1;
         for (int i = 0 ; i < n; i++) {
