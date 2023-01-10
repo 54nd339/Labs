@@ -11,25 +11,21 @@ int main(){
     //number of tasks , number of machines
     printf("\nEnter number of machines and tasks: ");
     int nT, nM; scanf("%d%d", &nM, &nT);
-    /*
-    Data:
+    /* Data:
          T1    T2   T3
     M1 | 140 | 20 | 60 |
     M2 | 100 | 100 | 70 |
     */
-
     int **minMin = malloc(nM * sizeof(int*));
     for(int i = 0; i < nM; i++){
         minMin[i] = malloc(nT * sizeof(int));
     }
-
     int spantime = 0;
     printf("Fill Data :\n");
-    for(int i = 0; i < nM; i++)
-        for(int j = 0; j < nT; j++){
+    for(int i = 0; i < nM; i++){
+        for(int j = 0; j < nT; j++)
             scanf("%d", &minMin[i][j]);
-        }
-
+    }
     printf("\nOriginal Data\n");
     for(int i = 0; i < nM; i++) {
         for(int j = 0; j < nT; j++)
@@ -57,7 +53,6 @@ int main(){
             time[j] = mintime;
             machine[j] = pos;
         }
-
         // Find task with minimum time
         int mintime = INT_MAX;
         int pos = -1;
@@ -73,7 +68,6 @@ int main(){
         res[ptr].time = mintime;
         if(mintime > spantime)
             spantime = mintime;
-        
         // resetting states
         for(int i = 0; i < nM; i++){
             for(int j = 0; j < nT; j++){
@@ -88,10 +82,9 @@ int main(){
     }
 
     printf("\nScheduled Task are :\n");
-    for(int i=0;i<nT;i++){
+    for(int i = 0; i < nT; i++){
         printf("Task %d Runs on Machine %d with Time %d units\n",res[i].task+1,res[i].machine+1,res[i].time);
     }
-
     printf("\nSpanTime : %d units\n",spantime);
     return 0;
 }
