@@ -22,17 +22,12 @@ int main(){
     for(int i = 0; i < nM; i++){
         minMin[i] = malloc(nT * sizeof(int));
     }
-    int **tmp = malloc(nM * sizeof(int*));
-    for(int i = 0; i < nM; i++){
-        tmp[i] = malloc(nT * sizeof(int));
-    }
 
     int spantime = 0;
     printf("Fill Data :\n");
     for(int i = 0; i < nM; i++)
         for(int j = 0; j < nT; j++){
             scanf("%d", &minMin[i][j]);
-            tmp[i][j] = minMin[i][j];
         }
 
     printf("\nOriginal Data\n");
