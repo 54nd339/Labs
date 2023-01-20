@@ -88,7 +88,7 @@ int main(){
 
     printf("\nScheduled Task are :\n");
     for(int i = 0; i < nT; i++){
-        printf("\nTask %d Runs on Machine %d with Time %d units\n", res[i].task+1, res[i].machine+1, res[i].time);
+        printf("Task %d Runs on Machine %d with Time %d units\n", res[i].task+1, res[i].machine+1, res[i].time);
     }
     printf("\nTotal elapsed time : %d units\n", spantime);
     return 0;
