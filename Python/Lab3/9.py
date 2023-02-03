@@ -1,0 +1,15 @@
+# demonstrate the escape sequence characters
+
+print("Hello\nWorld")
+print("Hello\tWorld")
+print("Hello\\World")
+print("Hello\'World")
+print("Hello\"World")
+print("Hello\bWorld")
+print("Hello\fWorld")
+print("Hello\rWorld")
+print("Hello\vWorld")
+print("Hello\u0057orld")
+print("Hello\x57orld")
+print("Hello\110orld")
+print(r"Hello\World")
