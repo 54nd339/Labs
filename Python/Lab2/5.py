@@ -8,4 +8,4 @@ while(num > 0):
     rev = rev * 10 + digit
     num = num // 10
 
-print("The reverse of the number is: ", rev)
+print("The reverse of the number is:", rev)

@@ -3,7 +3,7 @@
 val1 = int(input("Enter first value: "))
 val2 = int(input("Enter second value: "))
 
-print(f"val1 = {val1}")
-print(f"val2 = {val2}")
+print("val1:", val1)
+print("val2:", val2)
 
 print(dir())

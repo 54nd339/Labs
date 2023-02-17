@@ -3,10 +3,10 @@
 numbers = [int(input(f"Enter number {i + 1}: ")) for i in range(5)]
 
 total = sum(numbers)
-print("Total marks: ", total)
+print("Total marks", total)
 
 percentage = (total/500)*100
-print("Percentage: ", percentage,"%")
+print(f"Percentage: {percentage}%")
 
 per = int(percentage/10)
 

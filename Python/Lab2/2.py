@@ -11,5 +11,5 @@ for num in numbers:
     if num < smallest:
         smallest = num
 
-print(f"The largest number is {largest}")
-print(f"The smallest number is {smallest}")
+print("The largest number is", largest)
+print("The smallest number is", smallest)
