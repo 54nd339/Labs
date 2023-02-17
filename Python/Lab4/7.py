@@ -1,6 +1,6 @@
 # Print a specified list after removing 2nd and 5th index elements
 
-lst = list(map(int, input("Enter the list: ").split()))
+lst = list(int(i) for i in input("Enter the list: ").split())
 n = len(lst)
 print("The list is: ", lst)
 

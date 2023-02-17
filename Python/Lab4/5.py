@@ -1,6 +1,6 @@
 # To change position of nth element with n+1 element in a list
 
-lst = list(map(int, input("Enter the list: ").split()))
+lst = list(int(i) for i in input("Enter the list: ").split())
 n = int(input("Enter the value of n: "))
 
 print("The list is: ", lst)

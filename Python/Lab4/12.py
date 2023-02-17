@@ -9,10 +9,10 @@ while True:
 
     choice = int(input("\nEnter your choice: "))
     if choice == 1:
-        lst = list(map(int, input("Enter the list: ").split()))
+        lst = list(int(i) for i in input("Enter the list: ").split())
         tup += (lst,)
     elif choice == 2:
-        tup2 = tuple(map(int, input("Enter the tuple: ").split()))
+        tup2 = tuple(int(i) for i in input("Enter the tuple: ").split())
         tup += (tup2,)
     else:
         break

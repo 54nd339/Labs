@@ -1,6 +1,6 @@
 # COnvert a list to a tuple
 
-lst = list(map(int, input("Enter the list: ").split()))
+lst = list(int(i) for i in input("Enter the list: ").split())
 print("The list is: ", lst)
 
 tup = tuple(lst)

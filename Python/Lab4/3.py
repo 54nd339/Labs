@@ -1,6 +1,6 @@
 # Find the index of an element in a list
 
-lst = list(map(int, input("Enter the list: ").split()))
+lst = list(int(i) for i in input("Enter the list: ").split())
 print("The list is: ", lst)
 
 element = int(input("Enter the element to find: "))
