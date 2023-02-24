@@ -1,6 +1,6 @@
 # WAP to find the second largest and second smallest element in the list.
 
-lst = list(int(i) for i in input("Enter the list: ").split())
+lst = [int(i) for i in input("Enter the list: ").split()]
 print("The list is: ", lst)
 
 # lst.sort()

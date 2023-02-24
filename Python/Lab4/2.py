@@ -1,6 +1,6 @@
 # Remove duplicates from the list
 
-lst = list(int(i) for i in input("Enter the list: ").split())
+lst = [int(i) for i in input("Enter the list: ").split()]
 n = len(lst)
 print("The list is: ", lst)
 

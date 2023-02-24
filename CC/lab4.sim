@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="18.0.1" class="java.beans.XMLDecoder">
+<java version="19.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.ArrayList">
   <void method="add">
    <object class="cloudsim.ext.util.ObservableList">
@@ -12,34 +12,6 @@
         <int>255</int>
         <int>255</int>
        </object>
-      </void>
-      <void property="name">
-       <string>UB0_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
       </void>
       <void property="name">
        <string>UB01_1025</string>
@@ -182,7 +154,7 @@
        <object idref="Color0"/>
       </void>
       <void property="name">
-       <string>UB06_1025</string>
+       <string>UB11_1025</string>
       </void>
       <void property="offPeakUserCount">
        <int>100</int>
@@ -195,6 +167,9 @@
       </void>
       <void property="peakUserCount">
        <int>1000</int>
+      </void>
+      <void property="region">
+       <int>1</int>
       </void>
       <void property="reqPerHrPerUser">
        <int>60</int>
@@ -210,7 +185,7 @@
        <object idref="Color0"/>
       </void>
       <void property="name">
-       <string>UB07_1025</string>
+       <string>UB12_1025</string>
       </void>
       <void property="offPeakUserCount">
        <int>100</int>
@@ -223,6 +198,9 @@
       </void>
       <void property="peakUserCount">
        <int>1000</int>
+      </void>
+      <void property="region">
+       <int>1</int>
       </void>
       <void property="reqPerHrPerUser">
        <int>60</int>
@@ -238,7 +216,7 @@
        <object idref="Color0"/>
       </void>
       <void property="name">
-       <string>UB08_1025</string>
+       <string>UB13_1025</string>
       </void>
       <void property="offPeakUserCount">
        <int>100</int>
@@ -251,6 +229,9 @@
       </void>
       <void property="peakUserCount">
        <int>1000</int>
+      </void>
+      <void property="region">
+       <int>1</int>
       </void>
       <void property="reqPerHrPerUser">
        <int>60</int>
@@ -266,7 +247,7 @@
        <object idref="Color0"/>
       </void>
       <void property="name">
-       <string>UB09_1025</string>
+       <string>UB14_1025</string>
       </void>
       <void property="offPeakUserCount">
        <int>100</int>
@@ -279,6 +260,9 @@
       </void>
       <void property="peakUserCount">
        <int>1000</int>
+      </void>
+      <void property="region">
+       <int>1</int>
       </void>
       <void property="reqPerHrPerUser">
        <int>60</int>
@@ -294,7 +278,7 @@
        <object idref="Color0"/>
       </void>
       <void property="name">
-       <string>UB010_1025</string>
+       <string>UB15_1025</string>
       </void>
       <void property="offPeakUserCount">
        <int>100</int>
@@ -307,6 +291,9 @@
       </void>
       <void property="peakUserCount">
        <int>1000</int>
+      </void>
+      <void property="region">
+       <int>1</int>
       </void>
       <void property="reqPerHrPerUser">
        <int>60</int>
@@ -447,161 +434,6 @@
       </void>
       <void property="name">
        <string>UB35_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>3</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB36_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>3</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB37_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>3</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB38_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>3</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB39_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>3</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB310_1025</string>
       </void>
       <void property="offPeakUserCount">
        <int>100</int>
@@ -787,161 +619,6 @@
        <object idref="Color0"/>
       </void>
       <void property="name">
-       <string>UB46_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>4</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB47_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>4</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB48_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>4</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB49_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>4</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB410_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>4</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
        <string>UB51_1025</string>
       </void>
       <void property="offPeakUserCount">
@@ -1091,161 +768,6 @@
       </void>
      </object>
     </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB56_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>5</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB57_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>5</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB58_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>5</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB59_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>5</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="cloudsim.ext.gui.UserBaseUIElement">
-      <void property="color">
-       <object idref="Color0"/>
-      </void>
-      <void property="name">
-       <string>UB510_1025</string>
-      </void>
-      <void property="offPeakUserCount">
-       <int>100</int>
-      </void>
-      <void property="peakHoursEnd">
-       <int>9</int>
-      </void>
-      <void property="peakHoursStart">
-       <int>3</int>
-      </void>
-      <void property="peakUserCount">
-       <int>1000</int>
-      </void>
-      <void property="region">
-       <int>5</int>
-      </void>
-      <void property="reqPerHrPerUser">
-       <int>60</int>
-      </void>
-      <void property="reqSize">
-       <long>100</long>
-      </void>
-     </object>
-    </void>
    </object>
   </void>
   <void method="add">
@@ -1305,7 +827,7 @@
        </object>
       </void>
       <void property="name">
-       <string>DC0_1025</string>
+       <string>DC1_1025</string>
       </void>
       <void property="os">
        <string>Linux</string>
@@ -1381,13 +903,13 @@
        </object>
       </void>
       <void property="name">
-       <string>DC3_1025</string>
+       <string>DC2_1025</string>
       </void>
       <void property="os">
        <string>Linux</string>
       </void>
       <void property="region">
-       <int>3</int>
+       <int>1</int>
       </void>
       <void property="vmAllocation">
        <object class="cloudsim.ext.gui.VmAllocationUIElement" id="VmAllocationUIElement1">
@@ -1460,13 +982,13 @@
        </object>
       </void>
       <void property="name">
-       <string>DC4_1025</string>
+       <string>DC3_1025</string>
       </void>
       <void property="os">
        <string>Linux</string>
       </void>
       <void property="region">
-       <int>4</int>
+       <int>3</int>
       </void>
       <void property="vmAllocation">
        <object class="cloudsim.ext.gui.VmAllocationUIElement" id="VmAllocationUIElement2">
@@ -1539,6 +1061,85 @@
        </object>
       </void>
       <void property="name">
+       <string>DC4_1025</string>
+      </void>
+      <void property="os">
+       <string>Linux</string>
+      </void>
+      <void property="region">
+       <int>4</int>
+      </void>
+      <void property="vmAllocation">
+       <object class="cloudsim.ext.gui.VmAllocationUIElement" id="VmAllocationUIElement3">
+        <void property="bw">
+         <long>1000</long>
+        </void>
+        <void property="dc">
+         <object idref="DataCenterUIElement3"/>
+        </void>
+        <void property="imageSize">
+         <long>10000</long>
+        </void>
+        <void property="memory">
+         <int>512</int>
+        </void>
+        <void property="vmCount">
+         <int>5</int>
+        </void>
+       </object>
+      </void>
+      <void property="vmm">
+       <string>Xen</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="cloudsim.ext.gui.DataCenterUIElement" id="DataCenterUIElement4">
+      <void property="architecture">
+       <string>x86</string>
+      </void>
+      <void property="color">
+       <object idref="Color1"/>
+      </void>
+      <void property="costPerBw">
+       <double>0.1</double>
+      </void>
+      <void property="costPerMem">
+       <double>0.05</double>
+      </void>
+      <void property="costPerProcessor">
+       <double>0.1</double>
+      </void>
+      <void property="costPerStorage">
+       <double>0.1</double>
+      </void>
+      <void property="machineList">
+       <object class="java.util.ArrayList">
+        <void method="add">
+         <object class="cloudsim.ext.gui.MachineUIElement">
+          <void property="bw">
+           <int>1000000</int>
+          </void>
+          <void property="memory">
+           <int>204800</int>
+          </void>
+          <void property="processors">
+           <int>4</int>
+          </void>
+          <void property="speed">
+           <int>10000</int>
+          </void>
+          <void property="storage">
+           <long>100000000</long>
+          </void>
+          <void property="vmAllocationPolicy">
+           <object idref="MachineUIElement$VmAllocationPolicy0"/>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="name">
        <string>DC5_1025</string>
       </void>
       <void property="os">
@@ -1548,12 +1149,12 @@
        <int>5</int>
       </void>
       <void property="vmAllocation">
-       <object class="cloudsim.ext.gui.VmAllocationUIElement" id="VmAllocationUIElement3">
+       <object class="cloudsim.ext.gui.VmAllocationUIElement" id="VmAllocationUIElement4">
         <void property="bw">
          <long>1000</long>
         </void>
         <void property="dc">
-         <object idref="DataCenterUIElement3"/>
+         <object idref="DataCenterUIElement4"/>
         </void>
         <void property="imageSize">
          <long>10000</long>
@@ -1587,6 +1188,9 @@
     <void method="add">
      <object idref="VmAllocationUIElement3"/>
     </void>
+    <void method="add">
+     <object idref="VmAllocationUIElement4"/>
+    </void>
    </object>
   </void>
   <void method="add">
@@ -1608,7 +1212,7 @@
    <string>Closest Data Center</string>
   </void>
   <void method="add">
-   <string>Throttled</string>
+   <string>Round Robin</string>
   </void>
  </object>
 </java>
