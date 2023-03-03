@@ -7,5 +7,5 @@ unique_nums = set()
 
 for i in list:
     if sum - i in unique_nums:
-        print("(", i, ",", sum - i, ")")
+        print(f"({i}, {sum - i})")
     unique_nums.add(i)
