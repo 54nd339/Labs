@@ -1,6 +1,6 @@
 # 1) wap with oop concept to implement a user defined stack data structure then demonstrate push and pop method with the set of elements.
 
-class stack:
+class Stack:
     def _init_(self):
         self.items = []
 
@@ -13,8 +13,7 @@ class stack:
     def display(self):
         print(self.items)
 
-
-c=stack()
+c = Stack()
 while True:
     print('1. Push')
     print('2. Pop')

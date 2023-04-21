@@ -1,6 +1,6 @@
 # 2) wap with oop concept to implement a user defined queue data structure then demonstrate insert and remove method with a set of elements.
 
-class queue:
+class Queue:
     def _init_(self):
         self.items = []
 
@@ -13,7 +13,7 @@ class queue:
     def display(self):
         print(self.items)
         
-c=queue()
+c = Queue()
 while True:
     print('1. Insert')
     print('2. Remove')
